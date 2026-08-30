@@ -1,0 +1,6 @@
+{
+  "schemaVersion": "harness.planeon.ai/harnessctl-command/v1alpha1",
+  "packetId": "CON-002",
+  "command": "catalog",
+  "handler": "planeon_harness_contracts.registry:catalog_command"
+}

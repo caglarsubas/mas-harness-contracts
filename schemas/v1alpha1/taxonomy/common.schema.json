@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/taxonomy/common.schema.json",
+  "$defs": {
+    "apiVersion": {
+      "const": "harness.planeon.ai/v1alpha1"
+    },
+    "stableId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)+$"
+    },
+    "semver": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": {"$ref": "#/$defs/stableId"},
+        "version": {"$ref": "#/$defs/semver"}
+      }
+    },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "classification"],
+      "properties": {
+        "id": {"$ref": "#/$defs/stableId"},
+        "classification": {
+          "enum": ["PUBLIC_DEMAND", "ENVIRONMENT_FACT"]
+        },
+        "signedAttestationRequired": {"type": "boolean"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"classification": {"const": "ENVIRONMENT_FACT"}}},
+          "then": {
+            "required": ["signedAttestationRequired"],
+            "properties": {"signedAttestationRequired": {"const": true}}
+          }
+        },
+        {
+          "if": {"properties": {"classification": {"const": "PUBLIC_DEMAND"}}},
+          "then": {
+            "properties": {"signedAttestationRequired": {"const": false}}
+          }
+        }
+      ]
+    },
+    "harnessDependency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["harnessId", "type"],
+      "properties": {
+        "harnessId": {"$ref": "#/$defs/stableId"},
+        "type": {
+          "enum": ["ALWAYS", "WHEN_CAPABILITY", "PRODUCTION_GATE", "SUBJECT_UNDER_EVALUATION"]
+        },
+        "whenCapabilities": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/stableId"}
+        },
+        "gateId": {"$ref": "#/$defs/stableId"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {"enum": ["WHEN_CAPABILITY", "SUBJECT_UNDER_EVALUATION"]}
+            }
+          },
+          "then": {"required": ["whenCapabilities"]}
+        },
+        {
+          "if": {"properties": {"type": {"const": "PRODUCTION_GATE"}}},
+          "then": {"required": ["gateId"]}
+        }
+      ]
+    },
+    "conflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resourceId", "reason"],
+      "properties": {
+        "resourceId": {"$ref": "#/$defs/stableId"},
+        "reason": {"type": "string", "minLength": 10}
+      }
+    },
+    "installUnit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "artifactName",
+        "independent",
+        "digestRequiredAtRelease",
+        "runtimeDownloadAllowed"
+      ],
+      "properties": {
+        "id": {"$ref": "#/$defs/stableId"},
+        "type": {
+          "enum": [
+            "OCI_IMAGE",
+            "OCI_ARTIFACT",
+            "HELM_CHART",
+            "PYTHON_WHEEL",
+            "NPM_TARBALL",
+            "LOCAL_BINARY",
+            "KUBERNETES_RUNTIME_CLASS",
+            "TENANT_SUPPLIED_PLATFORM"
+          ]
+        },
+        "artifactName": {"$ref": "#/$defs/stableId"},
+        "independent": {"const": true},
+        "digestRequiredAtRelease": {"const": true},
+        "runtimeDownloadAllowed": {"const": false}
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["deploymentModes", "architectures", "operatingSystems", "kubernetesDistributions"],
+      "properties": {
+        "deploymentModes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"]
+          }
+        },
+        "architectures": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"enum": ["amd64", "arm64", "platform-supplied"]}
+        },
+        "operatingSystems": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"enum": ["linux", "macos", "platform-supplied"]}
+        },
+        "kubernetesDistributions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"enum": ["upstream", "k3s", "openshift", "none", "platform-supplied"]}
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classes", "cpuMillicores", "memoryMiB", "ephemeralStorageMiB"],
+      "properties": {
+        "classes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"enum": ["TINY", "SMALL", "MEDIUM", "LARGE", "PROFILE_DEFINED", "EXTERNAL"]}
+        },
+        "cpuMillicores": {"type": ["integer", "null"], "minimum": 1},
+        "memoryMiB": {"type": ["integer", "null"], "minimum": 1},
+        "ephemeralStorageMiB": {"type": ["integer", "null"], "minimum": 1}
+      }
+    },
+    "license": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["spdx", "redistributable", "sourceAvailable", "releaseAdmission"],
+      "properties": {
+        "spdx": {"type": "string", "minLength": 3},
+        "redistributable": {"type": "boolean"},
+        "sourceAvailable": {"const": true},
+        "releaseAdmission": {
+          "enum": ["ALLOWED", "BLOCKED_PENDING_UPSTREAM_LICENSE_EVIDENCE"]
+        }
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["healthCheckRequired", "rollbackRequired", "uninstallSupported", "tenantDataRetention"],
+      "properties": {
+        "healthCheckRequired": {"const": true},
+        "rollbackRequired": {"const": true},
+        "uninstallSupported": {"const": true},
+        "tenantDataRetention": {"enum": ["RETAIN_BY_DEFAULT", "NOT_APPLICABLE"]}
+      }
+    }
+  }
+}
+

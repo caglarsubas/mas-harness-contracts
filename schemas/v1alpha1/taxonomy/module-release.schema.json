@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/taxonomy/module-release.schema.json",
+  "title": "ModuleRelease",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"$ref": "common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "ModuleRelease"},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["moduleId", "state", "installUnits", "compatibility", "upgrade", "rollback"],
+      "properties": {
+        "moduleId": {"$ref": "common.schema.json#/$defs/stableId"},
+        "state": {"enum": ["PLANNED", "RELEASED"]},
+        "installUnits": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "digestStatus", "digest", "sbomDigest", "licenseDigest", "signatureDigest"],
+            "properties": {
+              "id": {"$ref": "common.schema.json#/$defs/stableId"},
+              "digestStatus": {"enum": ["MISSING_PLANNED", "LOCKED"]},
+              "digest": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/sha256"}]},
+              "sbomDigest": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/sha256"}]},
+              "licenseDigest": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/sha256"}]},
+              "signatureDigest": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/sha256"}]}
+            }
+          }
+        },
+        "compatibility": {"$ref": "common.schema.json#/$defs/compatibility"},
+        "upgrade": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["strategy", "preflightRequired"],
+          "properties": {
+            "strategy": {"enum": ["REPLACE", "ROLLING", "OPERATOR_MANAGED"]},
+            "preflightRequired": {"const": true}
+          }
+        },
+        "rollback": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["supported", "previousDigestRequired"],
+          "properties": {
+            "supported": {"const": true},
+            "previousDigestRequired": {"const": true}
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"spec": {"properties": {"state": {"const": "PLANNED"}}}}},
+      "then": {
+        "properties": {
+          "spec": {
+            "properties": {
+              "installUnits": {
+                "items": {
+                  "properties": {
+                    "digestStatus": {"const": "MISSING_PLANNED"},
+                    "digest": {"type": "null"},
+                    "sbomDigest": {"type": "null"},
+                    "licenseDigest": {"type": "null"},
+                    "signatureDigest": {"type": "null"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"spec": {"properties": {"state": {"const": "RELEASED"}}}}},
+      "then": {
+        "properties": {
+          "spec": {
+            "properties": {
+              "installUnits": {
+                "items": {
+                  "properties": {
+                    "digestStatus": {"const": "LOCKED"},
+                    "digest": {"$ref": "common.schema.json#/$defs/sha256"},
+                    "sbomDigest": {"$ref": "common.schema.json#/$defs/sha256"},
+                    "licenseDigest": {"$ref": "common.schema.json#/$defs/sha256"},
+                    "signatureDigest": {"$ref": "common.schema.json#/$defs/sha256"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
+

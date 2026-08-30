@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/taxonomy/harness-class-definition.schema.json",
+  "title": "HarnessClassDefinition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"$ref": "common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "HarnessClassDefinition"},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "displayName",
+        "plane",
+        "ownerRepository",
+        "capabilities",
+        "dependencies",
+        "conflicts",
+        "moduleIds",
+        "deploymentModes",
+        "evidenceRequirements"
+      ],
+      "properties": {
+        "displayName": {"type": "string", "minLength": 3},
+        "plane": {"enum": ["runtime", "knowledge", "execution", "trust"]},
+        "ownerRepository": {
+          "enum": [
+            "mas-harness-operator",
+            "mas-harness-runtime-plane",
+            "mas-harness-model-plane",
+            "mas-harness-knowledge-plane",
+            "mas-harness-execution-plane",
+            "mas-harness-trust-plane"
+          ]
+        },
+        "capabilities": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "common.schema.json#/$defs/capability"}
+        },
+        "dependencies": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "common.schema.json#/$defs/harnessDependency"}
+        },
+        "conflicts": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "common.schema.json#/$defs/conflict"}
+        },
+        "moduleIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "common.schema.json#/$defs/stableId"}
+        },
+        "deploymentModes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"]
+          }
+        },
+        "evidenceRequirements": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["SOURCE", "CI", "ARTIFACT", "DEPLOYMENT", "RUNTIME", "SECURITY", "ASSURANCE"]
+          }
+        }
+      }
+    }
+  }
+}
+

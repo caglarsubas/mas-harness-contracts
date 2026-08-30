@@ -1,0 +1,22 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "ModuleRelease",
+  "metadata": {"id": "release.runtime.infrastructure.core.locked", "version": "0.1.0"},
+  "spec": {
+    "moduleId": "module.runtime.infrastructure.core",
+    "state": "RELEASED",
+    "installUnits": [
+      {
+        "id": "install.runtime.infrastructure.core",
+        "digestStatus": "LOCKED",
+        "digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+        "sbomDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "licenseDigest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "signatureDigest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      }
+    ],
+    "compatibility": {"deploymentModes": ["self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+    "upgrade": {"strategy": "OPERATOR_MANAGED", "preflightRequired": true},
+    "rollback": {"supported": true, "previousDigestRequired": true}
+  }
+}

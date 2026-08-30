@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/taxonomy/framework-provider-definition.schema.json",
+  "title": "FrameworkProviderDefinition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"$ref": "common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "FrameworkProviderDefinition"},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "displayName",
+        "harnessId",
+        "selectorGroup",
+        "selectorCapability",
+        "activatedByCapabilities",
+        "costDisposition",
+        "providerCredentialsRequired",
+        "externalTelemetry",
+        "runtimeDownloadsAllowed",
+        "releaseStatus",
+        "installUnits",
+        "compatibility",
+        "license"
+      ],
+      "properties": {
+        "displayName": {"type": "string", "minLength": 2},
+        "harnessId": {"$ref": "common.schema.json#/$defs/stableId"},
+        "selectorGroup": {"$ref": "common.schema.json#/$defs/stableId"},
+        "selectorCapability": {"$ref": "common.schema.json#/$defs/stableId"},
+        "activatedByCapabilities": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "common.schema.json#/$defs/stableId"}
+        },
+        "costDisposition": {
+          "enum": ["SELF_HOSTED_OPEN_SOURCE_NON_METERED", "TENANT_SUPPLIED_OPEN_SOURCE_NON_METERED"]
+        },
+        "providerCredentialsRequired": {"const": false},
+        "externalTelemetry": {"const": false},
+        "runtimeDownloadsAllowed": {"const": false},
+        "releaseStatus": {"const": "PLANNED"},
+        "installUnits": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "common.schema.json#/$defs/installUnit"}
+        },
+        "compatibility": {"$ref": "common.schema.json#/$defs/compatibility"},
+        "license": {"$ref": "common.schema.json#/$defs/license"}
+      }
+    }
+  }
+}
+

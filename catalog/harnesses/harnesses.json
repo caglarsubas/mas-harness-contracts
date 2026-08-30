@@ -1,0 +1,379 @@
+{
+  "schemaVersion": "harness.planeon.ai/catalog-document/v1alpha1",
+  "resources": [
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessClassDefinition",
+      "metadata": {"id": "runtime.infrastructure", "version": "0.1.0"},
+      "spec": {
+        "displayName": "Infrastructure and Runtime",
+        "plane": "runtime",
+        "ownerRepository": "mas-harness-operator",
+        "capabilities": [
+          {"id": "deployment.kubernetes", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false},
+          {"id": "deployment.airgap", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false},
+          {"id": "platform.k3s", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false},
+          {"id": "platform.openshift", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false},
+          {"id": "isolation.namespace", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false},
+          {"id": "isolation.dedicated-cluster", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false},
+          {"id": "architecture.amd64-available", "classification": "ENVIRONMENT_FACT", "signedAttestationRequired": true},
+          {"id": "architecture.arm64-available", "classification": "ENVIRONMENT_FACT", "signedAttestationRequired": true},
+          {"id": "connectivity.airgap", "classification": "ENVIRONMENT_FACT", "signedAttestationRequired": true},
+          {"id": "connectivity.connected", "classification": "ENVIRONMENT_FACT", "signedAttestationRequired": true},
+          {"id": "connectivity.silo", "classification": "ENVIRONMENT_FACT", "signedAttestationRequired": true},
+          {"id": "platform.openshift.arbitrary-uid", "classification": "ENVIRONMENT_FACT", "signedAttestationRequired": true},
+          {"id": "tenant.namespace-isolation", "classification": "ENVIRONMENT_FACT", "signedAttestationRequired": true}
+        ],
+        "dependencies": [],
+        "conflicts": [],
+        "moduleIds": ["module.runtime.infrastructure.core"],
+        "deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"],
+        "evidenceRequirements": ["SOURCE", "CI", "ARTIFACT", "DEPLOYMENT", "RUNTIME", "SECURITY"]
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessClassDefinition",
+      "metadata": {"id": "runtime.model-inference", "version": "0.1.0"},
+      "spec": {
+        "displayName": "Model and Inference",
+        "plane": "runtime",
+        "ownerRepository": "mas-harness-model-plane",
+        "capabilities": [
+          {"id": "model.local-cpu", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false},
+          {"id": "model.local-gpu", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false},
+          {"id": "accelerator.nvidia-available", "classification": "ENVIRONMENT_FACT", "signedAttestationRequired": true}
+        ],
+        "dependencies": [
+          {"harnessId": "trust.security-safety", "type": "ALWAYS"},
+          {"harnessId": "trust.observability-finops", "type": "ALWAYS"}
+        ],
+        "conflicts": [],
+        "moduleIds": ["module.runtime.model-inference.core"],
+        "deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"],
+        "evidenceRequirements": ["SOURCE", "CI", "ARTIFACT", "DEPLOYMENT", "RUNTIME", "SECURITY", "ASSURANCE"]
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessClassDefinition",
+      "metadata": {"id": "runtime.ai-gateway", "version": "0.1.0"},
+      "spec": {
+        "displayName": "AI Gateway",
+        "plane": "runtime",
+        "ownerRepository": "mas-harness-runtime-plane",
+        "capabilities": [
+          {"id": "agent.read-only", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false},
+          {"id": "agent.governed-action", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false}
+        ],
+        "dependencies": [
+          {"harnessId": "runtime.model-inference", "type": "ALWAYS"},
+          {"harnessId": "trust.security-safety", "type": "ALWAYS"},
+          {"harnessId": "trust.governance-agentops", "type": "ALWAYS"},
+          {"harnessId": "trust.observability-finops", "type": "ALWAYS"},
+          {"harnessId": "execution.orchestration", "type": "WHEN_CAPABILITY", "whenCapabilities": ["task.orchestration"]},
+          {"harnessId": "trust.evaluation-assurance", "type": "PRODUCTION_GATE", "gateId": "gate.runtime-gateway-production-assurance"}
+        ],
+        "conflicts": [],
+        "moduleIds": ["module.runtime.ai-gateway.core"],
+        "deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"],
+        "evidenceRequirements": ["SOURCE", "CI", "ARTIFACT", "DEPLOYMENT", "RUNTIME", "SECURITY", "ASSURANCE"]
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessClassDefinition",
+      "metadata": {"id": "runtime.experience", "version": "0.1.0"},
+      "spec": {
+        "displayName": "Experience and Interaction",
+        "plane": "runtime",
+        "ownerRepository": "mas-harness-runtime-plane",
+        "capabilities": [
+          {"id": "experience.session-and-stream", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false}
+        ],
+        "dependencies": [
+          {"harnessId": "runtime.infrastructure", "type": "ALWAYS"},
+          {"harnessId": "runtime.ai-gateway", "type": "ALWAYS"},
+          {"harnessId": "trust.security-safety", "type": "ALWAYS"},
+          {"harnessId": "trust.governance-agentops", "type": "ALWAYS"},
+          {"harnessId": "trust.observability-finops", "type": "ALWAYS"},
+          {"harnessId": "execution.orchestration", "type": "WHEN_CAPABILITY", "whenCapabilities": ["task.orchestration"]}
+        ],
+        "conflicts": [],
+        "moduleIds": ["module.runtime.experience.core"],
+        "deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"],
+        "evidenceRequirements": ["SOURCE", "CI", "ARTIFACT", "DEPLOYMENT", "RUNTIME", "SECURITY"]
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessClassDefinition",
+      "metadata": {"id": "knowledge.domain-semantic", "version": "0.1.0"},
+      "spec": {
+        "displayName": "Domain and Semantic",
+        "plane": "knowledge",
+        "ownerRepository": "mas-harness-knowledge-plane",
+        "capabilities": [
+          {"id": "knowledge.domain-package", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false}
+        ],
+        "dependencies": [
+          {"harnessId": "runtime.infrastructure", "type": "ALWAYS"},
+          {"harnessId": "trust.security-safety", "type": "ALWAYS"}
+        ],
+        "conflicts": [],
+        "moduleIds": ["module.knowledge.domain-semantic.core"],
+        "deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"],
+        "evidenceRequirements": ["SOURCE", "CI", "ARTIFACT", "DEPLOYMENT", "RUNTIME", "SECURITY"]
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessClassDefinition",
+      "metadata": {"id": "knowledge.data-integration", "version": "0.1.0"},
+      "spec": {
+        "displayName": "Data Integration and Provenance",
+        "plane": "knowledge",
+        "ownerRepository": "mas-harness-knowledge-plane",
+        "capabilities": [
+          {"id": "data.ingestion", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false},
+          {"id": "data.source-declaration", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false}
+        ],
+        "dependencies": [
+          {"harnessId": "knowledge.domain-semantic", "type": "ALWAYS"},
+          {"harnessId": "trust.security-safety", "type": "ALWAYS"},
+          {"harnessId": "trust.observability-finops", "type": "ALWAYS"}
+        ],
+        "conflicts": [],
+        "moduleIds": ["module.knowledge.data-integration.core"],
+        "deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"],
+        "evidenceRequirements": ["SOURCE", "CI", "ARTIFACT", "DEPLOYMENT", "RUNTIME", "SECURITY", "ASSURANCE"]
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessClassDefinition",
+      "metadata": {"id": "knowledge.retrieval-context", "version": "0.1.0"},
+      "spec": {
+        "displayName": "Retrieval and Context Engineering",
+        "plane": "knowledge",
+        "ownerRepository": "mas-harness-knowledge-plane",
+        "capabilities": [
+          {"id": "retrieval.cited", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false}
+        ],
+        "dependencies": [
+          {"harnessId": "knowledge.domain-semantic", "type": "ALWAYS"},
+          {"harnessId": "knowledge.data-integration", "type": "ALWAYS"},
+          {"harnessId": "trust.security-safety", "type": "ALWAYS"},
+          {"harnessId": "runtime.model-inference", "type": "WHEN_CAPABILITY", "whenCapabilities": ["embedding.local-and-approved", "retrieval.rerank.local"]}
+        ],
+        "conflicts": [],
+        "moduleIds": ["module.knowledge.retrieval-context.core"],
+        "deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"],
+        "evidenceRequirements": ["SOURCE", "CI", "ARTIFACT", "DEPLOYMENT", "RUNTIME", "SECURITY", "ASSURANCE"]
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessClassDefinition",
+      "metadata": {"id": "knowledge.memory-state", "version": "0.1.0"},
+      "spec": {
+        "displayName": "Memory and State",
+        "plane": "knowledge",
+        "ownerRepository": "mas-harness-knowledge-plane",
+        "capabilities": [
+          {"id": "memory.governed", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false},
+          {"id": "memory.semantic", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false}
+        ],
+        "dependencies": [
+          {"harnessId": "runtime.infrastructure", "type": "ALWAYS"},
+          {"harnessId": "trust.security-safety", "type": "ALWAYS"},
+          {"harnessId": "trust.governance-agentops", "type": "ALWAYS"},
+          {"harnessId": "runtime.model-inference", "type": "WHEN_CAPABILITY", "whenCapabilities": ["memory.semantic"]}
+        ],
+        "conflicts": [],
+        "moduleIds": ["module.knowledge.memory-state.core"],
+        "deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"],
+        "evidenceRequirements": ["SOURCE", "CI", "ARTIFACT", "DEPLOYMENT", "RUNTIME", "SECURITY"]
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessClassDefinition",
+      "metadata": {"id": "execution.protocol-interoperability", "version": "0.1.0"},
+      "spec": {
+        "displayName": "Protocol and Interoperability",
+        "plane": "execution",
+        "ownerRepository": "mas-harness-execution-plane",
+        "capabilities": [
+          {"id": "protocol.mcp", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false},
+          {"id": "protocol.a2a", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false},
+          {"id": "protocol.openapi", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false},
+          {"id": "protocol.asyncapi", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false}
+        ],
+        "dependencies": [
+          {"harnessId": "trust.security-safety", "type": "ALWAYS"},
+          {"harnessId": "trust.governance-agentops", "type": "ALWAYS"}
+        ],
+        "conflicts": [],
+        "moduleIds": ["module.execution.protocol-interoperability.core"],
+        "deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"],
+        "evidenceRequirements": ["SOURCE", "CI", "ARTIFACT", "DEPLOYMENT", "RUNTIME", "SECURITY"]
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessClassDefinition",
+      "metadata": {"id": "execution.orchestration", "version": "0.1.0"},
+      "spec": {
+        "displayName": "Orchestration and Durable Execution",
+        "plane": "execution",
+        "ownerRepository": "mas-harness-execution-plane",
+        "capabilities": [
+          {"id": "task.orchestration", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false}
+        ],
+        "dependencies": [
+          {"harnessId": "execution.protocol-interoperability", "type": "ALWAYS"},
+          {"harnessId": "trust.governance-agentops", "type": "ALWAYS"},
+          {"harnessId": "trust.observability-finops", "type": "ALWAYS"},
+          {"harnessId": "knowledge.retrieval-context", "type": "WHEN_CAPABILITY", "whenCapabilities": ["knowledge.retrieval"]},
+          {"harnessId": "runtime.model-inference", "type": "WHEN_CAPABILITY", "whenCapabilities": ["model.inference"]}
+        ],
+        "conflicts": [],
+        "moduleIds": ["module.execution.orchestration.core"],
+        "deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"],
+        "evidenceRequirements": ["SOURCE", "CI", "ARTIFACT", "DEPLOYMENT", "RUNTIME", "SECURITY"]
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessClassDefinition",
+      "metadata": {"id": "execution.tool-skill-sandbox", "version": "0.1.0"},
+      "spec": {
+        "displayName": "Tool, Skill and Sandbox",
+        "plane": "execution",
+        "ownerRepository": "mas-harness-execution-plane",
+        "capabilities": [
+          {"id": "tool.governed-execution", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false},
+          {"id": "sandbox.gvisor", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false},
+          {"id": "sandbox.kata", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false}
+        ],
+        "dependencies": [
+          {"harnessId": "execution.orchestration", "type": "ALWAYS"},
+          {"harnessId": "trust.security-safety", "type": "ALWAYS"},
+          {"harnessId": "trust.governance-agentops", "type": "ALWAYS"}
+        ],
+        "conflicts": [],
+        "moduleIds": ["module.execution.tool-skill-sandbox.core"],
+        "deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"],
+        "evidenceRequirements": ["SOURCE", "CI", "ARTIFACT", "DEPLOYMENT", "RUNTIME", "SECURITY", "ASSURANCE"]
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessClassDefinition",
+      "metadata": {"id": "execution.ml-decision", "version": "0.1.0"},
+      "spec": {
+        "displayName": "ML and Decision Intelligence",
+        "plane": "execution",
+        "ownerRepository": "mas-harness-execution-plane",
+        "capabilities": [
+          {"id": "decision.deterministic", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false}
+        ],
+        "dependencies": [
+          {"harnessId": "knowledge.data-integration", "type": "ALWAYS"},
+          {"harnessId": "runtime.model-inference", "type": "WHEN_CAPABILITY", "whenCapabilities": ["model.inference"]},
+          {"harnessId": "trust.security-safety", "type": "ALWAYS"},
+          {"harnessId": "trust.governance-agentops", "type": "ALWAYS"},
+          {"harnessId": "trust.observability-finops", "type": "ALWAYS"},
+          {"harnessId": "trust.evaluation-assurance", "type": "PRODUCTION_GATE", "gateId": "gate.decision-route-production-assurance"}
+        ],
+        "conflicts": [],
+        "moduleIds": ["module.execution.ml-decision.core"],
+        "deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"],
+        "evidenceRequirements": ["SOURCE", "CI", "ARTIFACT", "DEPLOYMENT", "RUNTIME", "SECURITY", "ASSURANCE"]
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessClassDefinition",
+      "metadata": {"id": "trust.security-safety", "version": "0.1.0"},
+      "spec": {
+        "displayName": "Security, Safety and Guardrails",
+        "plane": "trust",
+        "ownerRepository": "mas-harness-trust-plane",
+        "capabilities": [],
+        "dependencies": [
+          {"harnessId": "runtime.infrastructure", "type": "ALWAYS"}
+        ],
+        "conflicts": [],
+        "moduleIds": ["module.trust.security-safety.core"],
+        "deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"],
+        "evidenceRequirements": ["SOURCE", "CI", "ARTIFACT", "DEPLOYMENT", "RUNTIME", "SECURITY"]
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessClassDefinition",
+      "metadata": {"id": "trust.governance-agentops", "version": "0.1.0"},
+      "spec": {
+        "displayName": "Governance, Oversight and AgentOps",
+        "plane": "trust",
+        "ownerRepository": "mas-harness-trust-plane",
+        "capabilities": [],
+        "dependencies": [
+          {"harnessId": "trust.security-safety", "type": "ALWAYS"},
+          {"harnessId": "trust.observability-finops", "type": "ALWAYS"}
+        ],
+        "conflicts": [],
+        "moduleIds": ["module.trust.governance-agentops.core"],
+        "deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"],
+        "evidenceRequirements": ["SOURCE", "CI", "ARTIFACT", "DEPLOYMENT", "RUNTIME", "SECURITY"]
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessClassDefinition",
+      "metadata": {"id": "trust.observability-finops", "version": "0.1.0"},
+      "spec": {
+        "displayName": "Observability and FinOps",
+        "plane": "trust",
+        "ownerRepository": "mas-harness-trust-plane",
+        "capabilities": [],
+        "dependencies": [
+          {"harnessId": "runtime.infrastructure", "type": "ALWAYS"}
+        ],
+        "conflicts": [],
+        "moduleIds": ["module.trust.observability-finops.core"],
+        "deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"],
+        "evidenceRequirements": ["SOURCE", "CI", "ARTIFACT", "DEPLOYMENT", "RUNTIME", "SECURITY"]
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessClassDefinition",
+      "metadata": {"id": "trust.evaluation-assurance", "version": "0.1.0"},
+      "spec": {
+        "displayName": "Evaluation and Assurance",
+        "plane": "trust",
+        "ownerRepository": "mas-harness-trust-plane",
+        "capabilities": [
+          {"id": "assurance.required", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false},
+          {"id": "assurance.local-model-judge", "classification": "PUBLIC_DEMAND", "signedAttestationRequired": false}
+        ],
+        "dependencies": [
+          {"harnessId": "runtime.infrastructure", "type": "ALWAYS"},
+          {"harnessId": "trust.security-safety", "type": "ALWAYS"},
+          {"harnessId": "trust.governance-agentops", "type": "ALWAYS"},
+          {"harnessId": "trust.observability-finops", "type": "ALWAYS"},
+          {"harnessId": "knowledge.data-integration", "type": "SUBJECT_UNDER_EVALUATION", "whenCapabilities": ["subject.knowledge-data-integration"]},
+          {"harnessId": "runtime.model-inference", "type": "SUBJECT_UNDER_EVALUATION", "whenCapabilities": ["assurance.local-model-judge", "subject.runtime-model-inference"]}
+        ],
+        "conflicts": [],
+        "moduleIds": ["module.trust.evaluation-assurance.core"],
+        "deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"],
+        "evidenceRequirements": ["SOURCE", "CI", "ARTIFACT", "DEPLOYMENT", "RUNTIME", "SECURITY", "ASSURANCE"]
+      }
+    }
+  ]
+}
+

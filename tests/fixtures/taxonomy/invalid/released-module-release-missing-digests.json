@@ -1,0 +1,22 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "ModuleRelease",
+  "metadata": {"id": "release.runtime.infrastructure.core.invalid", "version": "0.1.0"},
+  "spec": {
+    "moduleId": "module.runtime.infrastructure.core",
+    "state": "RELEASED",
+    "installUnits": [
+      {
+        "id": "install.runtime.infrastructure.core",
+        "digestStatus": "MISSING_PLANNED",
+        "digest": null,
+        "sbomDigest": null,
+        "licenseDigest": null,
+        "signatureDigest": null
+      }
+    ],
+    "compatibility": {"deploymentModes": ["self-managed"], "architectures": ["amd64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream"]},
+    "upgrade": {"strategy": "REPLACE", "preflightRequired": true},
+    "rollback": {"supported": true, "previousDigestRequired": true}
+  }
+}

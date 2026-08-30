@@ -1,0 +1,293 @@
+{
+  "schemaVersion": "harness.planeon.ai/catalog-document/v1alpha1",
+  "resources": [
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessModuleDefinition",
+      "metadata": {"id": "module.runtime.infrastructure.core", "version": "0.1.0"},
+      "spec": {
+        "harnessId": "runtime.infrastructure",
+        "providesCapabilities": ["harness.runtime.infrastructure"],
+        "requiresModules": [],
+        "conflicts": [],
+        "installUnits": [{"id": "install.runtime.infrastructure.core", "type": "OCI_ARTIFACT", "artifactName": "planeon.runtime.infrastructure.core", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "resources": {"classes": ["PROFILE_DEFINED"], "cpuMillicores": null, "memoryMiB": null, "ephemeralStorageMiB": null},
+        "license": {"spdx": "Apache-2.0", "redistributable": true, "sourceAvailable": true, "releaseAdmission": "ALLOWED"},
+        "lifecycle": {"healthCheckRequired": true, "rollbackRequired": true, "uninstallSupported": true, "tenantDataRetention": "NOT_APPLICABLE"},
+        "externalEgressAllowed": false,
+        "runtimeDownloadsAllowed": false
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessModuleDefinition",
+      "metadata": {"id": "module.runtime.model-inference.core", "version": "0.1.0"},
+      "spec": {
+        "harnessId": "runtime.model-inference",
+        "providesCapabilities": ["harness.runtime.model-inference"],
+        "requiresModules": ["module.trust.security-safety.core", "module.trust.observability-finops.core"],
+        "conflicts": [],
+        "installUnits": [{"id": "install.runtime.model-inference.core", "type": "OCI_IMAGE", "artifactName": "planeon.runtime.model-inference.core", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "resources": {"classes": ["PROFILE_DEFINED"], "cpuMillicores": null, "memoryMiB": null, "ephemeralStorageMiB": null},
+        "license": {"spdx": "Apache-2.0", "redistributable": true, "sourceAvailable": true, "releaseAdmission": "ALLOWED"},
+        "lifecycle": {"healthCheckRequired": true, "rollbackRequired": true, "uninstallSupported": true, "tenantDataRetention": "RETAIN_BY_DEFAULT"},
+        "externalEgressAllowed": false,
+        "runtimeDownloadsAllowed": false
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessModuleDefinition",
+      "metadata": {"id": "module.runtime.ai-gateway.core", "version": "0.1.0"},
+      "spec": {
+        "harnessId": "runtime.ai-gateway",
+        "providesCapabilities": ["harness.runtime.ai-gateway"],
+        "requiresModules": ["module.runtime.model-inference.core", "module.trust.security-safety.core", "module.trust.governance-agentops.core", "module.trust.observability-finops.core"],
+        "conflicts": [],
+        "installUnits": [{"id": "install.runtime.ai-gateway.core", "type": "OCI_IMAGE", "artifactName": "planeon.runtime.ai-gateway.core", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "resources": {"classes": ["PROFILE_DEFINED"], "cpuMillicores": null, "memoryMiB": null, "ephemeralStorageMiB": null},
+        "license": {"spdx": "Apache-2.0", "redistributable": true, "sourceAvailable": true, "releaseAdmission": "ALLOWED"},
+        "lifecycle": {"healthCheckRequired": true, "rollbackRequired": true, "uninstallSupported": true, "tenantDataRetention": "NOT_APPLICABLE"},
+        "externalEgressAllowed": false,
+        "runtimeDownloadsAllowed": false
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessModuleDefinition",
+      "metadata": {"id": "module.runtime.experience.core", "version": "0.1.0"},
+      "spec": {
+        "harnessId": "runtime.experience",
+        "providesCapabilities": ["harness.runtime.experience"],
+        "requiresModules": ["module.runtime.infrastructure.core", "module.runtime.ai-gateway.core", "module.trust.security-safety.core", "module.trust.governance-agentops.core", "module.trust.observability-finops.core"],
+        "conflicts": [],
+        "installUnits": [{"id": "install.runtime.experience.core", "type": "OCI_IMAGE", "artifactName": "planeon.runtime.experience.core", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "resources": {"classes": ["PROFILE_DEFINED"], "cpuMillicores": null, "memoryMiB": null, "ephemeralStorageMiB": null},
+        "license": {"spdx": "Apache-2.0", "redistributable": true, "sourceAvailable": true, "releaseAdmission": "ALLOWED"},
+        "lifecycle": {"healthCheckRequired": true, "rollbackRequired": true, "uninstallSupported": true, "tenantDataRetention": "RETAIN_BY_DEFAULT"},
+        "externalEgressAllowed": false,
+        "runtimeDownloadsAllowed": false
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessModuleDefinition",
+      "metadata": {"id": "module.knowledge.domain-semantic.core", "version": "0.1.0"},
+      "spec": {
+        "harnessId": "knowledge.domain-semantic",
+        "providesCapabilities": ["harness.knowledge.domain-semantic"],
+        "requiresModules": ["module.runtime.infrastructure.core", "module.trust.security-safety.core"],
+        "conflicts": [],
+        "installUnits": [{"id": "install.knowledge.domain-semantic.core", "type": "OCI_IMAGE", "artifactName": "planeon.knowledge.domain-semantic.core", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "resources": {"classes": ["PROFILE_DEFINED"], "cpuMillicores": null, "memoryMiB": null, "ephemeralStorageMiB": null},
+        "license": {"spdx": "Apache-2.0", "redistributable": true, "sourceAvailable": true, "releaseAdmission": "ALLOWED"},
+        "lifecycle": {"healthCheckRequired": true, "rollbackRequired": true, "uninstallSupported": true, "tenantDataRetention": "RETAIN_BY_DEFAULT"},
+        "externalEgressAllowed": false,
+        "runtimeDownloadsAllowed": false
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessModuleDefinition",
+      "metadata": {"id": "module.knowledge.data-integration.core", "version": "0.1.0"},
+      "spec": {
+        "harnessId": "knowledge.data-integration",
+        "providesCapabilities": ["harness.knowledge.data-integration"],
+        "requiresModules": ["module.knowledge.domain-semantic.core", "module.trust.security-safety.core", "module.trust.observability-finops.core"],
+        "conflicts": [],
+        "installUnits": [{"id": "install.knowledge.data-integration.core", "type": "OCI_IMAGE", "artifactName": "planeon.knowledge.data-integration.core", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "resources": {"classes": ["PROFILE_DEFINED"], "cpuMillicores": null, "memoryMiB": null, "ephemeralStorageMiB": null},
+        "license": {"spdx": "Apache-2.0", "redistributable": true, "sourceAvailable": true, "releaseAdmission": "ALLOWED"},
+        "lifecycle": {"healthCheckRequired": true, "rollbackRequired": true, "uninstallSupported": true, "tenantDataRetention": "RETAIN_BY_DEFAULT"},
+        "externalEgressAllowed": false,
+        "runtimeDownloadsAllowed": false
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessModuleDefinition",
+      "metadata": {"id": "module.knowledge.retrieval-context.core", "version": "0.1.0"},
+      "spec": {
+        "harnessId": "knowledge.retrieval-context",
+        "providesCapabilities": ["harness.knowledge.retrieval-context"],
+        "requiresModules": ["module.knowledge.domain-semantic.core", "module.knowledge.data-integration.core", "module.trust.security-safety.core"],
+        "conflicts": [],
+        "installUnits": [{"id": "install.knowledge.retrieval-context.core", "type": "OCI_IMAGE", "artifactName": "planeon.knowledge.retrieval-context.core", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "resources": {"classes": ["PROFILE_DEFINED"], "cpuMillicores": null, "memoryMiB": null, "ephemeralStorageMiB": null},
+        "license": {"spdx": "Apache-2.0", "redistributable": true, "sourceAvailable": true, "releaseAdmission": "ALLOWED"},
+        "lifecycle": {"healthCheckRequired": true, "rollbackRequired": true, "uninstallSupported": true, "tenantDataRetention": "RETAIN_BY_DEFAULT"},
+        "externalEgressAllowed": false,
+        "runtimeDownloadsAllowed": false
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessModuleDefinition",
+      "metadata": {"id": "module.knowledge.memory-state.core", "version": "0.1.0"},
+      "spec": {
+        "harnessId": "knowledge.memory-state",
+        "providesCapabilities": ["harness.knowledge.memory-state"],
+        "requiresModules": ["module.runtime.infrastructure.core", "module.trust.security-safety.core", "module.trust.governance-agentops.core"],
+        "conflicts": [],
+        "installUnits": [{"id": "install.knowledge.memory-state.core", "type": "OCI_IMAGE", "artifactName": "planeon.knowledge.memory-state.core", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "resources": {"classes": ["PROFILE_DEFINED"], "cpuMillicores": null, "memoryMiB": null, "ephemeralStorageMiB": null},
+        "license": {"spdx": "Apache-2.0", "redistributable": true, "sourceAvailable": true, "releaseAdmission": "ALLOWED"},
+        "lifecycle": {"healthCheckRequired": true, "rollbackRequired": true, "uninstallSupported": true, "tenantDataRetention": "RETAIN_BY_DEFAULT"},
+        "externalEgressAllowed": false,
+        "runtimeDownloadsAllowed": false
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessModuleDefinition",
+      "metadata": {"id": "module.execution.protocol-interoperability.core", "version": "0.1.0"},
+      "spec": {
+        "harnessId": "execution.protocol-interoperability",
+        "providesCapabilities": ["harness.execution.protocol-interoperability"],
+        "requiresModules": ["module.trust.security-safety.core", "module.trust.governance-agentops.core"],
+        "conflicts": [],
+        "installUnits": [{"id": "install.execution.protocol-interoperability.core", "type": "OCI_IMAGE", "artifactName": "planeon.execution.protocol-interoperability.core", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "resources": {"classes": ["PROFILE_DEFINED"], "cpuMillicores": null, "memoryMiB": null, "ephemeralStorageMiB": null},
+        "license": {"spdx": "Apache-2.0", "redistributable": true, "sourceAvailable": true, "releaseAdmission": "ALLOWED"},
+        "lifecycle": {"healthCheckRequired": true, "rollbackRequired": true, "uninstallSupported": true, "tenantDataRetention": "NOT_APPLICABLE"},
+        "externalEgressAllowed": false,
+        "runtimeDownloadsAllowed": false
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessModuleDefinition",
+      "metadata": {"id": "module.execution.orchestration.core", "version": "0.1.0"},
+      "spec": {
+        "harnessId": "execution.orchestration",
+        "providesCapabilities": ["harness.execution.orchestration"],
+        "requiresModules": ["module.execution.protocol-interoperability.core", "module.trust.governance-agentops.core", "module.trust.observability-finops.core"],
+        "conflicts": [],
+        "installUnits": [{"id": "install.execution.orchestration.core", "type": "OCI_IMAGE", "artifactName": "planeon.execution.orchestration.core", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "resources": {"classes": ["PROFILE_DEFINED"], "cpuMillicores": null, "memoryMiB": null, "ephemeralStorageMiB": null},
+        "license": {"spdx": "Apache-2.0", "redistributable": true, "sourceAvailable": true, "releaseAdmission": "ALLOWED"},
+        "lifecycle": {"healthCheckRequired": true, "rollbackRequired": true, "uninstallSupported": true, "tenantDataRetention": "RETAIN_BY_DEFAULT"},
+        "externalEgressAllowed": false,
+        "runtimeDownloadsAllowed": false
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessModuleDefinition",
+      "metadata": {"id": "module.execution.tool-skill-sandbox.core", "version": "0.1.0"},
+      "spec": {
+        "harnessId": "execution.tool-skill-sandbox",
+        "providesCapabilities": ["harness.execution.tool-skill-sandbox"],
+        "requiresModules": ["module.execution.orchestration.core", "module.trust.security-safety.core", "module.trust.governance-agentops.core"],
+        "conflicts": [],
+        "installUnits": [{"id": "install.execution.tool-skill-sandbox.core", "type": "OCI_IMAGE", "artifactName": "planeon.execution.tool-skill-sandbox.core", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "resources": {"classes": ["PROFILE_DEFINED"], "cpuMillicores": null, "memoryMiB": null, "ephemeralStorageMiB": null},
+        "license": {"spdx": "Apache-2.0", "redistributable": true, "sourceAvailable": true, "releaseAdmission": "ALLOWED"},
+        "lifecycle": {"healthCheckRequired": true, "rollbackRequired": true, "uninstallSupported": true, "tenantDataRetention": "NOT_APPLICABLE"},
+        "externalEgressAllowed": false,
+        "runtimeDownloadsAllowed": false
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessModuleDefinition",
+      "metadata": {"id": "module.execution.ml-decision.core", "version": "0.1.0"},
+      "spec": {
+        "harnessId": "execution.ml-decision",
+        "providesCapabilities": ["harness.execution.ml-decision"],
+        "requiresModules": ["module.knowledge.data-integration.core", "module.trust.security-safety.core", "module.trust.governance-agentops.core", "module.trust.observability-finops.core"],
+        "conflicts": [],
+        "installUnits": [{"id": "install.execution.ml-decision.core", "type": "OCI_IMAGE", "artifactName": "planeon.execution.ml-decision.core", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "resources": {"classes": ["PROFILE_DEFINED"], "cpuMillicores": null, "memoryMiB": null, "ephemeralStorageMiB": null},
+        "license": {"spdx": "Apache-2.0", "redistributable": true, "sourceAvailable": true, "releaseAdmission": "ALLOWED"},
+        "lifecycle": {"healthCheckRequired": true, "rollbackRequired": true, "uninstallSupported": true, "tenantDataRetention": "RETAIN_BY_DEFAULT"},
+        "externalEgressAllowed": false,
+        "runtimeDownloadsAllowed": false
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessModuleDefinition",
+      "metadata": {"id": "module.trust.security-safety.core", "version": "0.1.0"},
+      "spec": {
+        "harnessId": "trust.security-safety",
+        "providesCapabilities": ["harness.trust.security-safety"],
+        "requiresModules": ["module.runtime.infrastructure.core"],
+        "conflicts": [],
+        "installUnits": [{"id": "install.trust.security-safety.core", "type": "OCI_IMAGE", "artifactName": "planeon.trust.security-safety.core", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "resources": {"classes": ["PROFILE_DEFINED"], "cpuMillicores": null, "memoryMiB": null, "ephemeralStorageMiB": null},
+        "license": {"spdx": "Apache-2.0", "redistributable": true, "sourceAvailable": true, "releaseAdmission": "ALLOWED"},
+        "lifecycle": {"healthCheckRequired": true, "rollbackRequired": true, "uninstallSupported": true, "tenantDataRetention": "NOT_APPLICABLE"},
+        "externalEgressAllowed": false,
+        "runtimeDownloadsAllowed": false
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessModuleDefinition",
+      "metadata": {"id": "module.trust.governance-agentops.core", "version": "0.1.0"},
+      "spec": {
+        "harnessId": "trust.governance-agentops",
+        "providesCapabilities": ["harness.trust.governance-agentops"],
+        "requiresModules": ["module.trust.security-safety.core", "module.trust.observability-finops.core"],
+        "conflicts": [],
+        "installUnits": [{"id": "install.trust.governance-agentops.core", "type": "OCI_IMAGE", "artifactName": "planeon.trust.governance-agentops.core", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "resources": {"classes": ["PROFILE_DEFINED"], "cpuMillicores": null, "memoryMiB": null, "ephemeralStorageMiB": null},
+        "license": {"spdx": "Apache-2.0", "redistributable": true, "sourceAvailable": true, "releaseAdmission": "ALLOWED"},
+        "lifecycle": {"healthCheckRequired": true, "rollbackRequired": true, "uninstallSupported": true, "tenantDataRetention": "RETAIN_BY_DEFAULT"},
+        "externalEgressAllowed": false,
+        "runtimeDownloadsAllowed": false
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessModuleDefinition",
+      "metadata": {"id": "module.trust.observability-finops.core", "version": "0.1.0"},
+      "spec": {
+        "harnessId": "trust.observability-finops",
+        "providesCapabilities": ["harness.trust.observability-finops"],
+        "requiresModules": ["module.runtime.infrastructure.core"],
+        "conflicts": [],
+        "installUnits": [{"id": "install.trust.observability-finops.core", "type": "OCI_IMAGE", "artifactName": "planeon.trust.observability-finops.core", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "resources": {"classes": ["PROFILE_DEFINED"], "cpuMillicores": null, "memoryMiB": null, "ephemeralStorageMiB": null},
+        "license": {"spdx": "Apache-2.0", "redistributable": true, "sourceAvailable": true, "releaseAdmission": "ALLOWED"},
+        "lifecycle": {"healthCheckRequired": true, "rollbackRequired": true, "uninstallSupported": true, "tenantDataRetention": "NOT_APPLICABLE"},
+        "externalEgressAllowed": false,
+        "runtimeDownloadsAllowed": false
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "HarnessModuleDefinition",
+      "metadata": {"id": "module.trust.evaluation-assurance.core", "version": "0.1.0"},
+      "spec": {
+        "harnessId": "trust.evaluation-assurance",
+        "providesCapabilities": ["harness.trust.evaluation-assurance"],
+        "requiresModules": ["module.runtime.infrastructure.core", "module.trust.security-safety.core", "module.trust.governance-agentops.core", "module.trust.observability-finops.core"],
+        "conflicts": [],
+        "installUnits": [{"id": "install.trust.evaluation-assurance.core", "type": "OCI_IMAGE", "artifactName": "planeon.trust.evaluation-assurance.core", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "resources": {"classes": ["PROFILE_DEFINED"], "cpuMillicores": null, "memoryMiB": null, "ephemeralStorageMiB": null},
+        "license": {"spdx": "Apache-2.0", "redistributable": true, "sourceAvailable": true, "releaseAdmission": "ALLOWED"},
+        "lifecycle": {"healthCheckRequired": true, "rollbackRequired": true, "uninstallSupported": true, "tenantDataRetention": "RETAIN_BY_DEFAULT"},
+        "externalEgressAllowed": false,
+        "runtimeDownloadsAllowed": false
+      }
+    }
+  ]
+}
