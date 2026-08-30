@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "harness.planeon.ai/catalog-lock/v1alpha1",
+  "catalogVersion": "0.1.0",
+  "canonicalization": "SORTED_UTF8_JSON_V1",
+  "entries": [
+    {
+      "path": "harnesses/harnesses.json",
+      "digest": "sha256:27db4d3aa8b28b54ab9c6be26db9a29eb5a22edcfc26340184b5f6bb015dd45e",
+      "resourceIds": [
+        "execution.ml-decision",
+        "execution.orchestration",
+        "execution.protocol-interoperability",
+        "execution.tool-skill-sandbox",
+        "knowledge.data-integration",
+        "knowledge.domain-semantic",
+        "knowledge.memory-state",
+        "knowledge.retrieval-context",
+        "runtime.ai-gateway",
+        "runtime.experience",
+        "runtime.infrastructure",
+        "runtime.model-inference",
+        "trust.evaluation-assurance",
+        "trust.governance-agentops",
+        "trust.observability-finops",
+        "trust.security-safety"
+      ]
+    },
+    {
+      "path": "providers/frameworks.json",
+      "digest": "sha256:c48ecc5d98f1eb5393052f4ad51851be3039dcbcd0ca656278a0afca816cb6cf",
+      "resourceIds": [
+        "provider.execution.decision-onnx",
+        "provider.execution.decision-ortools",
+        "provider.execution.decision-sklearn",
+        "provider.execution.protocol-a2a",
+        "provider.execution.protocol-asyncapi",
+        "provider.execution.protocol-mcp",
+        "provider.execution.protocol-openapi",
+        "provider.execution.sandbox-gvisor",
+        "provider.execution.sandbox-kata",
+        "provider.planeon.llamacpp",
+        "provider.planeon.mlx",
+        "provider.planeon.ollama",
+        "provider.planeon.vllm",
+        "provider.runtime.infrastructure.k3s",
+        "provider.runtime.infrastructure.kubernetes-upstream",
+        "provider.runtime.infrastructure.openshift"
+      ]
+    },
+    {
+      "path": "providers/modules.json",
+      "digest": "sha256:3d1ebbcded6e8d68ca624819c12424a6e6c2552d09aec366e1fdad72df7d2793",
+      "resourceIds": [
+        "module.execution.ml-decision.core",
+        "module.execution.orchestration.core",
+        "module.execution.protocol-interoperability.core",
+        "module.execution.tool-skill-sandbox.core",
+        "module.knowledge.data-integration.core",
+        "module.knowledge.domain-semantic.core",
+        "module.knowledge.memory-state.core",
+        "module.knowledge.retrieval-context.core",
+        "module.runtime.ai-gateway.core",
+        "module.runtime.experience.core",
+        "module.runtime.infrastructure.core",
+        "module.runtime.model-inference.core",
+        "module.trust.evaluation-assurance.core",
+        "module.trust.governance-agentops.core",
+        "module.trust.observability-finops.core",
+        "module.trust.security-safety.core"
+      ]
+    }
+  ],
+  "catalogDigest": "sha256:26d442c4e90a19d767d32e80ef9df3d154b3146d3238dc0eecf29ee773913a26"
+}

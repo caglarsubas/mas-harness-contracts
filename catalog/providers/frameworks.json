@@ -1,0 +1,325 @@
+{
+  "schemaVersion": "harness.planeon.ai/catalog-document/v1alpha1",
+  "resources": [
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "FrameworkProviderDefinition",
+      "metadata": {"id": "provider.runtime.infrastructure.kubernetes-upstream", "version": "0.1.0"},
+      "spec": {
+        "displayName": "Upstream Kubernetes",
+        "harnessId": "runtime.infrastructure",
+        "selectorGroup": "group.infrastructure-provider",
+        "selectorCapability": "platform.provider.kubernetes-upstream",
+        "activatedByCapabilities": ["deployment.kubernetes"],
+        "costDisposition": "TENANT_SUPPLIED_OPEN_SOURCE_NON_METERED",
+        "providerCredentialsRequired": false,
+        "externalTelemetry": false,
+        "runtimeDownloadsAllowed": false,
+        "releaseStatus": "PLANNED",
+        "installUnits": [{"id": "install.provider.runtime.infrastructure.kubernetes-upstream", "type": "TENANT_SUPPLIED_PLATFORM", "artifactName": "tenant.platform.kubernetes-upstream", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["platform-supplied"], "operatingSystems": ["platform-supplied"], "kubernetesDistributions": ["upstream"]},
+        "license": {"spdx": "Apache-2.0", "redistributable": false, "sourceAvailable": true, "releaseAdmission": "BLOCKED_PENDING_UPSTREAM_LICENSE_EVIDENCE"}
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "FrameworkProviderDefinition",
+      "metadata": {"id": "provider.runtime.infrastructure.k3s", "version": "0.1.0"},
+      "spec": {
+        "displayName": "K3s",
+        "harnessId": "runtime.infrastructure",
+        "selectorGroup": "group.infrastructure-provider",
+        "selectorCapability": "platform.provider.k3s",
+        "activatedByCapabilities": ["platform.k3s"],
+        "costDisposition": "TENANT_SUPPLIED_OPEN_SOURCE_NON_METERED",
+        "providerCredentialsRequired": false,
+        "externalTelemetry": false,
+        "runtimeDownloadsAllowed": false,
+        "releaseStatus": "PLANNED",
+        "installUnits": [{"id": "install.provider.runtime.infrastructure.k3s", "type": "TENANT_SUPPLIED_PLATFORM", "artifactName": "tenant.platform.k3s", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["self-managed", "air-gapped"], "architectures": ["platform-supplied"], "operatingSystems": ["platform-supplied"], "kubernetesDistributions": ["k3s"]},
+        "license": {"spdx": "Apache-2.0", "redistributable": false, "sourceAvailable": true, "releaseAdmission": "BLOCKED_PENDING_UPSTREAM_LICENSE_EVIDENCE"}
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "FrameworkProviderDefinition",
+      "metadata": {"id": "provider.runtime.infrastructure.openshift", "version": "0.1.0"},
+      "spec": {
+        "displayName": "OpenShift",
+        "harnessId": "runtime.infrastructure",
+        "selectorGroup": "group.infrastructure-provider",
+        "selectorCapability": "platform.provider.openshift",
+        "activatedByCapabilities": ["platform.openshift"],
+        "costDisposition": "TENANT_SUPPLIED_OPEN_SOURCE_NON_METERED",
+        "providerCredentialsRequired": false,
+        "externalTelemetry": false,
+        "runtimeDownloadsAllowed": false,
+        "releaseStatus": "PLANNED",
+        "installUnits": [{"id": "install.provider.runtime.infrastructure.openshift", "type": "TENANT_SUPPLIED_PLATFORM", "artifactName": "tenant.platform.openshift", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["platform-supplied"], "operatingSystems": ["platform-supplied"], "kubernetesDistributions": ["openshift"]},
+        "license": {"spdx": "Apache-2.0", "redistributable": false, "sourceAvailable": true, "releaseAdmission": "BLOCKED_PENDING_UPSTREAM_LICENSE_EVIDENCE"}
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "FrameworkProviderDefinition",
+      "metadata": {"id": "provider.planeon.ollama", "version": "0.1.0"},
+      "spec": {
+        "displayName": "Ollama Adapter",
+        "harnessId": "runtime.model-inference",
+        "selectorGroup": "group.model-backend",
+        "selectorCapability": "provider.planeon.ollama",
+        "activatedByCapabilities": ["model.local-cpu", "model.local-gpu"],
+        "costDisposition": "SELF_HOSTED_OPEN_SOURCE_NON_METERED",
+        "providerCredentialsRequired": false,
+        "externalTelemetry": false,
+        "runtimeDownloadsAllowed": false,
+        "releaseStatus": "PLANNED",
+        "installUnits": [{"id": "install.provider.planeon.ollama", "type": "OCI_IMAGE", "artifactName": "planeon.provider.ollama", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "license": {"spdx": "Apache-2.0", "redistributable": false, "sourceAvailable": true, "releaseAdmission": "BLOCKED_PENDING_UPSTREAM_LICENSE_EVIDENCE"}
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "FrameworkProviderDefinition",
+      "metadata": {"id": "provider.planeon.llamacpp", "version": "0.1.0"},
+      "spec": {
+        "displayName": "llama.cpp Adapter",
+        "harnessId": "runtime.model-inference",
+        "selectorGroup": "group.model-backend",
+        "selectorCapability": "provider.planeon.llamacpp",
+        "activatedByCapabilities": ["model.local-cpu"],
+        "costDisposition": "SELF_HOSTED_OPEN_SOURCE_NON_METERED",
+        "providerCredentialsRequired": false,
+        "externalTelemetry": false,
+        "runtimeDownloadsAllowed": false,
+        "releaseStatus": "PLANNED",
+        "installUnits": [{"id": "install.provider.planeon.llamacpp", "type": "OCI_IMAGE", "artifactName": "planeon.provider.llamacpp", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "license": {"spdx": "Apache-2.0", "redistributable": false, "sourceAvailable": true, "releaseAdmission": "BLOCKED_PENDING_UPSTREAM_LICENSE_EVIDENCE"}
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "FrameworkProviderDefinition",
+      "metadata": {"id": "provider.planeon.vllm", "version": "0.1.0"},
+      "spec": {
+        "displayName": "vLLM Adapter",
+        "harnessId": "runtime.model-inference",
+        "selectorGroup": "group.model-backend",
+        "selectorCapability": "provider.planeon.vllm",
+        "activatedByCapabilities": ["model.local-gpu"],
+        "costDisposition": "SELF_HOSTED_OPEN_SOURCE_NON_METERED",
+        "providerCredentialsRequired": false,
+        "externalTelemetry": false,
+        "runtimeDownloadsAllowed": false,
+        "releaseStatus": "PLANNED",
+        "installUnits": [{"id": "install.provider.planeon.vllm", "type": "OCI_IMAGE", "artifactName": "planeon.provider.vllm", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "license": {"spdx": "Apache-2.0", "redistributable": false, "sourceAvailable": true, "releaseAdmission": "BLOCKED_PENDING_UPSTREAM_LICENSE_EVIDENCE"}
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "FrameworkProviderDefinition",
+      "metadata": {"id": "provider.planeon.mlx", "version": "0.1.0"},
+      "spec": {
+        "displayName": "MLX Adapter",
+        "harnessId": "runtime.model-inference",
+        "selectorGroup": "group.model-backend",
+        "selectorCapability": "provider.planeon.mlx",
+        "activatedByCapabilities": ["model.local-cpu"],
+        "costDisposition": "SELF_HOSTED_OPEN_SOURCE_NON_METERED",
+        "providerCredentialsRequired": false,
+        "externalTelemetry": false,
+        "runtimeDownloadsAllowed": false,
+        "releaseStatus": "PLANNED",
+        "installUnits": [{"id": "install.provider.planeon.mlx", "type": "OCI_IMAGE", "artifactName": "planeon.provider.mlx", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["self-managed"], "architectures": ["arm64"], "operatingSystems": ["macos"], "kubernetesDistributions": ["none"]},
+        "license": {"spdx": "Apache-2.0", "redistributable": false, "sourceAvailable": true, "releaseAdmission": "BLOCKED_PENDING_UPSTREAM_LICENSE_EVIDENCE"}
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "FrameworkProviderDefinition",
+      "metadata": {"id": "provider.execution.protocol-mcp", "version": "0.1.0"},
+      "spec": {
+        "displayName": "MCP Adapter",
+        "harnessId": "execution.protocol-interoperability",
+        "selectorGroup": "group.protocol-adapter",
+        "selectorCapability": "protocol.provider.mcp",
+        "activatedByCapabilities": ["protocol.mcp"],
+        "costDisposition": "SELF_HOSTED_OPEN_SOURCE_NON_METERED",
+        "providerCredentialsRequired": false,
+        "externalTelemetry": false,
+        "runtimeDownloadsAllowed": false,
+        "releaseStatus": "PLANNED",
+        "installUnits": [{"id": "install.provider.execution.protocol-mcp", "type": "OCI_IMAGE", "artifactName": "planeon.provider.protocol-mcp", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "license": {"spdx": "Apache-2.0", "redistributable": false, "sourceAvailable": true, "releaseAdmission": "BLOCKED_PENDING_UPSTREAM_LICENSE_EVIDENCE"}
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "FrameworkProviderDefinition",
+      "metadata": {"id": "provider.execution.protocol-a2a", "version": "0.1.0"},
+      "spec": {
+        "displayName": "A2A Adapter",
+        "harnessId": "execution.protocol-interoperability",
+        "selectorGroup": "group.protocol-adapter",
+        "selectorCapability": "protocol.provider.a2a",
+        "activatedByCapabilities": ["protocol.a2a"],
+        "costDisposition": "SELF_HOSTED_OPEN_SOURCE_NON_METERED",
+        "providerCredentialsRequired": false,
+        "externalTelemetry": false,
+        "runtimeDownloadsAllowed": false,
+        "releaseStatus": "PLANNED",
+        "installUnits": [{"id": "install.provider.execution.protocol-a2a", "type": "OCI_IMAGE", "artifactName": "planeon.provider.protocol-a2a", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "license": {"spdx": "Apache-2.0", "redistributable": false, "sourceAvailable": true, "releaseAdmission": "BLOCKED_PENDING_UPSTREAM_LICENSE_EVIDENCE"}
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "FrameworkProviderDefinition",
+      "metadata": {"id": "provider.execution.protocol-openapi", "version": "0.1.0"},
+      "spec": {
+        "displayName": "OpenAPI Adapter",
+        "harnessId": "execution.protocol-interoperability",
+        "selectorGroup": "group.protocol-adapter",
+        "selectorCapability": "protocol.provider.openapi",
+        "activatedByCapabilities": ["protocol.openapi"],
+        "costDisposition": "SELF_HOSTED_OPEN_SOURCE_NON_METERED",
+        "providerCredentialsRequired": false,
+        "externalTelemetry": false,
+        "runtimeDownloadsAllowed": false,
+        "releaseStatus": "PLANNED",
+        "installUnits": [{"id": "install.provider.execution.protocol-openapi", "type": "OCI_IMAGE", "artifactName": "planeon.provider.protocol-openapi", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "license": {"spdx": "Apache-2.0", "redistributable": false, "sourceAvailable": true, "releaseAdmission": "BLOCKED_PENDING_UPSTREAM_LICENSE_EVIDENCE"}
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "FrameworkProviderDefinition",
+      "metadata": {"id": "provider.execution.protocol-asyncapi", "version": "0.1.0"},
+      "spec": {
+        "displayName": "AsyncAPI Adapter",
+        "harnessId": "execution.protocol-interoperability",
+        "selectorGroup": "group.protocol-adapter",
+        "selectorCapability": "protocol.provider.asyncapi",
+        "activatedByCapabilities": ["protocol.asyncapi"],
+        "costDisposition": "SELF_HOSTED_OPEN_SOURCE_NON_METERED",
+        "providerCredentialsRequired": false,
+        "externalTelemetry": false,
+        "runtimeDownloadsAllowed": false,
+        "releaseStatus": "PLANNED",
+        "installUnits": [{"id": "install.provider.execution.protocol-asyncapi", "type": "OCI_IMAGE", "artifactName": "planeon.provider.protocol-asyncapi", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "license": {"spdx": "Apache-2.0", "redistributable": false, "sourceAvailable": true, "releaseAdmission": "BLOCKED_PENDING_UPSTREAM_LICENSE_EVIDENCE"}
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "FrameworkProviderDefinition",
+      "metadata": {"id": "provider.execution.sandbox-gvisor", "version": "0.1.0"},
+      "spec": {
+        "displayName": "gVisor Runtime Class",
+        "harnessId": "execution.tool-skill-sandbox",
+        "selectorGroup": "group.native-sandbox-provider",
+        "selectorCapability": "sandbox.provider.gvisor",
+        "activatedByCapabilities": ["sandbox.gvisor"],
+        "costDisposition": "TENANT_SUPPLIED_OPEN_SOURCE_NON_METERED",
+        "providerCredentialsRequired": false,
+        "externalTelemetry": false,
+        "runtimeDownloadsAllowed": false,
+        "releaseStatus": "PLANNED",
+        "installUnits": [{"id": "install.provider.execution.sandbox-gvisor", "type": "KUBERNETES_RUNTIME_CLASS", "artifactName": "tenant.runtime-class.gvisor", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["platform-supplied"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s"]},
+        "license": {"spdx": "Apache-2.0", "redistributable": false, "sourceAvailable": true, "releaseAdmission": "BLOCKED_PENDING_UPSTREAM_LICENSE_EVIDENCE"}
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "FrameworkProviderDefinition",
+      "metadata": {"id": "provider.execution.sandbox-kata", "version": "0.1.0"},
+      "spec": {
+        "displayName": "Kata Containers Runtime Class",
+        "harnessId": "execution.tool-skill-sandbox",
+        "selectorGroup": "group.native-sandbox-provider",
+        "selectorCapability": "sandbox.provider.kata",
+        "activatedByCapabilities": ["sandbox.kata"],
+        "costDisposition": "TENANT_SUPPLIED_OPEN_SOURCE_NON_METERED",
+        "providerCredentialsRequired": false,
+        "externalTelemetry": false,
+        "runtimeDownloadsAllowed": false,
+        "releaseStatus": "PLANNED",
+        "installUnits": [{"id": "install.provider.execution.sandbox-kata", "type": "KUBERNETES_RUNTIME_CLASS", "artifactName": "tenant.runtime-class.kata", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["platform-supplied"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "license": {"spdx": "Apache-2.0", "redistributable": false, "sourceAvailable": true, "releaseAdmission": "BLOCKED_PENDING_UPSTREAM_LICENSE_EVIDENCE"}
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "FrameworkProviderDefinition",
+      "metadata": {"id": "provider.execution.decision-sklearn", "version": "0.1.0"},
+      "spec": {
+        "displayName": "scikit-learn Adapter",
+        "harnessId": "execution.ml-decision",
+        "selectorGroup": "group.decision-provider",
+        "selectorCapability": "decision.provider.sklearn",
+        "activatedByCapabilities": ["decision.deterministic"],
+        "costDisposition": "SELF_HOSTED_OPEN_SOURCE_NON_METERED",
+        "providerCredentialsRequired": false,
+        "externalTelemetry": false,
+        "runtimeDownloadsAllowed": false,
+        "releaseStatus": "PLANNED",
+        "installUnits": [{"id": "install.provider.execution.decision-sklearn", "type": "OCI_IMAGE", "artifactName": "planeon.provider.decision-sklearn", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "license": {"spdx": "Apache-2.0", "redistributable": false, "sourceAvailable": true, "releaseAdmission": "BLOCKED_PENDING_UPSTREAM_LICENSE_EVIDENCE"}
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "FrameworkProviderDefinition",
+      "metadata": {"id": "provider.execution.decision-onnx", "version": "0.1.0"},
+      "spec": {
+        "displayName": "ONNX Runtime Adapter",
+        "harnessId": "execution.ml-decision",
+        "selectorGroup": "group.decision-provider",
+        "selectorCapability": "decision.provider.onnx",
+        "activatedByCapabilities": ["decision.deterministic"],
+        "costDisposition": "SELF_HOSTED_OPEN_SOURCE_NON_METERED",
+        "providerCredentialsRequired": false,
+        "externalTelemetry": false,
+        "runtimeDownloadsAllowed": false,
+        "releaseStatus": "PLANNED",
+        "installUnits": [{"id": "install.provider.execution.decision-onnx", "type": "OCI_IMAGE", "artifactName": "planeon.provider.decision-onnx", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "license": {"spdx": "Apache-2.0", "redistributable": false, "sourceAvailable": true, "releaseAdmission": "BLOCKED_PENDING_UPSTREAM_LICENSE_EVIDENCE"}
+      }
+    },
+    {
+      "apiVersion": "harness.planeon.ai/v1alpha1",
+      "kind": "FrameworkProviderDefinition",
+      "metadata": {"id": "provider.execution.decision-ortools", "version": "0.1.0"},
+      "spec": {
+        "displayName": "OR-Tools Adapter",
+        "harnessId": "execution.ml-decision",
+        "selectorGroup": "group.decision-provider",
+        "selectorCapability": "decision.provider.ortools",
+        "activatedByCapabilities": ["decision.deterministic"],
+        "costDisposition": "SELF_HOSTED_OPEN_SOURCE_NON_METERED",
+        "providerCredentialsRequired": false,
+        "externalTelemetry": false,
+        "runtimeDownloadsAllowed": false,
+        "releaseStatus": "PLANNED",
+        "installUnits": [{"id": "install.provider.execution.decision-ortools", "type": "OCI_IMAGE", "artifactName": "planeon.provider.decision-ortools", "independent": true, "digestRequiredAtRelease": true, "runtimeDownloadAllowed": false}],
+        "compatibility": {"deploymentModes": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"], "architectures": ["amd64", "arm64"], "operatingSystems": ["linux"], "kubernetesDistributions": ["upstream", "k3s", "openshift"]},
+        "license": {"spdx": "Apache-2.0", "redistributable": false, "sourceAvailable": true, "releaseAdmission": "BLOCKED_PENDING_UPSTREAM_LICENSE_EVIDENCE"}
+      }
+    }
+  ]
+}
