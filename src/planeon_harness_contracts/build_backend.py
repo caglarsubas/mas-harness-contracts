@@ -175,6 +175,7 @@ def build_wheel(
     filename = f"{NORMALIZED_NAME}-{VERSION}-py3-none-any.whl"
     files = _wheel_files()
     files.append((f"{DIST_INFO}/RECORD", _record(files)))
+    files.sort(key=lambda item: item[0])
     epoch = _source_epoch()
     with zipfile.ZipFile(destination / filename, "w", strict_timestamps=True) as archive:
         for name, data in files:
