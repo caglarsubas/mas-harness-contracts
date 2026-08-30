@@ -74,7 +74,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         if not wheel.is_file() or wheel.is_symlink() or not sdist.is_file() or sdist.is_symlink():
             raise ValueError("expected wheel and sdist are absent or linked")
-        if sorted(path.name for path in directory.iterdir() if path.is_file()) != sorted((wheel.name, sdist.name)):
+        housekeeping = directory / ".gitignore"
+        if not housekeeping.is_file() or housekeeping.is_symlink() or housekeeping.read_bytes() != b"*":
+            raise ValueError("uv dist housekeeping authority is absent or malformed")
+        if sorted(path.name for path in directory.iterdir() if path.is_file()) != sorted(
+            (".gitignore", wheel.name, sdist.name)
+        ):
             raise ValueError("dist contains an undeclared artifact")
         _verify_wheel(wheel)
         _verify_sdist(sdist)
@@ -90,4 +95,3 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
