@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "harness.planeon.ai/make-target-descriptor/v1alpha1",
+  "packetId": "CON-001",
+  "targets": [
+    {
+      "name": "build",
+      "acceptedVariables": {},
+      "argvTemplate": [
+        ["uv", "build", "--offline", "--frozen", "--no-sync"]
+      ]
+    },
+    {
+      "name": "help",
+      "acceptedVariables": {},
+      "argvTemplate": [
+        ["python3", "ci/bootstrap_checks.py", "help"]
+      ]
+    },
+    {
+      "name": "prefetch",
+      "acceptedVariables": {},
+      "argvTemplate": [
+        ["python3", "ci/bootstrap_checks.py", "prefetch"]
+      ]
+    },
+    {
+      "name": "test",
+      "acceptedVariables": {},
+      "argvTemplate": [
+        ["uv", "run", "--offline", "--frozen", "--no-sync", "python", "-m", "unittest", "discover", "-s", "tests", "-t", ".", "-p", "test_*.py"]
+      ]
+    },
+    {
+      "name": "typecheck",
+      "acceptedVariables": {},
+      "argvTemplate": [
+        ["uv", "run", "--offline", "--frozen", "--no-sync", "python", "ci/typecheck.py", "src/planeon_harness_contracts"]
+      ]
+    },
+    {
+      "name": "zero-bill",
+      "acceptedVariables": {},
+      "argvTemplate": [
+        ["uv", "run", "--offline", "--frozen", "--no-sync", "python", "-m", "unittest", "discover", "-s", "tests", "-t", ".", "-p", "test_*.py"],
+        ["uv", "run", "--offline", "--frozen", "--no-sync", "python", "ci/typecheck.py", "src/planeon_harness_contracts"],
+        ["uv", "run", "--offline", "--frozen", "--no-sync", "harnessctl", "--self-check"],
+        ["uv", "run", "--offline", "--frozen", "--no-sync", "python", "ci/validate_porting.py", "PORTING.yaml"],
+        ["uv", "run", "--offline", "--frozen", "--no-sync", "python", "ci/zero_bill_scan.py", "."],
+        ["uv", "run", "--offline", "--frozen", "--no-sync", "python", "ci/verify_artifacts.py", "dist"]
+      ]
+    }
+  ]
+}

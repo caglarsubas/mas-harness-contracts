@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+"""Repository-local console bootstrap used by uv --no-sync executions."""
+
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+SOURCE = ROOT / "src"
+sys.path.insert(0, str(SOURCE))
+
+from planeon_harness_contracts.cli import main  # noqa: E402
+
+raise SystemExit(main())
+

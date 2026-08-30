@@ -1,0 +1,5 @@
+schemaVersion: harness.planeon.ai/porting-record/v1alpha1
+destinationRepository: mas-harness-contracts
+# NO_AUTHORIZATION: no source path, mapping, copied file, or applied port exists.
+records: []
+
