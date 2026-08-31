@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/runtime/common.schema.json",
+  "$defs": {
+    "apiVersion": {"const": "harness.planeon.ai/v1alpha1"},
+    "stableId": {"$ref": "../composition/common.schema.json#/$defs/stableId"},
+    "semver": {"$ref": "../composition/common.schema.json#/$defs/semver"},
+    "sha256": {"$ref": "../composition/common.schema.json#/$defs/sha256"},
+    "timestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": {"$ref": "#/$defs/stableId"},
+        "version": {"$ref": "#/$defs/semver"}
+      }
+    },
+    "base64urlPublicKey": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048]$"
+    },
+    "base64urlSignature": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{85}[AQgw]$"
+    },
+    "nonce": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{21}[AQgw]$"
+    },
+    "keyPurpose": {
+      "enum": ["RUNTIME_ADMISSION", "RUNTIME_RECEIPT", "TRUST_BUNDLE"]
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile", "algorithm", "purpose", "keyId", "signedMessageDigest", "value"],
+      "properties": {
+        "profile": {"const": "RFC8785_JCS_ED25519_V1"},
+        "algorithm": {"const": "ED25519"},
+        "purpose": {"$ref": "#/$defs/keyPurpose"},
+        "keyId": {"$ref": "#/$defs/stableId"},
+        "signedMessageDigest": {"$ref": "#/$defs/sha256"},
+        "value": {"$ref": "#/$defs/base64urlSignature"}
+      }
+    },
+    "denialReason": {
+      "enum": [
+        "MALFORMED",
+        "SIGNATURE_INVALID",
+        "SIGNER_UNKNOWN",
+        "SIGNER_NOT_ACTIVE",
+        "SIGNER_REVOKED",
+        "KEY_PURPOSE_MISMATCH",
+        "ENVELOPE_NOT_YET_VALID",
+        "ENVELOPE_EXPIRED",
+        "TENANT_MISMATCH",
+        "REPLAY_DETECTED",
+        "IDEMPOTENCY_CONFLICT",
+        "BUDGET_EXCEEDED",
+        "DIGEST_MISMATCH"
+      ]
+    },
+    "budgetLimits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["maxConcurrentTasks", "maxTaskSeconds", "maxRetries", "maxToolCalls", "maxModelTokens"],
+      "properties": {
+        "maxConcurrentTasks": {"type": "integer", "minimum": 1, "maximum": 1024},
+        "maxTaskSeconds": {"type": "integer", "minimum": 1, "maximum": 86400},
+        "maxRetries": {"type": "integer", "minimum": 0, "maximum": 100},
+        "maxToolCalls": {"type": "integer", "minimum": 0, "maximum": 10000},
+        "maxModelTokens": {"type": "integer", "minimum": 0, "maximum": 10000000}
+      }
+    },
+    "budgetObserved": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["concurrentTasks", "taskSeconds", "retries", "toolCalls", "modelTokens"],
+      "properties": {
+        "concurrentTasks": {"type": "integer", "minimum": 0, "maximum": 1025},
+        "taskSeconds": {"type": "integer", "minimum": 0, "maximum": 86401},
+        "retries": {"type": "integer", "minimum": 0, "maximum": 101},
+        "toolCalls": {"type": "integer", "minimum": 0, "maximum": 10001},
+        "modelTokens": {"type": "integer", "minimum": 0, "maximum": 10000001}
+      }
+    }
+  }
+}

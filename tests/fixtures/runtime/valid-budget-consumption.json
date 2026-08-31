@@ -1,0 +1,27 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "BudgetConsumption",
+  "metadata": {"id": "runtime.budget-consumption-001", "version": "1.0.0"},
+  "spec": {
+    "organizationId": "acme.example",
+    "budgetDigest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+    "admissionDigest": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+    "limits": {
+      "maxConcurrentTasks": 4,
+      "maxTaskSeconds": 300,
+      "maxRetries": 2,
+      "maxToolCalls": 20,
+      "maxModelTokens": 4096
+    },
+    "observed": {
+      "concurrentTasks": 4,
+      "taskSeconds": 300,
+      "retries": 2,
+      "toolCalls": 20,
+      "modelTokens": 4096
+    },
+    "decision": "WITHIN_BUDGET",
+    "exceededDimensions": [],
+    "recordedAt": "2030-02-01T00:00:01Z"
+  }
+}

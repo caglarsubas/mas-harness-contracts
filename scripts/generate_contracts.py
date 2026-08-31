@@ -47,6 +47,7 @@ def _json_contract_paths() -> tuple[Path, ...]:
         ROOT / "schemas" / "v1alpha1" / "lifecycle",
         ROOT / "schemas" / "v1alpha1" / "status",
         ROOT / "schemas" / "v1alpha1" / "events",
+        ROOT / "schemas" / "v1alpha1" / "runtime",
         ROOT / "openapi",
         ROOT / "asyncapi",
     )
@@ -93,7 +94,7 @@ def expected_outputs() -> dict[Path, bytes]:
         {
             "schemaVersion": "harness.planeon.ai/contract-index/v1alpha1",
             "canonicalization": "SORTED_UTF8_JSON_V1",
-            "packetId": "CON-005",
+            "packetId": "CON-007",
             "entries": entries,
         }
     )
@@ -121,7 +122,14 @@ def expected_outputs() -> dict[Path, bytes]:
         Path("src/planeon_harness_contracts/validation.py"): "COMMAND_DISPATCH",
         Path("docs/lifecycle.md"): "DOCUMENTATION",
         Path("docs/migrations/data-harness-v1.md"): "MIGRATION_GUIDE",
+        Path("docs/runtime-admission.md"): "DOCUMENTATION",
         Path("docs/status-projections.md"): "DOCUMENTATION",
+        Path("tests/fixtures/runtime/interoperability-vectors.json"): "INTEROPERABILITY_VECTOR",
+        Path("tests/fixtures/runtime/valid-admission-envelope.json"): "INTEROPERABILITY_VECTOR",
+        Path("tests/fixtures/runtime/valid-admission-receipt.json"): "INTEROPERABILITY_VECTOR",
+        Path("tests/fixtures/runtime/valid-budget-consumption.json"): "INTEROPERABILITY_VECTOR",
+        Path("tests/fixtures/runtime/valid-replay-record.json"): "INTEROPERABILITY_VECTOR",
+        Path("tests/fixtures/runtime/valid-trust-bundle.json"): "INTEROPERABILITY_VECTOR",
     }
     for path, role in release_sources.items():
         absolute = ROOT / path
@@ -137,6 +145,7 @@ def expected_outputs() -> dict[Path, bytes]:
             "apiVersion": "harness.planeon.ai/v1alpha1",
             "releaseVersion": "0.1.0",
             "packetId": "CON-006",
+            "extensionPacketIds": ["CON-007"],
             "canonicalization": "SORTED_UTF8_JSON_V1",
             "artifactState": "SOURCE_CONTRACT_ONLY",
             "runtimeEvidenceIncluded": False,
