@@ -1,0 +1,54 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "HarnessStatusProjection",
+  "metadata": {"id": "status.runtime-infrastructure", "version": "0.1.0"},
+  "binding": {
+    "organizationId": "org.acme",
+    "profileDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "bundleDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "releaseDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "observedGeneration": 3,
+    "projectedAt": "2026-08-31T05:00:00Z",
+    "freshUntil": "2026-08-31T05:05:00Z",
+    "sourceCursors": [{"sourceId": "source.operator", "cursor": "generation:3", "observedAt": "2026-08-31T05:00:00Z", "state": "CURRENT"}],
+    "projectionSchemaVersion": "harness.planeon.ai/status-projection/v1alpha1"
+  },
+  "spec": {
+    "harnessId": "runtime.infrastructure",
+    "planeId": "runtime",
+    "purposeCode": "INFRASTRUCTURE_RUNTIME",
+    "ownerRef": "owner.platform-team",
+    "selectionState": "SELECTED",
+    "installationState": "READY",
+    "aggregateState": "READY",
+    "desiredGeneration": 3,
+    "observedGeneration": 3,
+    "currentReleaseDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "lastGoodReleaseDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "selectedModuleIds": ["module.runtime.infrastructure.core"],
+    "selectedProviderIds": ["provider.runtime.infrastructure.k3s"],
+    "axes": [
+      {"axis": "SOURCE", "required": true, "state": "PASS", "underlyingState": null, "observedAt": "2026-08-31T05:00:00Z", "evidenceRefs": [], "waiver": null, "applicability": null},
+      {"axis": "CONTRACT_UNIT", "required": true, "state": "PASS", "underlyingState": null, "observedAt": "2026-08-31T05:00:00Z", "evidenceRefs": [], "waiver": null, "applicability": null},
+      {"axis": "PR_CHECK", "required": true, "state": "PASS", "underlyingState": null, "observedAt": "2026-08-31T05:00:00Z", "evidenceRefs": [], "waiver": null, "applicability": null},
+      {"axis": "MERGE", "required": true, "state": "PASS", "underlyingState": null, "observedAt": "2026-08-31T05:00:00Z", "evidenceRefs": [], "waiver": null, "applicability": null},
+      {"axis": "ARTIFACT_SBOM", "required": true, "state": "PASS", "underlyingState": null, "observedAt": "2026-08-31T05:00:00Z", "evidenceRefs": [], "waiver": null, "applicability": null},
+      {"axis": "SIGNATURE_RELEASE", "required": true, "state": "PASS", "underlyingState": null, "observedAt": "2026-08-31T05:00:00Z", "evidenceRefs": [], "waiver": null, "applicability": null},
+      {"axis": "DEPLOYMENT", "required": true, "state": "PASS", "underlyingState": null, "observedAt": "2026-08-31T05:00:00Z", "evidenceRefs": [], "waiver": null, "applicability": null},
+      {"axis": "RUNTIME", "required": true, "state": "PASS", "underlyingState": null, "observedAt": "2026-08-31T05:00:00Z", "evidenceRefs": [], "waiver": null, "applicability": null},
+      {"axis": "SECURITY", "required": true, "state": "PASS", "underlyingState": null, "observedAt": "2026-08-31T05:00:00Z", "evidenceRefs": [], "waiver": null, "applicability": null},
+      {"axis": "ASSURANCE", "required": true, "state": "PASS", "underlyingState": null, "observedAt": "2026-08-31T05:00:00Z", "evidenceRefs": [], "waiver": null, "applicability": null},
+      {"axis": "TENANT_ACCEPTANCE", "required": true, "state": "PASS", "underlyingState": null, "observedAt": "2026-08-31T05:00:00Z", "evidenceRefs": [], "waiver": null, "applicability": null}
+    ],
+    "freshness": {
+      "state": "CURRENT",
+      "projectedAt": "2026-08-31T05:00:00Z",
+      "freshUntil": "2026-08-31T05:05:00Z",
+      "sourceCursors": [{"sourceId": "source.operator", "cursor": "generation:3", "observedAt": "2026-08-31T05:00:00Z", "state": "CURRENT"}]
+    },
+    "dependencies": [],
+    "findings": [],
+    "reasonCode": "ALL_REQUIRED_EVIDENCE_PASSED",
+    "permittedActions": ["NONE"]
+  }
+}

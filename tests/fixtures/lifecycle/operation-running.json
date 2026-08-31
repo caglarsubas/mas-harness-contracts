@@ -1,0 +1,19 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "Operation",
+  "metadata": {"id": "operation.compile-001", "version": "0.1.0"},
+  "spec": {
+    "organizationId": "org.acme",
+    "operationType": "COMPILE_PROFILE",
+    "state": "RUNNING",
+    "subject": {"kind": "resource.profile", "id": "profile.foundation-001", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+    "actor": {"type": "WORKLOAD", "id": "workload.profile-compiler"},
+    "idempotencyKeyDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "requestedAt": "2026-08-31T05:00:00Z",
+    "updatedAt": "2026-08-31T05:00:01Z",
+    "observedVersion": 2,
+    "cancellable": true,
+    "resultRefs": [],
+    "failure": null
+  }
+}

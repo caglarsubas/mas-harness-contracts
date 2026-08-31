@@ -1,0 +1,17 @@
+{
+  "openapi": "3.1.1",
+  "info": {"title": "Planeon Harness Trust Evidence API", "version": "0.1.0", "license": {"name": "Apache-2.0"}},
+  "jsonSchemaDialect": "https://json-schema.org/draft/2020-12/schema",
+  "paths": {
+    "/api/v1alpha1/evidence/{evidenceId}": {
+      "get": {
+        "operationId": "getEvidenceRecord",
+        "summary": "Read immutable evidence metadata and digest provenance",
+        "security": [{"workloadIdentity": []}],
+        "parameters": [{"name": "evidenceId", "in": "path", "required": true, "schema": {"type": "string", "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)+$"}}],
+        "responses": {"200": {"description": "Evidence record", "content": {"application/json": {"schema": {"$ref": "../schemas/v1alpha1/lifecycle/evidence-record.schema.json"}}}}, "404": {"description": "Evidence not found"}}
+      }
+    }
+  },
+  "components": {"securitySchemes": {"workloadIdentity": {"type": "mutualTLS"}}}
+}

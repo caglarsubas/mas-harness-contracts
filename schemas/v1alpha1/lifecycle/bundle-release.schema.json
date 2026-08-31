@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/lifecycle/bundle-release.schema.json",
+  "title": "BundleRelease",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"$ref": "common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "BundleRelease"},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["organizationId", "state", "profileDigest", "bundleDigest", "releaseDigest", "manifestDigest", "signatureDigest", "supersedesReleaseDigest", "reasonCode"],
+      "properties": {
+        "organizationId": {"$ref": "common.schema.json#/$defs/stableId"},
+        "state": {"enum": ["DRAFT", "RESOLVED", "BUILT", "SCANNED", "AWAITING_SIGNATURE", "SIGNED", "RELEASED", "FAILED", "SUPERSEDED", "REVOKED"]},
+        "profileDigest": {"$ref": "common.schema.json#/$defs/sha256"},
+        "bundleDigest": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/sha256"}]},
+        "releaseDigest": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/sha256"}]},
+        "manifestDigest": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/sha256"}]},
+        "signatureDigest": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/sha256"}]},
+        "supersedesReleaseDigest": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/sha256"}]},
+        "reasonCode": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/reasonCode"}]}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"state": {"enum": ["SIGNED", "RELEASED", "SUPERSEDED", "REVOKED"]}}, "required": ["state"]},
+          "then": {"properties": {"bundleDigest": {"$ref": "common.schema.json#/$defs/sha256"}, "releaseDigest": {"$ref": "common.schema.json#/$defs/sha256"}, "manifestDigest": {"$ref": "common.schema.json#/$defs/sha256"}, "signatureDigest": {"$ref": "common.schema.json#/$defs/sha256"}}}
+        }
+      ]
+    }
+  }
+}

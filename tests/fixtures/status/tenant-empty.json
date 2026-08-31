@@ -1,0 +1,19 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "TenantHarnessOverview",
+  "metadata": {"id": "overview.org-empty", "version": "0.1.0"},
+  "binding": null,
+  "spec": {
+    "organizationId": "org.empty",
+    "displayName": "Empty Organization",
+    "deploymentMode": "self-managed",
+    "isolationBoundary": "DEDICATED_NAMESPACE",
+    "empty": true,
+    "aggregateState": "EMPTY",
+    "freshness": null,
+    "stateCounts": [],
+    "priorityFindings": [],
+    "planes": [],
+    "harnesses": []
+  }
+}

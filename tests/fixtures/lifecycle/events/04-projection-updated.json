@@ -1,0 +1,26 @@
+{
+  "specversion": "1.0",
+  "id": "44444444-4444-4444-8444-444444444444",
+  "source": "urn:planeon:harness:control.projector",
+  "type": "harness.status.projection.updated.v1",
+  "subject": "overview.org-acme",
+  "time": "2026-08-31T05:02:00Z",
+  "datacontenttype": "application/json",
+  "dataschema": "https://harness.planeon.ai/schemas/v1alpha1/events/harness-cloud-event.schema.json",
+  "organizationid": "org.acme",
+  "partitionkey": "org.acme",
+  "sequence": 1,
+  "data": {
+    "schemaVersion": "harness.planeon.ai/event-data/v1alpha1",
+    "aggregateKind": "TenantHarnessOverview",
+    "aggregateId": "overview.org-acme",
+    "aggregateVersion": 7,
+    "actor": {"type": "WORKLOAD", "id": "workload.status-projector"},
+    "correlationId": "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+    "causationId": "33333333-3333-4333-8333-333333333333",
+    "reasonCode": "PROJECTION_REFRESHED",
+    "transition": null,
+    "resourceRefs": [{"kind": "resource.projection", "id": "overview.org-acme", "digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"}],
+    "evidenceRefs": []
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/lifecycle/harness-installation.schema.json",
+  "title": "HarnessInstallation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"$ref": "common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "HarnessInstallation"},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding", "harnessId", "state", "desiredGeneration", "observedGeneration", "currentReleaseDigest", "lastGoodReleaseDigest", "reasonCode", "lastTransitionAt", "evidenceRefs"],
+      "properties": {
+        "binding": {"$ref": "common.schema.json#/$defs/immutableBinding"},
+        "harnessId": {"$ref": "common.schema.json#/$defs/stableId"},
+        "state": {"enum": ["ABSENT", "PENDING", "PREFLIGHT", "VERIFYING", "APPLYING", "HEALTH_CHECKING", "READY", "BLOCKED", "DEGRADED", "FAILED", "UPGRADING", "ROLLING_BACK", "UNINSTALLING", "REMOVED", "RETIRED", "REVOKED"]},
+        "desiredGeneration": {"type": "integer", "minimum": 1},
+        "observedGeneration": {"type": "integer", "minimum": 0},
+        "currentReleaseDigest": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/sha256"}]},
+        "lastGoodReleaseDigest": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/sha256"}]},
+        "reasonCode": {"$ref": "common.schema.json#/$defs/reasonCode"},
+        "lastTransitionAt": {"$ref": "common.schema.json#/$defs/timestamp"},
+        "evidenceRefs": {"type": "array", "uniqueItems": true, "items": {"$ref": "common.schema.json#/$defs/resourceRef"}}
+      }
+    }
+  }
+}
