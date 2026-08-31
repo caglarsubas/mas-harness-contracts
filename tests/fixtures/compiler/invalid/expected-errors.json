@@ -1,0 +1,9 @@
+{
+  "ambiguous-provider": "AMBIGUOUS_PROVIDER",
+  "environment-fact-as-demand": "INVALID_CAPABILITY_ROLE",
+  "inactive-selector": "INVALID_COMBINATION",
+  "incomplete-prerequisites": "PREREQUISITE_NOT_ACCEPTED",
+  "local-judge-without-model-class": "NEEDS_INPUT",
+  "missing-selector": "NEEDS_INPUT",
+  "provider-incompatible": "PROVIDER_UNAVAILABLE"
+}
