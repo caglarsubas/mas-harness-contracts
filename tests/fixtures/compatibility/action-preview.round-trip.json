@@ -1,0 +1,29 @@
+{
+  "caseId": "action-preview-round-trip",
+  "contract": "action-preview",
+  "expected": {
+    "intentionalLossCodes": [
+      "CANONICAL_COMPATIBILITY_METADATA_NOT_EMITTED_TO_LEGACY",
+      "CANONICAL_STATE_VIEW_NOT_EMITTED_TO_LEGACY"
+    ],
+    "legacyRoundTrip": "EXACT",
+    "warningCodes": [
+      "LEGACY_DATA_HARNESS_V1_DEPRECATED",
+      "MIGRATE_TO_HARNESS_PLANEON_AI_V1ALPHA1"
+    ]
+  },
+  "legacy": {
+    "actionDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "actionId": "fixture-actionid",
+    "allowed": false,
+    "approvalRequired": false,
+    "createdAt": "2026-01-01T00:00:00Z",
+    "effects": [],
+    "expiresAt": "2026-01-01T00:00:00Z",
+    "policyDecisionId": "fixture-policydecisionid",
+    "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "previewId": "fixture-previewid",
+    "schemaVersion": "data.harness/v1"
+  },
+  "schemaVersion": "harness.planeon.ai/data-harness-v1-fixture/v1"
+}

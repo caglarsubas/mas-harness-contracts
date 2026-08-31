@@ -1,0 +1,24 @@
+{
+  "caseId": "promotion-readiness-round-trip",
+  "contract": "promotion-readiness",
+  "expected": {
+    "intentionalLossCodes": [
+      "CANONICAL_COMPATIBILITY_METADATA_NOT_EMITTED_TO_LEGACY",
+      "CANONICAL_STATE_VIEW_NOT_EMITTED_TO_LEGACY"
+    ],
+    "legacyRoundTrip": "EXACT",
+    "warningCodes": [
+      "LEGACY_DATA_HARNESS_V1_DEPRECATED",
+      "MIGRATE_TO_HARNESS_PLANEON_AI_V1ALPHA1"
+    ]
+  },
+  "legacy": {
+    "compatibility": [],
+    "evidence": [],
+    "readyForAdlcDecision": false,
+    "releaseSet": "fixture",
+    "revision": "fixture",
+    "schemaVersion": "data.harness/v1"
+  },
+  "schemaVersion": "harness.planeon.ai/data-harness-v1-fixture/v1"
+}

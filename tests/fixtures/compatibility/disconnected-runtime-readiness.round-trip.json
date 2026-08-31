@@ -1,0 +1,28 @@
+{
+  "caseId": "disconnected-runtime-readiness-round-trip",
+  "contract": "disconnected-runtime-readiness",
+  "expected": {
+    "intentionalLossCodes": [
+      "CANONICAL_COMPATIBILITY_METADATA_NOT_EMITTED_TO_LEGACY",
+      "CANONICAL_STATE_VIEW_NOT_EMITTED_TO_LEGACY"
+    ],
+    "legacyRoundTrip": "EXACT",
+    "warningCodes": [
+      "LEGACY_DATA_HARNESS_V1_DEPRECATED",
+      "MIGRATE_TO_HARNESS_PLANEON_AI_V1ALPHA1"
+    ]
+  },
+  "legacy": {
+    "artifactIntegrity": false,
+    "blockers": [],
+    "bundleDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "deployed": false,
+    "imageDigestsResolved": false,
+    "mirrorVerified": false,
+    "schemaVersion": "data.harness/v1",
+    "stakeholderAccepted": false,
+    "wheelhouseComplete": false,
+    "zeroEgressRuntimeVerified": false
+  },
+  "schemaVersion": "harness.planeon.ai/data-harness-v1-fixture/v1"
+}

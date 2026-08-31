@@ -1,0 +1,23 @@
+{
+  "caseId": "cross-plane-evidence-set-round-trip",
+  "contract": "cross-plane-evidence-set",
+  "expected": {
+    "intentionalLossCodes": [
+      "CANONICAL_COMPATIBILITY_METADATA_NOT_EMITTED_TO_LEGACY",
+      "CANONICAL_STATE_VIEW_NOT_EMITTED_TO_LEGACY"
+    ],
+    "legacyRoundTrip": "EXACT",
+    "warningCodes": [
+      "LEGACY_DATA_HARNESS_V1_DEPRECATED",
+      "MIGRATE_TO_HARNESS_PLANEON_AI_V1ALPHA1"
+    ]
+  },
+  "legacy": {
+    "combinedRuntimeAccepted": false,
+    "components": [],
+    "generatedAt": "2026-01-01T00:00:00Z",
+    "releaseSet": "fixture",
+    "schemaVersion": "data.harness/v1"
+  },
+  "schemaVersion": "harness.planeon.ai/data-harness-v1-fixture/v1"
+}

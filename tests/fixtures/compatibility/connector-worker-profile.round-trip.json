@@ -1,0 +1,28 @@
+{
+  "caseId": "connector-worker-profile-round-trip",
+  "contract": "connector-worker-profile",
+  "expected": {
+    "intentionalLossCodes": [
+      "CANONICAL_COMPATIBILITY_METADATA_NOT_EMITTED_TO_LEGACY",
+      "CANONICAL_STATE_VIEW_NOT_EMITTED_TO_LEGACY"
+    ],
+    "legacyRoundTrip": "EXACT",
+    "warningCodes": [
+      "LEGACY_DATA_HARNESS_V1_DEPRECATED",
+      "MIGRATE_TO_HARNESS_PLANEON_AI_V1ALPHA1"
+    ]
+  },
+  "legacy": {
+    "certificationStatus": "process-isolation-only",
+    "connectorId": "fixture-connectorid",
+    "credentialReferences": [],
+    "entrypointDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "imageDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "limits": {},
+    "networkMode": "host",
+    "runtimeMode": "process",
+    "schemaVersion": "data.harness/v1",
+    "workerId": "fixture-workerid"
+  },
+  "schemaVersion": "harness.planeon.ai/data-harness-v1-fixture/v1"
+}

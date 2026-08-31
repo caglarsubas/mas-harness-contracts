@@ -1,0 +1,29 @@
+{
+  "caseId": "semantic-assertion-round-trip",
+  "contract": "semantic-assertion",
+  "expected": {
+    "intentionalLossCodes": [
+      "CANONICAL_COMPATIBILITY_METADATA_NOT_EMITTED_TO_LEGACY",
+      "CANONICAL_STATE_VIEW_NOT_EMITTED_TO_LEGACY"
+    ],
+    "legacyRoundTrip": "EXACT",
+    "warningCodes": [
+      "LEGACY_DATA_HARNESS_V1_DEPRECATED",
+      "MIGRATE_TO_HARNESS_PLANEON_AI_V1ALPHA1"
+    ]
+  },
+  "legacy": {
+    "assertedAt": "2026-01-01T00:00:00Z",
+    "assertionId": "fixture-assertionid",
+    "confidence": 0.5,
+    "kind": "SemanticAssertion",
+    "lineage": [],
+    "objectId": "fixture-objectid",
+    "policyDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "predicate": "same_as",
+    "schemaVersion": "data.harness/v1",
+    "subjectId": "fixture-subjectid",
+    "validFrom": "2026-01-01T00:00:00Z"
+  },
+  "schemaVersion": "harness.planeon.ai/data-harness-v1-fixture/v1"
+}

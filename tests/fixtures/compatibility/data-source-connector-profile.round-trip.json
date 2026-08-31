@@ -1,0 +1,29 @@
+{
+  "caseId": "data-source-connector-profile-round-trip",
+  "contract": "data-source-connector-profile",
+  "expected": {
+    "intentionalLossCodes": [
+      "CANONICAL_COMPATIBILITY_METADATA_NOT_EMITTED_TO_LEGACY",
+      "CANONICAL_STATE_VIEW_NOT_EMITTED_TO_LEGACY"
+    ],
+    "legacyRoundTrip": "EXACT",
+    "warningCodes": [
+      "LEGACY_DATA_HARNESS_V1_DEPRECATED",
+      "MIGRATE_TO_HARNESS_PLANEON_AI_V1ALPHA1"
+    ]
+  },
+  "legacy": {
+    "authMethods": [],
+    "capabilities": [],
+    "connectorId": "fixture-connectorid",
+    "consistency": {},
+    "dataModels": [],
+    "kind": "DataSourceConnectorProfile",
+    "limits": {},
+    "runtimeMode": "process",
+    "schemaVersion": "data.harness/v1",
+    "sdkApi": "harness.connector/v1",
+    "version": "1.0.0"
+  },
+  "schemaVersion": "harness.planeon.ai/data-harness-v1-fixture/v1"
+}

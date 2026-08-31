@@ -16,6 +16,10 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from planeon_harness_contracts.canonical import canonical_json_bytes  # noqa: E402
+from planeon_harness_contracts.compatibility_data_harness_v1 import (  # noqa: E402
+    deprecation_document,
+    mapping_document,
+)
 from planeon_harness_contracts.state_machine import (  # noqa: E402
     generated_lifecycle_contract,
     generated_status_contract,
@@ -25,6 +29,10 @@ GENERATED_TARGETS = (
     Path("generated/lifecycle-transitions.json"),
     Path("generated/status-semantics.json"),
     Path("generated/contract-index.json"),
+)
+COMPATIBILITY_TARGETS = (
+    Path("compatibility/data-harness-v1/mappings.json"),
+    Path("compatibility/data-harness-v1/deprecation.json"),
 )
 RELEASE_MANIFEST = Path("contracts/release-manifest.json")
 
@@ -70,6 +78,8 @@ def expected_outputs() -> dict[Path, bytes]:
     outputs: dict[Path, bytes] = {
         GENERATED_TARGETS[0]: canonical_json_bytes(generated_lifecycle_contract()),
         GENERATED_TARGETS[1]: canonical_json_bytes(generated_status_contract()),
+        COMPATIBILITY_TARGETS[0]: canonical_json_bytes(mapping_document()),
+        COMPATIBILITY_TARGETS[1]: canonical_json_bytes(deprecation_document()),
     }
     entries: list[dict[str, Any]] = []
     for path in _json_contract_paths():
@@ -95,11 +105,22 @@ def expected_outputs() -> dict[Path, bytes]:
             "role": "GENERATED_AUTHORITY",
         },
     ]
+    for path in COMPATIBILITY_TARGETS:
+        release_entries.append(
+            {
+                "path": path.as_posix(),
+                "sha256": _sha256(outputs[path]),
+                "role": "PUBLIC_COMPATIBILITY_CONTRACT",
+            }
+        )
     release_sources = {
+        Path("src/planeon_harness_contracts/compatibility_data_harness_v1.py"): "MODEL_IMPLEMENTATION",
+        Path("src/planeon_harness_contracts/commands/compatibility.json"): "COMMAND_REGISTRATION",
         Path("src/planeon_harness_contracts/events.py"): "EVENT_VALIDATOR",
         Path("src/planeon_harness_contracts/state_machine.py"): "MODEL_IMPLEMENTATION",
         Path("src/planeon_harness_contracts/validation.py"): "COMMAND_DISPATCH",
         Path("docs/lifecycle.md"): "DOCUMENTATION",
+        Path("docs/migrations/data-harness-v1.md"): "MIGRATION_GUIDE",
         Path("docs/status-projections.md"): "DOCUMENTATION",
     }
     for path, role in release_sources.items():
@@ -115,7 +136,7 @@ def expected_outputs() -> dict[Path, bytes]:
             "schemaVersion": "harness.planeon.ai/contract-release-manifest/v1alpha1",
             "apiVersion": "harness.planeon.ai/v1alpha1",
             "releaseVersion": "0.1.0",
-            "packetId": "CON-005",
+            "packetId": "CON-006",
             "canonicalization": "SORTED_UTF8_JSON_V1",
             "artifactState": "SOURCE_CONTRACT_ONLY",
             "runtimeEvidenceIncluded": False,
@@ -137,12 +158,23 @@ def _check(outputs: dict[Path, bytes]) -> None:
     actual = {path.relative_to(ROOT) for path in generated.iterdir() if path.is_file()}
     if actual != set(GENERATED_TARGETS):
         raise ValueError("generated directory contains an undeclared output")
+    compatibility = ROOT / "compatibility" / "data-harness-v1"
+    if not compatibility.is_dir() or compatibility.is_symlink():
+        raise ValueError("compatibility output directory is missing or linked")
+    compatibility_entries = tuple(compatibility.iterdir())
+    if any(path.is_symlink() or not path.is_file() for path in compatibility_entries):
+        raise ValueError("compatibility directory contains a non-regular output")
+    actual_compatibility = {path.relative_to(ROOT) for path in compatibility_entries}
+    if actual_compatibility != set(COMPATIBILITY_TARGETS):
+        raise ValueError("compatibility directory contains an undeclared output")
 
 
 def _write(outputs: dict[Path, bytes]) -> None:
     for path, content in outputs.items():
         absolute = ROOT / path
         absolute.parent.mkdir(parents=True, exist_ok=True)
+        if absolute.is_file() and not absolute.is_symlink() and absolute.read_bytes() == content:
+            continue
         absolute.write_bytes(content)
 
 
