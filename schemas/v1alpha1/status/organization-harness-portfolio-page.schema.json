@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/status/organization-harness-portfolio-page.schema.json",
+  "title": "OrganizationHarnessPortfolioPage",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"$ref": "common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "OrganizationHarnessPortfolioPage"},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scope", "projectionSchemaVersion", "limit", "nextCursor", "items"],
+      "properties": {
+        "scope": {"const": "PLATFORM_OPERATOR"},
+        "projectionSchemaVersion": {"const": "harness.planeon.ai/status-projection/v1alpha1"},
+        "limit": {"type": "integer", "minimum": 1, "maximum": 200},
+        "nextCursor": {"oneOf": [{"type": "null"}, {"type": "string", "minLength": 1, "maxLength": 512, "pattern": "^[A-Za-z0-9._:-]+$"}]},
+        "items": {
+          "type": "array",
+          "maxItems": 200,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["binding", "displayName", "deploymentMode", "aggregateState", "freshnessState", "selectedCount", "blockerCount"],
+            "properties": {
+              "binding": {"$ref": "common.schema.json#/$defs/projectionBinding"},
+              "displayName": {"type": "string", "minLength": 1, "maxLength": 160},
+              "deploymentMode": {"enum": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"]},
+              "aggregateState": {"$ref": "common.schema.json#/$defs/aggregateState"},
+              "freshnessState": {"$ref": "common.schema.json#/$defs/freshnessState"},
+              "selectedCount": {"type": "integer", "minimum": 0, "maximum": 16},
+              "blockerCount": {"type": "integer", "minimum": 0}
+            }
+          }
+        }
+      }
+    }
+  }
+}

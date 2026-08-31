@@ -1,0 +1,22 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "HarnessInstallation",
+  "metadata": {"id": "installation.runtime-infrastructure", "version": "0.1.0"},
+  "spec": {
+    "binding": {
+      "organizationId": "org.acme",
+      "profileDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "bundleDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "releaseDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    "harnessId": "runtime.infrastructure",
+    "state": "READY",
+    "desiredGeneration": 3,
+    "observedGeneration": 3,
+    "currentReleaseDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "lastGoodReleaseDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "reasonCode": "HEALTH_CHECK_PASSED",
+    "lastTransitionAt": "2026-08-31T05:00:00Z",
+    "evidenceRefs": [{"kind": "resource.evidence", "id": "evidence.runtime-001", "digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"}]
+  }
+}

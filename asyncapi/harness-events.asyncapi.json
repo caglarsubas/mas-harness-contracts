@@ -1,0 +1,38 @@
+{
+  "asyncapi": "3.0.0",
+  "info": {
+    "title": "Planeon Harness Lifecycle Events",
+    "version": "0.1.0",
+    "description": "Broker-neutral, tenant-partitioned CloudEvents 1.0 contracts. No transport or hosted broker is selected by this document.",
+    "license": {"name": "Apache-2.0"}
+  },
+  "defaultContentType": "application/json",
+  "channels": {
+    "operationStateChanged": {"address": "harness.operation.state.changed.v1", "messages": {"event": {"$ref": "#/components/messages/HarnessCloudEvent"}}},
+    "approvalStateChanged": {"address": "harness.approval.state.changed.v1", "messages": {"event": {"$ref": "#/components/messages/HarnessCloudEvent"}}},
+    "bundleReleaseStateChanged": {"address": "harness.bundle-release.state.changed.v1", "messages": {"event": {"$ref": "#/components/messages/HarnessCloudEvent"}}},
+    "installationStateChanged": {"address": "harness.installation.state.changed.v1", "messages": {"event": {"$ref": "#/components/messages/HarnessCloudEvent"}}},
+    "evidenceStateChanged": {"address": "harness.evidence.state.changed.v1", "messages": {"event": {"$ref": "#/components/messages/HarnessCloudEvent"}}},
+    "policyBundleStateChanged": {"address": "harness.policy-bundle.state.changed.v1", "messages": {"event": {"$ref": "#/components/messages/HarnessCloudEvent"}}},
+    "statusProjectionUpdated": {"address": "harness.status.projection.updated.v1", "messages": {"event": {"$ref": "#/components/messages/HarnessCloudEvent"}}}
+  },
+  "operations": {
+    "receiveOperationStateChanged": {"action": "receive", "channel": {"$ref": "#/channels/operationStateChanged"}},
+    "receiveApprovalStateChanged": {"action": "receive", "channel": {"$ref": "#/channels/approvalStateChanged"}},
+    "receiveBundleReleaseStateChanged": {"action": "receive", "channel": {"$ref": "#/channels/bundleReleaseStateChanged"}},
+    "receiveInstallationStateChanged": {"action": "receive", "channel": {"$ref": "#/channels/installationStateChanged"}},
+    "receiveEvidenceStateChanged": {"action": "receive", "channel": {"$ref": "#/channels/evidenceStateChanged"}},
+    "receivePolicyBundleStateChanged": {"action": "receive", "channel": {"$ref": "#/channels/policyBundleStateChanged"}},
+    "receiveStatusProjectionUpdated": {"action": "receive", "channel": {"$ref": "#/channels/statusProjectionUpdated"}}
+  },
+  "components": {
+    "messages": {
+      "HarnessCloudEvent": {
+        "name": "HarnessCloudEvent",
+        "title": "Tenant-safe lifecycle or status CloudEvent",
+        "contentType": "application/json",
+        "payload": {"$ref": "../schemas/v1alpha1/events/harness-cloud-event.schema.json"}
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "EvidenceRecord",
+  "metadata": {"id": "evidence.runtime-001", "version": "0.1.0"},
+  "spec": {
+    "organizationId": "org.acme",
+    "recordState": "VERIFIED",
+    "axis": "RUNTIME",
+    "result": "PASS",
+    "subject": {"kind": "resource.harness", "id": "runtime.infrastructure", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+    "producer": {"type": "WORKLOAD", "id": "workload.runtime-probe"},
+    "producerAuthority": "PLATFORM",
+    "evidenceDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "provenanceDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "collectedAt": "2026-08-31T05:00:00Z",
+    "validUntil": "2026-08-31T06:00:00Z",
+    "controlIds": ["control.runtime-health"],
+    "campaignGenerated": true
+  }
+}

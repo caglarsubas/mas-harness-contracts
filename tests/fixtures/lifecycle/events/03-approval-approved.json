@@ -1,0 +1,26 @@
+{
+  "specversion": "1.0",
+  "id": "33333333-3333-4333-8333-333333333333",
+  "source": "urn:planeon:harness:governance.service",
+  "type": "harness.approval.state.changed.v1",
+  "subject": "approval.profile-001",
+  "time": "2026-08-31T05:01:00Z",
+  "datacontenttype": "application/json",
+  "dataschema": "https://harness.planeon.ai/schemas/v1alpha1/events/harness-cloud-event.schema.json",
+  "organizationid": "org.acme",
+  "partitionkey": "org.acme",
+  "sequence": 1,
+  "data": {
+    "schemaVersion": "harness.planeon.ai/event-data/v1alpha1",
+    "aggregateKind": "ApprovalRequest",
+    "aggregateId": "approval.profile-001",
+    "aggregateVersion": 2,
+    "actor": {"type": "HUMAN", "id": "actor.tenant-admin"},
+    "correlationId": "cccccccc-cccc-4ccc-8ccc-cccccccccccc",
+    "causationId": null,
+    "reasonCode": "QUORUM_REACHED",
+    "transition": {"from": "PENDING", "to": "APPROVED"},
+    "resourceRefs": [{"kind": "resource.profile", "id": "profile.foundation-001", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}],
+    "evidenceRefs": [{"kind": "resource.approval", "id": "approval.profile-001", "digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"}]
+  }
+}

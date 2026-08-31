@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/status/harness-status-projection.schema.json",
+  "title": "HarnessStatusProjection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "binding", "spec"],
+  "properties": {
+    "apiVersion": {"$ref": "common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "HarnessStatusProjection"},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "binding": {"$ref": "common.schema.json#/$defs/projectionBinding"},
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["harnessId", "planeId", "purposeCode", "ownerRef", "selectionState", "installationState", "aggregateState", "desiredGeneration", "observedGeneration", "currentReleaseDigest", "lastGoodReleaseDigest", "selectedModuleIds", "selectedProviderIds", "axes", "freshness", "dependencies", "findings", "reasonCode", "permittedActions"],
+      "properties": {
+        "harnessId": {"$ref": "common.schema.json#/$defs/stableId"},
+        "planeId": {"enum": ["runtime", "knowledge", "execution", "trust"]},
+        "purposeCode": {"$ref": "common.schema.json#/$defs/reasonCode"},
+        "ownerRef": {"$ref": "common.schema.json#/$defs/stableId"},
+        "selectionState": {"$ref": "common.schema.json#/$defs/selectionState"},
+        "installationState": {"$ref": "common.schema.json#/$defs/installationState"},
+        "aggregateState": {"$ref": "common.schema.json#/$defs/aggregateState"},
+        "desiredGeneration": {"type": "integer", "minimum": 1},
+        "observedGeneration": {"type": "integer", "minimum": 0},
+        "currentReleaseDigest": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/sha256"}]},
+        "lastGoodReleaseDigest": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/sha256"}]},
+        "selectedModuleIds": {"type": "array", "uniqueItems": true, "items": {"$ref": "common.schema.json#/$defs/stableId"}},
+        "selectedProviderIds": {"type": "array", "uniqueItems": true, "items": {"$ref": "common.schema.json#/$defs/stableId"}},
+        "axes": {"type": "array", "minItems": 11, "maxItems": 11, "uniqueItems": true, "items": {"$ref": "common.schema.json#/$defs/statusAxis"}},
+        "freshness": {"$ref": "common.schema.json#/$defs/freshness"},
+        "dependencies": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["harnessId", "requirement", "state", "blocking", "reasonCode"],
+            "properties": {
+              "harnessId": {"$ref": "common.schema.json#/$defs/stableId"},
+              "requirement": {"enum": ["REQUIRED", "OPTIONAL", "PRODUCTION_GATE"]},
+              "state": {"$ref": "common.schema.json#/$defs/aggregateState"},
+              "blocking": {"type": "boolean"},
+              "reasonCode": {"$ref": "common.schema.json#/$defs/reasonCode"}
+            }
+          }
+        },
+        "findings": {"type": "array", "uniqueItems": true, "items": {"$ref": "common.schema.json#/$defs/finding"}},
+        "reasonCode": {"$ref": "common.schema.json#/$defs/reasonCode"},
+        "permittedActions": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["REQUEST_EVIDENCE", "REFRESH_PROJECTION", "REVIEW_WAIVER", "RETRY_OPERATION", "ROLLBACK", "RESOLVE_DEPENDENCY", "CONTACT_OWNER", "NONE"]}}
+      }
+    }
+  }
+}

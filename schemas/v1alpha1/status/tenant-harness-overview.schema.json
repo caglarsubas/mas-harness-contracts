@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/status/tenant-harness-overview.schema.json",
+  "title": "TenantHarnessOverview",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "binding", "spec"],
+  "properties": {
+    "apiVersion": {"$ref": "common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "TenantHarnessOverview"},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "binding": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/projectionBinding"}]},
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["organizationId", "displayName", "deploymentMode", "isolationBoundary", "empty", "aggregateState", "freshness", "stateCounts", "priorityFindings", "planes", "harnesses"],
+      "properties": {
+        "organizationId": {"$ref": "common.schema.json#/$defs/stableId"},
+        "displayName": {"type": "string", "minLength": 1, "maxLength": 160},
+        "deploymentMode": {"enum": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"]},
+        "isolationBoundary": {"enum": ["SHARED_RLS", "DEDICATED_NAMESPACE", "DEDICATED_CLUSTER", "PHYSICAL_AIR_GAP"]},
+        "empty": {"type": "boolean"},
+        "aggregateState": {"$ref": "common.schema.json#/$defs/aggregateState"},
+        "freshness": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/freshness"}]},
+        "stateCounts": {"type": "array", "uniqueItems": true, "items": {"$ref": "common.schema.json#/$defs/stateCount"}},
+        "priorityFindings": {"type": "array", "uniqueItems": true, "items": {"$ref": "common.schema.json#/$defs/finding"}},
+        "planes": {"type": "array", "maxItems": 4, "uniqueItems": true, "items": {"$ref": "common.schema.json#/$defs/planeSummary"}},
+        "harnesses": {"type": "array", "maxItems": 16, "uniqueItems": true, "items": {"$ref": "common.schema.json#/$defs/harnessSummary"}}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"spec": {"properties": {"empty": {"const": true}}, "required": ["empty"]}}},
+      "then": {
+        "properties": {
+          "binding": {"type": "null"},
+          "spec": {"properties": {"aggregateState": {"const": "EMPTY"}, "freshness": {"type": "null"}, "planes": {"maxItems": 0}, "harnesses": {"maxItems": 0}}}
+        }
+      },
+      "else": {
+        "properties": {
+          "binding": {"$ref": "common.schema.json#/$defs/projectionBinding"},
+          "spec": {"properties": {"freshness": {"$ref": "common.schema.json#/$defs/freshness"}, "planes": {"minItems": 4}, "harnesses": {"minItems": 16}}}
+        }
+      }
+    }
+  ]
+}

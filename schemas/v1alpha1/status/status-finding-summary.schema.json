@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/status/status-finding-summary.schema.json",
+  "title": "StatusFindingSummary",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "binding", "spec"],
+  "properties": {
+    "apiVersion": {"$ref": "common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "StatusFindingSummary"},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "binding": {"$ref": "common.schema.json#/$defs/projectionBinding"},
+    "spec": {"$ref": "common.schema.json#/$defs/finding"}
+  }
+}

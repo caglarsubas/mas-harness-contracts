@@ -1,0 +1,17 @@
+{
+  "openapi": "3.1.1",
+  "info": {"title": "Planeon Harness Operator Lifecycle API", "version": "0.1.0", "license": {"name": "Apache-2.0"}},
+  "jsonSchemaDialect": "https://json-schema.org/draft/2020-12/schema",
+  "paths": {
+    "/api/v1alpha1/installations/{installationId}": {
+      "get": {
+        "operationId": "getHarnessInstallation",
+        "summary": "Read a digest-bound harness installation projection",
+        "security": [{"workloadIdentity": []}],
+        "parameters": [{"name": "installationId", "in": "path", "required": true, "schema": {"type": "string", "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)+$"}}],
+        "responses": {"200": {"description": "Harness installation", "content": {"application/json": {"schema": {"$ref": "../schemas/v1alpha1/lifecycle/harness-installation.schema.json"}}}}, "404": {"description": "Installation not found"}}
+      }
+    }
+  },
+  "components": {"securitySchemes": {"workloadIdentity": {"type": "mutualTLS"}}}
+}

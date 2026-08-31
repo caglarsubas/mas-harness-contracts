@@ -1,0 +1,64 @@
+{
+  "openapi": "3.1.1",
+  "info": {"title": "Planeon Harness Control Lifecycle API", "version": "0.1.0", "license": {"name": "Apache-2.0"}},
+  "jsonSchemaDialect": "https://json-schema.org/draft/2020-12/schema",
+  "paths": {
+    "/api/v1alpha1/operations/{operationId}": {
+      "get": {
+        "operationId": "getOperation",
+        "summary": "Read a tenant-scoped asynchronous operation",
+        "security": [{"tenantOidc": ["harness:detail:view"]}],
+        "parameters": [{"$ref": "#/components/parameters/OperationId"}],
+        "responses": {
+          "200": {"description": "Operation", "headers": {"ETag": {"$ref": "#/components/headers/ETag"}}, "content": {"application/json": {"schema": {"$ref": "../schemas/v1alpha1/lifecycle/operation.schema.json"}}}},
+          "404": {"$ref": "#/components/responses/IndistinguishableNotFound"}
+        }
+      }
+    },
+    "/api/v1alpha1/approvals/{approvalId}": {
+      "get": {
+        "operationId": "getApprovalRequest",
+        "summary": "Read a tenant-scoped approval request",
+        "security": [{"tenantOidc": ["harness:detail:view"]}],
+        "parameters": [{"$ref": "#/components/parameters/ApprovalId"}],
+        "responses": {
+          "200": {"description": "Approval request", "headers": {"ETag": {"$ref": "#/components/headers/ETag"}}, "content": {"application/json": {"schema": {"$ref": "../schemas/v1alpha1/lifecycle/approval-request.schema.json"}}}},
+          "404": {"$ref": "#/components/responses/IndistinguishableNotFound"}
+        }
+      }
+    },
+    "/api/v1alpha1/approvals/{approvalId}/decision": {
+      "post": {
+        "operationId": "recordApprovalDecision",
+        "summary": "Record one authenticated, idempotent approval decision",
+        "security": [{"tenantOidc": ["harness:approval:decide"]}],
+        "parameters": [{"$ref": "#/components/parameters/ApprovalId"}, {"$ref": "#/components/parameters/IdempotencyKey"}, {"$ref": "#/components/parameters/IfMatch"}],
+        "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ApprovalDecision"}}}},
+        "responses": {
+          "202": {"description": "Decision accepted as an operation", "content": {"application/json": {"schema": {"$ref": "../schemas/v1alpha1/lifecycle/operation.schema.json"}}}},
+          "404": {"$ref": "#/components/responses/IndistinguishableNotFound"},
+          "412": {"description": "Version precondition failed"}
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {"tenantOidc": {"type": "openIdConnect", "openIdConnectUrl": "/.well-known/openid-configuration"}},
+    "parameters": {
+      "OperationId": {"name": "operationId", "in": "path", "required": true, "schema": {"type": "string", "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)+$"}},
+      "ApprovalId": {"name": "approvalId", "in": "path", "required": true, "schema": {"type": "string", "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)+$"}},
+      "IdempotencyKey": {"name": "Idempotency-Key", "in": "header", "required": true, "schema": {"type": "string", "minLength": 16, "maxLength": 128}},
+      "IfMatch": {"name": "If-Match", "in": "header", "required": true, "schema": {"type": "string", "minLength": 3, "maxLength": 128}}
+    },
+    "headers": {"ETag": {"schema": {"type": "string"}, "description": "Immutable version validator"}},
+    "responses": {"IndistinguishableNotFound": {"description": "Not found or not authorized; organization existence is not disclosed"}},
+    "schemas": {
+      "ApprovalDecision": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["decision", "reasonCode"],
+        "properties": {"decision": {"enum": ["APPROVE", "REJECT"]}, "reasonCode": {"type": "string", "pattern": "^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*$"}}
+      }
+    }
+  }
+}

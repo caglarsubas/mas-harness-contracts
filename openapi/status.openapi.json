@@ -1,0 +1,67 @@
+{
+  "openapi": "3.1.1",
+  "info": {"title": "Planeon Tenant Harness Status API", "version": "0.1.0", "license": {"name": "Apache-2.0"}},
+  "jsonSchemaDialect": "https://json-schema.org/draft/2020-12/schema",
+  "paths": {
+    "/api/v1alpha1/overview": {
+      "get": {
+        "operationId": "getTenantHarnessOverview",
+        "summary": "Read the authenticated tenant organization overview",
+        "description": "Organization identity is derived from the server session; caller-supplied tenant headers are rejected.",
+        "security": [{"tenantOidc": ["harness:overview:view"]}],
+        "responses": {"200": {"description": "Tenant overview", "content": {"application/json": {"schema": {"$ref": "../schemas/v1alpha1/status/tenant-harness-overview.schema.json"}}}}}
+      }
+    },
+    "/api/v1alpha1/planes/{planeId}": {
+      "get": {
+        "operationId": "getTenantPlaneStatus",
+        "summary": "Read one canonical plane for the authenticated tenant",
+        "security": [{"tenantOidc": ["harness:detail:view"]}],
+        "parameters": [{"$ref": "#/components/parameters/PlaneId"}],
+        "responses": {"200": {"description": "Plane status", "content": {"application/json": {"schema": {"$ref": "../schemas/v1alpha1/status/plane-status-projection.schema.json"}}}}, "404": {"$ref": "#/components/responses/IndistinguishableNotFound"}}
+      }
+    },
+    "/api/v1alpha1/harnesses/{harnessId}": {
+      "get": {
+        "operationId": "getTenantHarnessStatus",
+        "summary": "Read one harness for the authenticated tenant",
+        "security": [{"tenantOidc": ["harness:detail:view"]}],
+        "parameters": [{"$ref": "#/components/parameters/HarnessId"}],
+        "responses": {"200": {"description": "Harness status", "content": {"application/json": {"schema": {"$ref": "../schemas/v1alpha1/status/harness-status-projection.schema.json"}}}}, "404": {"$ref": "#/components/responses/IndistinguishableNotFound"}}
+      }
+    },
+    "/api/v1alpha1/organizations": {
+      "get": {
+        "operationId": "listOrganizationHarnessPortfolio",
+        "summary": "List organization summaries for an independently authorized platform operator",
+        "security": [{"operatorOidc": ["organization:portfolio:view"]}],
+        "parameters": [{"$ref": "#/components/parameters/Cursor"}, {"$ref": "#/components/parameters/Limit"}, {"$ref": "#/components/parameters/AggregateState"}],
+        "responses": {"200": {"description": "Cursor page", "content": {"application/json": {"schema": {"$ref": "../schemas/v1alpha1/status/organization-harness-portfolio-page.schema.json"}}}}}
+      }
+    },
+    "/api/v1alpha1/organizations/{organizationId}/overview": {
+      "get": {
+        "operationId": "getOperatorOrganizationHarnessOverview",
+        "summary": "Read one explicitly scoped organization as a platform operator",
+        "security": [{"operatorOidc": ["organization:portfolio:view"]}],
+        "parameters": [{"$ref": "#/components/parameters/OrganizationId"}],
+        "responses": {"200": {"description": "Tenant overview", "content": {"application/json": {"schema": {"$ref": "../schemas/v1alpha1/status/tenant-harness-overview.schema.json"}}}}, "404": {"$ref": "#/components/responses/IndistinguishableNotFound"}}
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "tenantOidc": {"type": "openIdConnect", "openIdConnectUrl": "/.well-known/openid-configuration"},
+      "operatorOidc": {"type": "openIdConnect", "openIdConnectUrl": "/.well-known/openid-configuration"}
+    },
+    "parameters": {
+      "PlaneId": {"name": "planeId", "in": "path", "required": true, "schema": {"enum": ["runtime", "knowledge", "execution", "trust"]}},
+      "HarnessId": {"name": "harnessId", "in": "path", "required": true, "schema": {"type": "string", "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)+$"}},
+      "OrganizationId": {"name": "organizationId", "in": "path", "required": true, "schema": {"type": "string", "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)+$"}},
+      "Cursor": {"name": "cursor", "in": "query", "required": false, "schema": {"type": "string", "maxLength": 512, "pattern": "^[A-Za-z0-9._:-]+$"}},
+      "Limit": {"name": "limit", "in": "query", "required": false, "schema": {"type": "integer", "minimum": 1, "maximum": 200, "default": 50}},
+      "AggregateState": {"name": "state", "in": "query", "required": false, "schema": {"enum": ["EMPTY", "READY", "DEGRADED", "BLOCKED", "FAILED", "REVOKED"]}}
+    },
+    "responses": {"IndistinguishableNotFound": {"description": "Not found or not authorized; organization existence is not disclosed"}}
+  }
+}

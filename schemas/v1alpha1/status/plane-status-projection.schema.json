@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/status/plane-status-projection.schema.json",
+  "title": "PlaneStatusProjection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "binding", "spec"],
+  "properties": {
+    "apiVersion": {"$ref": "common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "PlaneStatusProjection"},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "binding": {"$ref": "common.schema.json#/$defs/projectionBinding"},
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["planeId", "aggregateState", "selectedCount", "notSelectedCount", "worstInstallationState", "evidenceCounts", "blockingDependencyCount", "freshness", "harnesses", "reasonCode"],
+      "properties": {
+        "planeId": {"enum": ["runtime", "knowledge", "execution", "trust"]},
+        "aggregateState": {"$ref": "common.schema.json#/$defs/aggregateState"},
+        "selectedCount": {"type": "integer", "minimum": 0, "maximum": 4},
+        "notSelectedCount": {"type": "integer", "minimum": 0, "maximum": 4},
+        "worstInstallationState": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/installationState"}]},
+        "evidenceCounts": {"type": "array", "uniqueItems": true, "items": {"$ref": "common.schema.json#/$defs/stateCount"}},
+        "blockingDependencyCount": {"type": "integer", "minimum": 0},
+        "freshness": {"$ref": "common.schema.json#/$defs/freshness"},
+        "harnesses": {"type": "array", "minItems": 4, "maxItems": 4, "uniqueItems": true, "items": {"$ref": "common.schema.json#/$defs/harnessSummary"}},
+        "reasonCode": {"$ref": "common.schema.json#/$defs/reasonCode"}
+      }
+    }
+  }
+}

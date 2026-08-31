@@ -1,0 +1,18 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "ApprovalRequest",
+  "metadata": {"id": "approval.profile-001", "version": "0.1.0"},
+  "spec": {
+    "organizationId": "org.acme",
+    "approvalType": "PROFILE",
+    "state": "APPROVED",
+    "subject": {"kind": "resource.profile", "id": "profile.foundation-001", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+    "policyRef": {"kind": "resource.policy", "id": "policy.profile-approval", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+    "requiredDecisions": 1,
+    "requestedBy": {"type": "TENANT", "id": "actor.tenant-admin"},
+    "requestedAt": "2026-08-31T05:00:00Z",
+    "expiresAt": "2026-09-01T05:00:00Z",
+    "decisions": [{"actor": {"type": "HUMAN", "id": "actor.tenant-admin"}, "decision": "APPROVE", "decidedAt": "2026-08-31T05:01:00Z", "reasonCode": "PROFILE_REVIEWED"}],
+    "reasonCode": "QUORUM_REACHED"
+  }
+}

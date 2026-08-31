@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "harness.planeon.ai/status-aggregation-vectors/v1",
+  "vectors": [
+    {"name": "ready", "freshnessState": "CURRENT", "harnesses": [{"harnessId": "runtime.infrastructure", "selectionState": "SELECTED", "installationState": "READY", "axisState": "PASS", "required": true, "underlyingState": null}], "expected": "READY"},
+    {"name": "required-fail", "freshnessState": "CURRENT", "harnesses": [{"harnessId": "runtime.infrastructure", "selectionState": "SELECTED", "installationState": "READY", "axisState": "FAIL", "required": true, "underlyingState": null}], "expected": "FAILED"},
+    {"name": "required-missing", "freshnessState": "CURRENT", "harnesses": [{"harnessId": "runtime.infrastructure", "selectionState": "SELECTED", "installationState": "READY", "axisState": "MISSING", "required": true, "underlyingState": null}], "expected": "BLOCKED"},
+    {"name": "waiver-retains-fail", "freshnessState": "CURRENT", "harnesses": [{"harnessId": "runtime.infrastructure", "selectionState": "SELECTED", "installationState": "READY", "axisState": "WAIVED", "required": true, "underlyingState": "FAIL"}], "expected": "DEGRADED"},
+    {"name": "stale-projection", "freshnessState": "STALE", "harnesses": [{"harnessId": "runtime.infrastructure", "selectionState": "SELECTED", "installationState": "READY", "axisState": "PASS", "required": true, "underlyingState": null}], "expected": "BLOCKED"},
+    {"name": "unselected-revoked-excluded", "freshnessState": "CURRENT", "harnesses": [{"harnessId": "runtime.infrastructure", "selectionState": "SELECTED", "installationState": "READY", "axisState": "PASS", "required": true, "underlyingState": null}, {"harnessId": "runtime.model-inference", "selectionState": "NOT_SELECTED", "installationState": "REVOKED", "axisState": "FAIL", "required": true, "underlyingState": null}], "expected": "READY"},
+    {"name": "selected-revoked", "freshnessState": "CURRENT", "harnesses": [{"harnessId": "runtime.infrastructure", "selectionState": "SELECTED", "installationState": "REVOKED", "axisState": "PASS", "required": true, "underlyingState": null}], "expected": "REVOKED"},
+    {"name": "no-selection", "freshnessState": "CURRENT", "harnesses": [{"harnessId": "runtime.infrastructure", "selectionState": "PROPOSED", "installationState": "ABSENT", "axisState": "MISSING", "required": true, "underlyingState": null}], "expected": "EMPTY"}
+  ]
+}
