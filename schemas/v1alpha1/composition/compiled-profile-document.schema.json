@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/composition/compiled-profile-document.schema.json",
+  "title": "CompiledProfileDocument",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "tenantDemand", "profile", "executionBudget"],
+  "properties": {
+    "schemaVersion": {"const": "harness.planeon.ai/compiled-profile-document/v1alpha1"},
+    "tenantDemand": {"$ref": "tenant-demand.schema.json"},
+    "profile": {"$ref": "harness-profile.schema.json"},
+    "executionBudget": {"$ref": "execution-budget.schema.json"}
+  }
+}

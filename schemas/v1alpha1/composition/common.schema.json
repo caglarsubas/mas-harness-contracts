@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/composition/common.schema.json",
+  "$defs": {
+    "apiVersion": {"const": "harness.planeon.ai/v1alpha1"},
+    "stableId": {"type": "string", "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)+$"},
+    "semver": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"},
+    "sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": {"$ref": "#/$defs/stableId"},
+        "version": {"$ref": "#/$defs/semver"}
+      }
+    },
+    "assuranceSubjects": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["harnessIds", "capabilityIds"],
+      "properties": {
+        "harnessIds": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/stableId"}},
+        "capabilityIds": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/stableId"}}
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tenantId", "deploymentMode", "architecture", "operatingSystem", "kubernetesDistribution", "capabilities", "attestationDigest", "signatureStatus"],
+      "properties": {
+        "tenantId": {"$ref": "#/$defs/stableId"},
+        "deploymentMode": {"enum": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"]},
+        "architecture": {"enum": ["amd64", "arm64", "platform-supplied"]},
+        "operatingSystem": {"enum": ["linux", "macos", "platform-supplied"]},
+        "kubernetesDistribution": {"enum": ["upstream", "k3s", "openshift", "none", "platform-supplied"]},
+        "capabilities": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/stableId"}},
+        "attestationDigest": {"$ref": "#/$defs/sha256"},
+        "signatureStatus": {"const": "VERIFIED"}
+      }
+    },
+    "executionBudgetSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["maxConcurrentTasks", "maxTaskSeconds", "maxRetries", "maxToolCalls", "maxModelTokens"],
+      "properties": {
+        "maxConcurrentTasks": {"type": "integer", "minimum": 1, "maximum": 1024},
+        "maxTaskSeconds": {"type": "integer", "minimum": 1, "maximum": 86400},
+        "maxRetries": {"type": "integer", "minimum": 0, "maximum": 100},
+        "maxToolCalls": {"type": "integer", "minimum": 0, "maximum": 10000},
+        "maxModelTokens": {"type": "integer", "minimum": 0, "maximum": 10000000}
+      }
+    },
+    "providerSelection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["groupId", "selectorCapability", "providerId"],
+      "properties": {
+        "groupId": {"$ref": "#/$defs/stableId"},
+        "selectorCapability": {"$ref": "#/$defs/stableId"},
+        "providerId": {"$ref": "#/$defs/stableId"}
+      }
+    },
+    "selectorProposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["groupId", "selectorCapabilities", "disposition"],
+      "properties": {
+        "groupId": {"$ref": "#/$defs/stableId"},
+        "selectorCapabilities": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/stableId"}},
+        "disposition": {"const": "PROPOSED_SELECTOR_ONLY"}
+      }
+    },
+    "installUnit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "artifactName", "digestStatus", "digest"],
+      "properties": {
+        "id": {"$ref": "#/$defs/stableId"},
+        "type": {"enum": ["OCI_IMAGE", "OCI_ARTIFACT", "HELM_CHART", "PYTHON_WHEEL", "NPM_TARBALL", "LOCAL_BINARY", "KUBERNETES_RUNTIME_CLASS", "TENANT_SUPPLIED_PLATFORM"]},
+        "artifactName": {"$ref": "#/$defs/stableId"},
+        "digestStatus": {"const": "MISSING_PLANNED"},
+        "digest": {"type": "null"}
+      }
+    }
+  }
+}

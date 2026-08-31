@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/composition/execution-budget.schema.json",
+  "title": "ExecutionBudget",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"$ref": "common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "ExecutionBudget"},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["maxConcurrentTasks", "maxTaskSeconds", "maxRetries", "maxToolCalls", "maxModelTokens", "enforcement", "overflowDisposition"],
+      "properties": {
+        "maxConcurrentTasks": {"type": "integer", "minimum": 1, "maximum": 1024},
+        "maxTaskSeconds": {"type": "integer", "minimum": 1, "maximum": 86400},
+        "maxRetries": {"type": "integer", "minimum": 0, "maximum": 100},
+        "maxToolCalls": {"type": "integer", "minimum": 0, "maximum": 10000},
+        "maxModelTokens": {"type": "integer", "minimum": 0, "maximum": 10000000},
+        "enforcement": {"const": "REQUIRED"},
+        "overflowDisposition": {"const": "BLOCK"}
+      }
+    }
+  }
+}

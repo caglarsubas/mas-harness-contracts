@@ -1,0 +1,6 @@
+{
+  "schemaVersion": "harness.planeon.ai/harnessctl-command/v1alpha1",
+  "packetId": "CON-004",
+  "command": "verify-determinism",
+  "handler": "planeon_harness_contracts.compiler:verify_determinism_command"
+}

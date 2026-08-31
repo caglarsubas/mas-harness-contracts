@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "harness.planeon.ai/compile-request/v1alpha1",
+  "metadata": {
+    "tenantId": "tenant.compiler-fixture",
+    "demandId": "demand.compiler-valid",
+    "profileId": "profile.compiler-valid",
+    "version": "0.1.0"
+  },
+  "questionnaireAnswerSet": {
+    "apiVersion": "harness.planeon.ai/v1alpha1",
+    "kind": "QuestionnaireAnswerSet",
+    "metadata": {
+      "id": "answers.compiler-valid",
+      "version": "0.1.0"
+    },
+    "spec": {
+      "questionnaireDefinitionId": "questionnaire.enterprise-foundation",
+      "questionnaireSessionId": "session.compiler-valid",
+      "status": "SUBMITTED",
+      "answers": [
+        {
+          "questionId": "question.deployment-mode",
+          "value": "self-managed",
+          "source": "TENANT_DECLARATION"
+        },
+        {
+          "questionId": "question.model-class",
+          "value": "model.local-cpu",
+          "source": "TENANT_DECLARATION"
+        },
+        {
+          "questionId": "question.model-provider",
+          "value": "provider.planeon.llamacpp",
+          "source": "TENANT_DECLARATION"
+        }
+      ]
+    }
+  },
+  "readinessAssessment": {
+    "apiVersion": "harness.planeon.ai/v1alpha1",
+    "kind": "DataReadinessAssessment",
+    "metadata": {
+      "id": "readiness.compiler-valid",
+      "version": "0.1.0"
+    },
+    "spec": {
+      "questionnaireSessionId": "session.compiler-valid",
+      "overallStatus": "READY",
+      "gateResults": [
+        {"gateId": "business.owner", "status": "PASS", "evidenceIds": ["evidence.business-owner"], "reasonCode": "readiness.business-owner-passed"},
+        {"gateId": "business.outcome", "status": "PASS", "evidenceIds": ["evidence.business-outcome"], "reasonCode": "readiness.business-outcome-passed"},
+        {"gateId": "data.owner", "status": "PASS", "evidenceIds": ["evidence.data-owner"], "reasonCode": "readiness.data-owner-passed"},
+        {"gateId": "data.quality", "status": "PASS", "evidenceIds": ["evidence.data-quality"], "reasonCode": "readiness.data-quality-passed"},
+        {"gateId": "data.completeness", "status": "PASS", "evidenceIds": ["evidence.data-completeness"], "reasonCode": "readiness.data-completeness-passed"},
+        {"gateId": "data.freshness", "status": "PASS", "evidenceIds": ["evidence.data-freshness"], "reasonCode": "readiness.data-freshness-passed"},
+        {"gateId": "data.provenance", "status": "PASS", "evidenceIds": ["evidence.data-provenance"], "reasonCode": "readiness.data-provenance-passed"},
+        {"gateId": "data.classification", "status": "PASS", "evidenceIds": ["evidence.data-classification"], "reasonCode": "readiness.data-classification-passed"},
+        {"gateId": "integration.readiness", "status": "PASS", "evidenceIds": ["evidence.integration-readiness"], "reasonCode": "readiness.integration-readiness-passed"},
+        {"gateId": "autonomy.boundary", "status": "PASS", "evidenceIds": ["evidence.autonomy-boundary"], "reasonCode": "readiness.autonomy-boundary-passed"}
+      ],
+      "missingGateIds": []
+    }
+  },
+  "demand": {
+    "requestedCapabilities": [
+      "deployment.kubernetes",
+      "model.local-cpu",
+      "platform.provider.kubernetes-upstream",
+      "provider.planeon.llamacpp"
+    ],
+    "acceptedPrerequisiteHarnessIds": [
+      "trust.observability-finops",
+      "trust.security-safety"
+    ],
+    "environment": {
+      "tenantId": "tenant.compiler-fixture",
+      "deploymentMode": "self-managed",
+      "architecture": "amd64",
+      "operatingSystem": "linux",
+      "kubernetesDistribution": "upstream",
+      "capabilities": [
+        "architecture.amd64-available",
+        "connectivity.connected"
+      ],
+      "attestationDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "signatureStatus": "VERIFIED"
+    },
+    "assuranceSubjects": {
+      "harnessIds": [],
+      "capabilityIds": []
+    },
+    "executionBudget": {
+      "maxConcurrentTasks": 4,
+      "maxTaskSeconds": 300,
+      "maxRetries": 2,
+      "maxToolCalls": 20,
+      "maxModelTokens": 131072
+    }
+  }
+}
