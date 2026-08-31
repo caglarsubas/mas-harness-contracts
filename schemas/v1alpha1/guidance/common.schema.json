@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/guidance/common.schema.json",
+  "$defs": {
+    "apiVersion": {"const": "harness.planeon.ai/v1alpha1"},
+    "stableId": {"type": "string", "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)+$"},
+    "semver": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"},
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": {"$ref": "#/$defs/stableId"},
+        "version": {"$ref": "#/$defs/semver"}
+      }
+    },
+    "factPath": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*(?:\\.[A-Za-z][A-Za-z0-9_-]*)*$"
+    },
+    "scalar": {"type": ["string", "number", "integer", "boolean", "null"]},
+    "gateId": {
+      "enum": [
+        "business.owner",
+        "business.outcome",
+        "data.owner",
+        "data.quality",
+        "data.completeness",
+        "data.freshness",
+        "data.provenance",
+        "data.classification",
+        "integration.readiness",
+        "autonomy.boundary"
+      ]
+    },
+    "rule": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["op", "rules"],
+          "properties": {
+            "op": {"enum": ["all", "any"]},
+            "rules": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 128,
+              "items": {"$ref": "#/$defs/rule"}
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["op", "rule"],
+          "properties": {
+            "op": {"const": "not"},
+            "rule": {"$ref": "#/$defs/rule"}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["op", "path"],
+          "properties": {
+            "op": {"const": "exists"},
+            "path": {"$ref": "#/$defs/factPath"}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["op", "path", "value"],
+          "properties": {
+            "op": {"const": "eq"},
+            "path": {"$ref": "#/$defs/factPath"},
+            "value": {
+              "oneOf": [
+                {"$ref": "#/$defs/scalar"},
+                {"type": "array", "items": {"$ref": "#/$defs/scalar"}}
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["op", "path", "value"],
+          "properties": {
+            "op": {"const": "in"},
+            "path": {"$ref": "#/$defs/factPath"},
+            "value": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {"$ref": "#/$defs/scalar"}
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["op", "path", "value"],
+          "properties": {
+            "op": {"enum": ["gte", "lte"]},
+            "path": {"$ref": "#/$defs/factPath"},
+            "value": {"type": "number"}
+          }
+        }
+      ]
+    }
+  }
+}

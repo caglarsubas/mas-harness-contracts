@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/guidance/questionnaire-session.schema.json",
+  "title": "QuestionnaireSession",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"$ref": "common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "QuestionnaireSession"},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["questionnaireDefinitionId", "state", "currentSectionId", "completedSectionIds", "revision"],
+      "properties": {
+        "questionnaireDefinitionId": {"$ref": "common.schema.json#/$defs/stableId"},
+        "state": {"enum": ["DRAFT", "IN_PROGRESS", "BLOCKED", "READY_FOR_COMPILATION", "SUPERSEDED"]},
+        "currentSectionId": {"oneOf": [{"type": "null"}, {"$ref": "common.schema.json#/$defs/stableId"}]},
+        "completedSectionIds": {"type": "array", "uniqueItems": true, "items": {"$ref": "common.schema.json#/$defs/stableId"}},
+        "revision": {"type": "integer", "minimum": 1}
+      }
+    }
+  }
+}

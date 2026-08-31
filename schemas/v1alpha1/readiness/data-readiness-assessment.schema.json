@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/readiness/data-readiness-assessment.schema.json",
+  "title": "DataReadinessAssessment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"$ref": "../guidance/common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "DataReadinessAssessment"},
+    "metadata": {"$ref": "../guidance/common.schema.json#/$defs/metadata"},
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["questionnaireSessionId", "overallStatus", "gateResults", "missingGateIds"],
+      "properties": {
+        "questionnaireSessionId": {"$ref": "../guidance/common.schema.json#/$defs/stableId"},
+        "overallStatus": {"enum": ["READY", "BLOCKED"]},
+        "gateResults": {
+          "type": "array",
+          "minItems": 10,
+          "maxItems": 10,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["gateId", "status", "evidenceIds", "reasonCode"],
+            "properties": {
+              "gateId": {"$ref": "../guidance/common.schema.json#/$defs/gateId"},
+              "status": {"enum": ["PASS", "NEEDS_INPUT", "BLOCKED", "NOT_APPLICABLE"]},
+              "evidenceIds": {"type": "array", "uniqueItems": true, "items": {"$ref": "../guidance/common.schema.json#/$defs/stableId"}},
+              "reasonCode": {"$ref": "../guidance/common.schema.json#/$defs/stableId"}
+            }
+          }
+        },
+        "missingGateIds": {"type": "array", "uniqueItems": true, "items": {"$ref": "../guidance/common.schema.json#/$defs/gateId"}}
+      }
+    }
+  }
+}

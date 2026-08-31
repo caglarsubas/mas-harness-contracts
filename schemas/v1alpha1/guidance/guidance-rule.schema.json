@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/guidance/guidance-rule.schema.json",
+  "title": "GuidanceRule",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"$ref": "common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "GuidanceRule"},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["questionnaireDefinitionId", "priority", "enabled", "when", "guidance"],
+      "properties": {
+        "questionnaireDefinitionId": {"$ref": "common.schema.json#/$defs/stableId"},
+        "priority": {"type": "integer", "minimum": 0, "maximum": 1000},
+        "enabled": {"const": true},
+        "when": {"$ref": "common.schema.json#/$defs/rule"},
+        "guidance": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "targetId", "reasonCode"],
+            "properties": {
+              "type": {"enum": ["ASK_QUESTION", "REQUIRE_EVIDENCE", "RECOMMEND_HARNESS", "BLOCK_READINESS"]},
+              "targetId": {"$ref": "common.schema.json#/$defs/stableId"},
+              "reasonCode": {"$ref": "common.schema.json#/$defs/stableId"}
+            }
+          }
+        }
+      }
+    }
+  }
+}

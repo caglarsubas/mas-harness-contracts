@@ -1,0 +1,13 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "DataReadinessAssessment",
+  "metadata": {"id": "readiness.invalid-incomplete", "version": "0.1.0"},
+  "spec": {
+    "questionnaireSessionId": "session.example-foundation",
+    "overallStatus": "READY",
+    "gateResults": [
+      {"gateId": "data.quality", "status": "PASS", "evidenceIds": [], "reasonCode": "readiness.data-quality-passed"}
+    ],
+    "missingGateIds": []
+  }
+}

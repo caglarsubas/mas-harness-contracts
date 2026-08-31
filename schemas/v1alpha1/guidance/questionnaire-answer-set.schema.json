@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/guidance/questionnaire-answer-set.schema.json",
+  "title": "QuestionnaireAnswerSet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"$ref": "common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "QuestionnaireAnswerSet"},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["questionnaireDefinitionId", "questionnaireSessionId", "status", "answers"],
+      "properties": {
+        "questionnaireDefinitionId": {"$ref": "common.schema.json#/$defs/stableId"},
+        "questionnaireSessionId": {"$ref": "common.schema.json#/$defs/stableId"},
+        "status": {"enum": ["DRAFT", "SUBMITTED"]},
+        "answers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["questionId", "value", "source"],
+            "properties": {
+              "questionId": {"$ref": "common.schema.json#/$defs/stableId"},
+              "value": {
+                "oneOf": [
+                  {"type": ["string", "number", "integer", "boolean"]},
+                  {"type": "array", "minItems": 1, "items": {"type": ["string", "number", "integer", "boolean"]}}
+                ]
+              },
+              "source": {"const": "TENANT_DECLARATION"}
+            }
+          }
+        }
+      }
+    }
+  }
+}

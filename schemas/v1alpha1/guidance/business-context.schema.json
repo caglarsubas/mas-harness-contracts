@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/guidance/business-context.schema.json",
+  "title": "BusinessContext",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"$ref": "common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "BusinessContext"},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["questionnaireSessionId", "industry", "domain", "businessOwner", "desiredOutcome", "dataOwner", "regulatoryContexts", "technologyConstraints"],
+      "properties": {
+        "questionnaireSessionId": {"$ref": "common.schema.json#/$defs/stableId"},
+        "industry": {"$ref": "common.schema.json#/$defs/stableId"},
+        "domain": {"$ref": "common.schema.json#/$defs/stableId"},
+        "businessOwner": {"$ref": "#/$defs/owner"},
+        "dataOwner": {"$ref": "#/$defs/owner"},
+        "desiredOutcome": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["statement", "metric", "target", "timeHorizon"],
+          "properties": {
+            "statement": {"type": "string", "minLength": 5},
+            "metric": {"type": "string", "minLength": 1},
+            "target": {"type": "string", "minLength": 1},
+            "timeHorizon": {"type": "string", "minLength": 1}
+          }
+        },
+        "regulatoryContexts": {"type": "array", "uniqueItems": true, "items": {"$ref": "common.schema.json#/$defs/stableId"}},
+        "technologyConstraints": {"type": "array", "uniqueItems": true, "items": {"$ref": "common.schema.json#/$defs/stableId"}}
+      }
+    }
+  },
+  "$defs": {
+    "owner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subjectId", "role"],
+      "properties": {
+        "subjectId": {"$ref": "common.schema.json#/$defs/stableId"},
+        "role": {"type": "string", "minLength": 2}
+      }
+    }
+  }
+}

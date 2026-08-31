@@ -1,0 +1,21 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "GuidanceRule",
+  "metadata": {"id": "guidance.orchestration-recommendation", "version": "0.1.0"},
+  "spec": {
+    "questionnaireDefinitionId": "questionnaire.enterprise-foundation",
+    "priority": 200,
+    "enabled": true,
+    "when": {
+      "op": "all",
+      "rules": [
+        {"op": "eq", "path": "integration.readiness.status", "value": "READY"},
+        {"op": "in", "path": "autonomy.level", "value": ["APPROVAL_REQUIRED", "BOUNDED_ACTION"]},
+        {"op": "exists", "path": "business.outcome.statement"}
+      ]
+    },
+    "guidance": [
+      {"type": "RECOMMEND_HARNESS", "targetId": "execution.orchestration", "reasonCode": "guidance.multi-step-workflow-declared"}
+    ]
+  }
+}

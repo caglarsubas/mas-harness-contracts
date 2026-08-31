@@ -1,0 +1,15 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "GuidanceRule",
+  "metadata": {"id": "guidance.data-quality-block", "version": "0.1.0"},
+  "spec": {
+    "questionnaireDefinitionId": "questionnaire.enterprise-foundation",
+    "priority": 100,
+    "enabled": true,
+    "when": {"op": "lte", "path": "data.quality.score", "value": 0.89},
+    "guidance": [
+      {"type": "REQUIRE_EVIDENCE", "targetId": "data.quality", "reasonCode": "guidance.data-quality-insufficient"},
+      {"type": "BLOCK_READINESS", "targetId": "data.quality", "reasonCode": "guidance.data-quality-gate-blocked"}
+    ]
+  }
+}

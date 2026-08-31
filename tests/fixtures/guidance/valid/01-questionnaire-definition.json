@@ -1,0 +1,74 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "QuestionnaireDefinition",
+  "metadata": {"id": "questionnaire.enterprise-foundation", "version": "0.1.0"},
+  "spec": {
+    "title": "Enterprise harness foundation questionnaire",
+    "industry": "industry.generic",
+    "mandatoryGateIds": [
+      "business.owner",
+      "business.outcome",
+      "data.owner",
+      "data.quality",
+      "data.completeness",
+      "data.freshness",
+      "data.provenance",
+      "data.classification",
+      "integration.readiness",
+      "autonomy.boundary"
+    ],
+    "sections": [
+      {
+        "id": "section.business",
+        "title": "Business ownership and outcome",
+        "order": 1,
+        "gateCategory": "BUSINESS",
+        "questions": [
+          {"id": "question.business-owner", "prompt": "Has an accountable business owner been named?", "responseType": "BOOLEAN", "required": true, "answerPath": "business.owner.present", "gateId": "business.owner"},
+          {"id": "question.business-outcome", "prompt": "What measurable business outcome should the platform support?", "responseType": "TEXT", "required": true, "answerPath": "business.outcome.statement", "gateId": "business.outcome"}
+        ]
+      },
+      {
+        "id": "section.data",
+        "title": "Data ownership and fitness",
+        "order": 2,
+        "gateCategory": "DATA",
+        "questions": [
+          {"id": "question.data-owner", "prompt": "Has an accountable data owner been named?", "responseType": "BOOLEAN", "required": true, "answerPath": "data.owner.present", "gateId": "data.owner"},
+          {"id": "question.data-quality", "prompt": "What fraction of sampled records passes quality checks?", "responseType": "NUMBER", "required": true, "answerPath": "data.quality.score", "gateId": "data.quality"},
+          {"id": "question.data-completeness", "prompt": "What fraction of mandatory fields is complete?", "responseType": "NUMBER", "required": true, "answerPath": "data.completeness.ratio", "gateId": "data.completeness"},
+          {"id": "question.data-freshness", "prompt": "What is the maximum observed data age in hours?", "responseType": "NUMBER", "required": true, "answerPath": "data.freshness.hours", "gateId": "data.freshness"},
+          {"id": "question.data-provenance", "prompt": "Is source-to-record provenance available?", "responseType": "BOOLEAN", "required": true, "answerPath": "data.provenance.available", "gateId": "data.provenance"},
+          {"id": "question.data-classification", "prompt": "What is the highest data classification in scope?", "responseType": "SINGLE_SELECT", "required": true, "answerPath": "data.classification.level", "gateId": "data.classification", "options": ["PUBLIC", "INTERNAL", "CONFIDENTIAL", "RESTRICTED"]}
+        ]
+      },
+      {
+        "id": "section.integration",
+        "title": "Integration readiness",
+        "order": 3,
+        "gateCategory": "INTEGRATION",
+        "questions": [
+          {"id": "question.integration-readiness", "prompt": "Are integration owners and approved interfaces known?", "responseType": "SINGLE_SELECT", "required": true, "answerPath": "integration.readiness.status", "gateId": "integration.readiness", "options": ["READY", "PARTIAL", "UNKNOWN"]}
+        ]
+      },
+      {
+        "id": "section.governance",
+        "title": "Governance confirmation",
+        "order": 4,
+        "gateCategory": "GOVERNANCE",
+        "questions": [
+          {"id": "question.governance-confirmation", "prompt": "Have the declared governance requirements been reviewed?", "responseType": "BOOLEAN", "required": false, "answerPath": "governance.reviewed", "gateId": "data.classification"}
+        ]
+      },
+      {
+        "id": "section.autonomy",
+        "title": "Autonomy boundary",
+        "order": 5,
+        "gateCategory": "AUTONOMY",
+        "questions": [
+          {"id": "question.autonomy-boundary", "prompt": "What maximum autonomy level is approved?", "responseType": "SINGLE_SELECT", "required": true, "answerPath": "autonomy.level", "gateId": "autonomy.boundary", "options": ["READ_ONLY", "RECOMMEND", "APPROVAL_REQUIRED", "BOUNDED_ACTION"]}
+        ]
+      }
+    ]
+  }
+}

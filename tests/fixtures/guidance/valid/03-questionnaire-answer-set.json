@@ -1,0 +1,22 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "QuestionnaireAnswerSet",
+  "metadata": {"id": "answers.example-foundation", "version": "0.1.0"},
+  "spec": {
+    "questionnaireDefinitionId": "questionnaire.enterprise-foundation",
+    "questionnaireSessionId": "session.example-foundation",
+    "status": "SUBMITTED",
+    "answers": [
+      {"questionId": "question.business-owner", "value": true, "source": "TENANT_DECLARATION"},
+      {"questionId": "question.business-outcome", "value": "Reduce preventable product defects", "source": "TENANT_DECLARATION"},
+      {"questionId": "question.data-owner", "value": true, "source": "TENANT_DECLARATION"},
+      {"questionId": "question.data-quality", "value": 0.96, "source": "TENANT_DECLARATION"},
+      {"questionId": "question.data-completeness", "value": 0.98, "source": "TENANT_DECLARATION"},
+      {"questionId": "question.data-freshness", "value": 4, "source": "TENANT_DECLARATION"},
+      {"questionId": "question.data-provenance", "value": true, "source": "TENANT_DECLARATION"},
+      {"questionId": "question.data-classification", "value": "CONFIDENTIAL", "source": "TENANT_DECLARATION"},
+      {"questionId": "question.integration-readiness", "value": "READY", "source": "TENANT_DECLARATION"},
+      {"questionId": "question.autonomy-boundary", "value": "APPROVAL_REQUIRED", "source": "TENANT_DECLARATION"}
+    ]
+  }
+}
