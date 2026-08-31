@@ -1,0 +1,42 @@
+[
+  {
+    "id": "all-true",
+    "facts": {"business": {"owner": {"present": true}}, "data": {"quality": {"score": 0.96}}},
+    "rule": {"op": "all", "rules": [{"op": "exists", "path": "business.owner.present"}, {"op": "gte", "path": "data.quality.score", "value": 0.9}]}
+  },
+  {
+    "id": "any-true",
+    "facts": {"integration": {"status": "PARTIAL"}, "data": {"completeness": {"ratio": 0.98}}},
+    "rule": {"op": "any", "rules": [{"op": "eq", "path": "integration.status", "value": "READY"}, {"op": "gte", "path": "data.completeness.ratio", "value": 0.95}]}
+  },
+  {
+    "id": "eq-type-safe-false",
+    "facts": {"autonomy": {"level": 1}},
+    "rule": {"op": "eq", "path": "autonomy.level", "value": true}
+  },
+  {
+    "id": "exists-missing-false",
+    "facts": {"data": {"quality": {}}},
+    "rule": {"op": "exists", "path": "data.quality.score"}
+  },
+  {
+    "id": "gte-true",
+    "facts": {"data": {"quality": {"score": 0.9}}},
+    "rule": {"op": "gte", "path": "data.quality.score", "value": 0.9}
+  },
+  {
+    "id": "in-true",
+    "facts": {"classification": {"level": "CONFIDENTIAL"}},
+    "rule": {"op": "in", "path": "classification.level", "value": ["INTERNAL", "CONFIDENTIAL", "RESTRICTED"]}
+  },
+  {
+    "id": "lte-true",
+    "facts": {"data": {"freshness": {"hours": 4}}},
+    "rule": {"op": "lte", "path": "data.freshness.hours", "value": 8}
+  },
+  {
+    "id": "not-true",
+    "facts": {"deployment": {"connected": false}},
+    "rule": {"op": "not", "rule": {"op": "eq", "path": "deployment.connected", "value": true}}
+  }
+]

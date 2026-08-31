@@ -1,0 +1,15 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "BusinessContext",
+  "metadata": {"id": "context.invalid-no-owner", "version": "0.1.0"},
+  "spec": {
+    "questionnaireSessionId": "session.example-foundation",
+    "industry": "industry.manufacturing",
+    "domain": "domain.product-quality",
+    "businessOwner": {"subjectId": "", "role": ""},
+    "desiredOutcome": {"statement": "", "metric": "", "target": "", "timeHorizon": ""},
+    "dataOwner": {"subjectId": "subject.data-steward", "role": "Quality Data Steward"},
+    "regulatoryContexts": [],
+    "technologyConstraints": []
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/guidance/questionnaire-definition.schema.json",
+  "title": "QuestionnaireDefinition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"$ref": "common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "QuestionnaireDefinition"},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "industry", "sections", "mandatoryGateIds"],
+      "properties": {
+        "title": {"type": "string", "minLength": 3},
+        "industry": {"$ref": "common.schema.json#/$defs/stableId"},
+        "mandatoryGateIds": {
+          "type": "array",
+          "minItems": 10,
+          "maxItems": 10,
+          "uniqueItems": true,
+          "items": {"$ref": "common.schema.json#/$defs/gateId"}
+        },
+        "sections": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "title", "order", "gateCategory", "questions"],
+            "properties": {
+              "id": {"$ref": "common.schema.json#/$defs/stableId"},
+              "title": {"type": "string", "minLength": 3},
+              "order": {"type": "integer", "minimum": 1},
+              "gateCategory": {"enum": ["BUSINESS", "DATA", "INTEGRATION", "GOVERNANCE", "AUTONOMY"]},
+              "questions": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["id", "prompt", "responseType", "required", "answerPath", "gateId"],
+                  "properties": {
+                    "id": {"$ref": "common.schema.json#/$defs/stableId"},
+                    "prompt": {"type": "string", "minLength": 5},
+                    "responseType": {"enum": ["TEXT", "NUMBER", "BOOLEAN", "SINGLE_SELECT", "MULTI_SELECT"]},
+                    "required": {"type": "boolean"},
+                    "answerPath": {"$ref": "common.schema.json#/$defs/factPath"},
+                    "gateId": {"$ref": "common.schema.json#/$defs/gateId"},
+                    "options": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

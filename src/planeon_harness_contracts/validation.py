@@ -655,11 +655,15 @@ def semantic_negative_vectors(
 
 
 def validate_command(argv: Sequence[str]) -> int:
-    """Implement ``harnessctl validate --kind catalog PATH`` without network access."""
+    """Validate a closed catalog or questionnaire path without network access."""
 
-    if len(argv) != 3 or tuple(argv[:2]) != ("--kind", "catalog"):
-        print("usage: harnessctl validate --kind catalog PATH", file=sys.stderr)
+    if len(argv) != 3 or argv[0] != "--kind" or argv[1] not in {"catalog", "questionnaire"}:
+        print("usage: harnessctl validate --kind {catalog,questionnaire} PATH", file=sys.stderr)
         return 2
+    if argv[1] == "questionnaire":
+        from planeon_harness_contracts.questionnaire import validate_questionnaire_path
+
+        return validate_questionnaire_path(Path(argv[2]))
     from planeon_harness_contracts.registry import load_catalog
 
     try:

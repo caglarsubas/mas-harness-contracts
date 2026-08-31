@@ -1,0 +1,12 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "QuestionnaireSession",
+  "metadata": {"id": "session.example-foundation", "version": "0.1.0"},
+  "spec": {
+    "questionnaireDefinitionId": "questionnaire.enterprise-foundation",
+    "state": "READY_FOR_COMPILATION",
+    "currentSectionId": null,
+    "completedSectionIds": ["section.business", "section.data", "section.integration", "section.governance", "section.autonomy"],
+    "revision": 1
+  }
+}

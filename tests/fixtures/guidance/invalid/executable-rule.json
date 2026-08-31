@@ -1,0 +1,14 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "GuidanceRule",
+  "metadata": {"id": "guidance.invalid-executable", "version": "0.1.0"},
+  "spec": {
+    "questionnaireDefinitionId": "questionnaire.enterprise-foundation",
+    "priority": 1,
+    "enabled": true,
+    "when": {"op": "exec", "expression": "facts['data']['quality']"},
+    "guidance": [
+      {"type": "BLOCK_READINESS", "targetId": "data.quality", "reasonCode": "guidance.invalid-rule"}
+    ]
+  }
+}

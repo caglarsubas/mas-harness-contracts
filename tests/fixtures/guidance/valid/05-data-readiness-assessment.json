@@ -1,0 +1,22 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "DataReadinessAssessment",
+  "metadata": {"id": "readiness.example-foundation", "version": "0.1.0"},
+  "spec": {
+    "questionnaireSessionId": "session.example-foundation",
+    "overallStatus": "READY",
+    "gateResults": [
+      {"gateId": "business.owner", "status": "PASS", "evidenceIds": ["evidence.business-owner"], "reasonCode": "readiness.business-owner-passed"},
+      {"gateId": "business.outcome", "status": "PASS", "evidenceIds": ["evidence.business-outcome"], "reasonCode": "readiness.business-outcome-passed"},
+      {"gateId": "data.owner", "status": "PASS", "evidenceIds": ["evidence.data-owner"], "reasonCode": "readiness.data-owner-passed"},
+      {"gateId": "data.quality", "status": "PASS", "evidenceIds": ["evidence.data-quality"], "reasonCode": "readiness.data-quality-passed"},
+      {"gateId": "data.completeness", "status": "PASS", "evidenceIds": ["evidence.data-completeness"], "reasonCode": "readiness.data-completeness-passed"},
+      {"gateId": "data.freshness", "status": "PASS", "evidenceIds": ["evidence.data-freshness"], "reasonCode": "readiness.data-freshness-passed"},
+      {"gateId": "data.provenance", "status": "PASS", "evidenceIds": ["evidence.data-provenance"], "reasonCode": "readiness.data-provenance-passed"},
+      {"gateId": "data.classification", "status": "PASS", "evidenceIds": ["evidence.data-classification"], "reasonCode": "readiness.data-classification-passed"},
+      {"gateId": "integration.readiness", "status": "PASS", "evidenceIds": ["evidence.integration-readiness"], "reasonCode": "readiness.integration-readiness-passed"},
+      {"gateId": "autonomy.boundary", "status": "PASS", "evidenceIds": ["evidence.autonomy-boundary"], "reasonCode": "readiness.autonomy-boundary-passed"}
+    ],
+    "missingGateIds": []
+  }
+}

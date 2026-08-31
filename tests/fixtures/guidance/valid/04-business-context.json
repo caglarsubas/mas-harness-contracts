@@ -1,0 +1,15 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "BusinessContext",
+  "metadata": {"id": "context.example-foundation", "version": "0.1.0"},
+  "spec": {
+    "questionnaireSessionId": "session.example-foundation",
+    "industry": "industry.manufacturing",
+    "domain": "domain.product-quality",
+    "businessOwner": {"subjectId": "subject.quality-director", "role": "Quality Director"},
+    "desiredOutcome": {"statement": "Reduce preventable product defects", "metric": "first-pass-yield", "target": "at-least-98-percent", "timeHorizon": "twelve-months"},
+    "dataOwner": {"subjectId": "subject.data-steward", "role": "Quality Data Steward"},
+    "regulatoryContexts": ["regulation.product-safety"],
+    "technologyConstraints": ["deployment.air-gapped", "platform.openshift"]
+  }
+}
