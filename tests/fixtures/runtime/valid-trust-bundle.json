@@ -1,0 +1,34 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "RuntimeTrustBundle",
+  "metadata": {"id": "runtime.trust-bundle-001", "version": "1.0.0"},
+  "payload": {
+    "organizationId": "acme.example",
+    "bundleVersion": 1,
+    "issuedAt": "2030-01-01T00:00:00Z",
+    "validFrom": "2030-01-01T00:00:00Z",
+    "validUntil": "2031-01-01T00:00:00Z",
+    "previousBundleDigest": null,
+    "keys": [
+      {
+        "keyId": "test.ed25519-01",
+        "algorithm": "ED25519",
+        "publicKey": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo",
+        "purposes": ["RUNTIME_ADMISSION", "RUNTIME_RECEIPT", "TRUST_BUNDLE"],
+        "state": "ACTIVE",
+        "notBefore": "2030-01-01T00:00:00Z",
+        "notAfter": "2031-01-01T00:00:00Z",
+        "revokedAt": null,
+        "revocationReason": null
+      }
+    ]
+  },
+  "signature": {
+    "profile": "RFC8785_JCS_ED25519_V1",
+    "algorithm": "ED25519",
+    "purpose": "TRUST_BUNDLE",
+    "keyId": "test.ed25519-01",
+    "signedMessageDigest": "sha256:14c432c42f19dc9fc26fa5430c229acd15b27450647ebfc3510f7cdeb52754d5",
+    "value": "IRrPtsAoTUIm4tiKHlOWm04UDTuH8kd4AM-lXqHBsGBydlxb7QDD6Wd92YSqg7W7cgcFP3HwZEk5BF1zEM5nAg"
+  }
+}

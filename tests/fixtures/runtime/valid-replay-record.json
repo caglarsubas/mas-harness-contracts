@@ -1,0 +1,18 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "ReplayRecord",
+  "metadata": {"id": "runtime.replay-001", "version": "1.0.0"},
+  "spec": {
+    "organizationId": "acme.example",
+    "replayKeyDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "idempotencyKeyDigest": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+    "nonceDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "admissionDigest": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+    "requestDigest": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+    "state": "COMMITTED",
+    "firstSeenAt": "2030-02-01T00:00:01Z",
+    "updatedAt": "2030-02-01T00:00:01Z",
+    "expiresAt": "2030-02-01T00:05:00Z",
+    "receiptDigest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  }
+}

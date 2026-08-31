@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "harness.planeon.ai/runtime-interoperability-vectors/v1alpha1",
+  "signatureProfile": "RFC8785_JCS_ED25519_V1",
+  "algorithm": "ED25519",
+  "testOnly": true,
+  "publicKey": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo",
+  "signedDocuments": [
+    {
+      "kind": "RuntimeTrustBundle",
+      "fixture": "valid-trust-bundle.json",
+      "domain": "harness.planeon.ai/runtime-trust-bundle/v1alpha1",
+      "canonicalPayloadBase64url": "eyJidW5kbGVWZXJzaW9uIjoxLCJpc3N1ZWRBdCI6IjIwMzAtMDEtMDFUMDA6MDA6MDBaIiwia2V5cyI6W3siYWxnb3JpdGhtIjoiRUQyNTUxOSIsImtleUlkIjoidGVzdC5lZDI1NTE5LTAxIiwibm90QWZ0ZXIiOiIyMDMxLTAxLTAxVDAwOjAwOjAwWiIsIm5vdEJlZm9yZSI6IjIwMzAtMDEtMDFUMDA6MDA6MDBaIiwicHVibGljS2V5IjoiMTFxWUFZS3hDcmZWU183VHlXUUhPZzdoY3ZQYXBpTWxyd0lhYVBjSFVSbyIsInB1cnBvc2VzIjpbIlJVTlRJTUVfQURNSVNTSU9OIiwiUlVOVElNRV9SRUNFSVBUIiwiVFJVU1RfQlVORExFIl0sInJldm9jYXRpb25SZWFzb24iOm51bGwsInJldm9rZWRBdCI6bnVsbCwic3RhdGUiOiJBQ1RJVkUifV0sIm9yZ2FuaXphdGlvbklkIjoiYWNtZS5leGFtcGxlIiwicHJldmlvdXNCdW5kbGVEaWdlc3QiOm51bGwsInZhbGlkRnJvbSI6IjIwMzAtMDEtMDFUMDA6MDA6MDBaIiwidmFsaWRVbnRpbCI6IjIwMzEtMDEtMDFUMDA6MDA6MDBaIn0",
+      "signedMessageDigest": "sha256:14c432c42f19dc9fc26fa5430c229acd15b27450647ebfc3510f7cdeb52754d5",
+      "signature": "IRrPtsAoTUIm4tiKHlOWm04UDTuH8kd4AM-lXqHBsGBydlxb7QDD6Wd92YSqg7W7cgcFP3HwZEk5BF1zEM5nAg"
+    },
+    {
+      "kind": "SignedAdmissionEnvelope",
+      "fixture": "valid-admission-envelope.json",
+      "domain": "harness.planeon.ai/runtime-admission/v1alpha1",
+      "canonicalPayloadBase64url": "eyJhZG1pc3Npb25JZCI6InJ1bnRpbWUuYWRtaXNzaW9uLTAwMSIsImJ1ZGdldERpZ2VzdCI6InNoYTI1Njo0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0IiwiZXhwaXJlc0F0IjoiMjAzMC0wMi0wMVQwMDowNTowMFoiLCJpZGVtcG90ZW5jeUtleURpZ2VzdCI6InNoYTI1Njo2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2IiwiaXNzdWVkQXQiOiIyMDMwLTAyLTAxVDAwOjAwOjAwWiIsIm5vbmNlIjoiQUFBQUFBQUFBQUFBQUFBQUFBQUFBQSIsIm5vdEJlZm9yZSI6IjIwMzAtMDItMDFUMDA6MDA6MDBaIiwib3BlcmF0aW9uIjoiQUdFTlRfUlVOIiwib3JnYW5pemF0aW9uSWQiOiJhY21lLmV4YW1wbGUiLCJwb2xpY3lEaWdlc3QiOiJzaGEyNTY6MzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMyIsInJlbGVhc2VEaWdlc3QiOiJzaGEyNTY6MjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMiIsInJlcXVlc3REaWdlc3QiOiJzaGEyNTY6NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NSIsInN1YmplY3REaWdlc3QiOiJzaGEyNTY6MTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMSJ9",
+      "signedMessageDigest": "sha256:12214b6e3b4f3885b5dfee40c810a51a2856d215712e3c66e5b270910f405c8d",
+      "signature": "U1R29PR8m0-nUHk47QlZ0lKNBlCknQ-MKj8B9fwhE3gjdhEDpnIozRBd2iJq3hfi28k5deQ7WYtd7ENB2-XcBA"
+    },
+    {
+      "kind": "RuntimeAdmissionReceipt",
+      "fixture": "valid-admission-receipt.json",
+      "domain": "harness.planeon.ai/runtime-admission-receipt/v1alpha1",
+      "canonicalPayloadBase64url": "eyJhZG1pc3Npb25EaWdlc3QiOiJzaGEyNTY6Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3NyIsImJ1ZGdldENvbnN1bXB0aW9uRGlnZXN0Ijoic2hhMjU2Ojk5OTk5OTk5OTk5OTk5OTk5OTk5OTk5OTk5OTk5OTk5OTk5OTk5OTk5OTk5OTk5OTk5OTk5OTk5OTk5OTk5OTkiLCJkZWNpZGVkQXQiOiIyMDMwLTAyLTAxVDAwOjAwOjAxWiIsImRlY2lzaW9uIjoiQURNSVQiLCJleHBpcmVzQXQiOiIyMDMwLTAyLTAxVDAwOjA1OjAwWiIsIm9yZ2FuaXphdGlvbklkIjoiYWNtZS5leGFtcGxlIiwicmVhc29uQ29kZSI6bnVsbCwicmVjZWlwdElkIjoicnVudGltZS5yZWNlaXB0LTAwMSIsInJlcGxheVJlY29yZERpZ2VzdCI6InNoYTI1NjphYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhIiwicmVxdWVzdERpZ2VzdCI6InNoYTI1Njo1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1IiwidHJ1c3RCdW5kbGVEaWdlc3QiOiJzaGEyNTY6ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4OCJ9",
+      "signedMessageDigest": "sha256:6a6cca0291933d6f1017fc3fed873167d5db6a167d265a910e8f3973d833205a",
+      "signature": "ZQ7Yb-j3vqrA3hpWYGoto5EEn-96iBHOGhPvREA17acyIep0mSIhBcySoaQmPyf1ubks2GEDLA-zFV6jv5S1AA"
+    }
+  ],
+  "decisionVectors": [
+    {
+      "name": "valid-admission",
+      "expectedDecision": "ADMIT",
+      "expectedReason": null,
+      "condition": "valid fixture, active tenant key, fresh replay state, and limits at equality"
+    },
+    {
+      "name": "malformed-unknown-member",
+      "expectedDecision": "DENY",
+      "expectedReason": "MALFORMED",
+      "condition": "payload contains an undeclared member"
+    },
+    {
+      "name": "digest-mismatch",
+      "expectedDecision": "DENY",
+      "expectedReason": "DIGEST_MISMATCH",
+      "condition": "signedMessageDigest differs from domain-separated JCS bytes"
+    },
+    {
+      "name": "forged-signature",
+      "expectedDecision": "DENY",
+      "expectedReason": "SIGNATURE_INVALID",
+      "condition": "one signature byte is changed after digest validation"
+    },
+    {
+      "name": "unknown-signer",
+      "expectedDecision": "DENY",
+      "expectedReason": "SIGNER_UNKNOWN",
+      "condition": "keyId is absent from the selected trust bundle"
+    },
+    {
+      "name": "pending-signer",
+      "expectedDecision": "DENY",
+      "expectedReason": "SIGNER_NOT_ACTIVE",
+      "condition": "selected key state is PENDING"
+    },
+    {
+      "name": "revoked-signer",
+      "expectedDecision": "DENY",
+      "expectedReason": "SIGNER_REVOKED",
+      "condition": "selected key state is REVOKED"
+    },
+    {
+      "name": "wrong-key-purpose",
+      "expectedDecision": "DENY",
+      "expectedReason": "KEY_PURPOSE_MISMATCH",
+      "condition": "selected key lacks RUNTIME_ADMISSION"
+    },
+    {
+      "name": "not-yet-valid",
+      "expectedDecision": "DENY",
+      "expectedReason": "ENVELOPE_NOT_YET_VALID",
+      "condition": "verification time precedes notBefore"
+    },
+    {
+      "name": "expired-envelope",
+      "expectedDecision": "DENY",
+      "expectedReason": "ENVELOPE_EXPIRED",
+      "condition": "verification time is at or after expiresAt"
+    },
+    {
+      "name": "wrong-tenant",
+      "expectedDecision": "DENY",
+      "expectedReason": "TENANT_MISMATCH",
+      "condition": "authenticated organization differs from payload organizationId"
+    },
+    {
+      "name": "replayed-nonce",
+      "expectedDecision": "DENY",
+      "expectedReason": "REPLAY_DETECTED",
+      "condition": "replayKeyDigest already exists without an idempotency match"
+    },
+    {
+      "name": "idempotency-conflict",
+      "expectedDecision": "DENY",
+      "expectedReason": "IDEMPOTENCY_CONFLICT",
+      "condition": "idempotencyKeyDigest exists with a different requestDigest"
+    },
+    {
+      "name": "over-budget",
+      "expectedDecision": "DENY",
+      "expectedReason": "BUDGET_EXCEEDED",
+      "condition": "observed modelTokens is 4097 while maxModelTokens is 4096"
+    }
+  ]
+}

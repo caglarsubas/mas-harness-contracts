@@ -1,0 +1,26 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "RuntimeAdmissionReceipt",
+  "metadata": {"id": "runtime.receipt-001", "version": "1.0.0"},
+  "payload": {
+    "organizationId": "acme.example",
+    "receiptId": "runtime.receipt-001",
+    "admissionDigest": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+    "requestDigest": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+    "trustBundleDigest": "sha256:8888888888888888888888888888888888888888888888888888888888888888",
+    "decision": "ADMIT",
+    "reasonCode": null,
+    "budgetConsumptionDigest": "sha256:9999999999999999999999999999999999999999999999999999999999999999",
+    "replayRecordDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "decidedAt": "2030-02-01T00:00:01Z",
+    "expiresAt": "2030-02-01T00:05:00Z"
+  },
+  "signature": {
+    "profile": "RFC8785_JCS_ED25519_V1",
+    "algorithm": "ED25519",
+    "purpose": "RUNTIME_RECEIPT",
+    "keyId": "test.ed25519-01",
+    "signedMessageDigest": "sha256:6a6cca0291933d6f1017fc3fed873167d5db6a167d265a910e8f3973d833205a",
+    "value": "ZQ7Yb-j3vqrA3hpWYGoto5EEn-96iBHOGhPvREA17acyIep0mSIhBcySoaQmPyf1ubks2GEDLA-zFV6jv5S1AA"
+  }
+}

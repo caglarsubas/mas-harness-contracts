@@ -1,0 +1,28 @@
+{
+  "apiVersion": "harness.planeon.ai/v1alpha1",
+  "kind": "SignedAdmissionEnvelope",
+  "metadata": {"id": "runtime.admission-001", "version": "1.0.0"},
+  "payload": {
+    "organizationId": "acme.example",
+    "admissionId": "runtime.admission-001",
+    "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+    "releaseDigest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+    "policyDigest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+    "budgetDigest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+    "requestDigest": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+    "operation": "AGENT_RUN",
+    "issuedAt": "2030-02-01T00:00:00Z",
+    "notBefore": "2030-02-01T00:00:00Z",
+    "expiresAt": "2030-02-01T00:05:00Z",
+    "nonce": "AAAAAAAAAAAAAAAAAAAAAA",
+    "idempotencyKeyDigest": "sha256:6666666666666666666666666666666666666666666666666666666666666666"
+  },
+  "signature": {
+    "profile": "RFC8785_JCS_ED25519_V1",
+    "algorithm": "ED25519",
+    "purpose": "RUNTIME_ADMISSION",
+    "keyId": "test.ed25519-01",
+    "signedMessageDigest": "sha256:12214b6e3b4f3885b5dfee40c810a51a2856d215712e3c66e5b270910f405c8d",
+    "value": "U1R29PR8m0-nUHk47QlZ0lKNBlCknQ-MKj8B9fwhE3gjdhEDpnIozRBd2iJq3hfi28k5deQ7WYtd7ENB2-XcBA"
+  }
+}

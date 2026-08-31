@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/runtime/signed-admission-envelope.schema.json",
+  "title": "SignedAdmissionEnvelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "payload", "signature"],
+  "properties": {
+    "apiVersion": {"$ref": "common.schema.json#/$defs/apiVersion"},
+    "kind": {"const": "SignedAdmissionEnvelope"},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["organizationId", "admissionId", "subjectDigest", "releaseDigest", "policyDigest", "budgetDigest", "requestDigest", "operation", "issuedAt", "notBefore", "expiresAt", "nonce", "idempotencyKeyDigest"],
+      "properties": {
+        "organizationId": {"$ref": "common.schema.json#/$defs/stableId"},
+        "admissionId": {"$ref": "common.schema.json#/$defs/stableId"},
+        "subjectDigest": {"$ref": "common.schema.json#/$defs/sha256"},
+        "releaseDigest": {"$ref": "common.schema.json#/$defs/sha256"},
+        "policyDigest": {"$ref": "common.schema.json#/$defs/sha256"},
+        "budgetDigest": {"$ref": "common.schema.json#/$defs/sha256"},
+        "requestDigest": {"$ref": "common.schema.json#/$defs/sha256"},
+        "operation": {"enum": ["MODEL_INFERENCE", "AGENT_RUN", "TOOL_EXECUTION", "WORKFLOW_RESUME"]},
+        "issuedAt": {"$ref": "common.schema.json#/$defs/timestamp"},
+        "notBefore": {"$ref": "common.schema.json#/$defs/timestamp"},
+        "expiresAt": {"$ref": "common.schema.json#/$defs/timestamp"},
+        "nonce": {"$ref": "common.schema.json#/$defs/nonce"},
+        "idempotencyKeyDigest": {"$ref": "common.schema.json#/$defs/sha256"}
+      }
+    },
+    "signature": {
+      "allOf": [
+        {"$ref": "common.schema.json#/$defs/signature"},
+        {"properties": {"purpose": {"const": "RUNTIME_ADMISSION"}}}
+      ]
+    }
+  }
+}
