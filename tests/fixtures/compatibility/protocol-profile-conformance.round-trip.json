@@ -1,0 +1,24 @@
+{
+  "caseId": "protocol-profile-conformance-round-trip",
+  "contract": "protocol-profile-conformance",
+  "expected": {
+    "intentionalLossCodes": [
+      "CANONICAL_COMPATIBILITY_METADATA_NOT_EMITTED_TO_LEGACY",
+      "CANONICAL_STATE_VIEW_NOT_EMITTED_TO_LEGACY"
+    ],
+    "legacyRoundTrip": "EXACT",
+    "warningCodes": [
+      "LEGACY_DATA_HARNESS_V1_DEPRECATED",
+      "MIGRATE_TO_HARNESS_PLANEON_AI_V1ALPHA1"
+    ]
+  },
+  "legacy": {
+    "checks": [],
+    "profileId": "fixture-profileid",
+    "protocolVersion": "1.0.0",
+    "schemaVersion": "data.harness/v1",
+    "specification": "https://example.invalid/specification",
+    "upstreamSuite": {}
+  },
+  "schemaVersion": "harness.planeon.ai/data-harness-v1-fixture/v1"
+}

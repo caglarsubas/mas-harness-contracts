@@ -1,0 +1,27 @@
+{
+  "caseId": "local-source-evidence-round-trip",
+  "contract": "local-source-evidence",
+  "expected": {
+    "intentionalLossCodes": [
+      "CANONICAL_COMPATIBILITY_METADATA_NOT_EMITTED_TO_LEGACY",
+      "CANONICAL_STATE_VIEW_NOT_EMITTED_TO_LEGACY"
+    ],
+    "legacyRoundTrip": "EXACT",
+    "warningCodes": [
+      "LEGACY_DATA_HARNESS_V1_DEPRECATED",
+      "MIGRATE_TO_HARNESS_PLANEON_AI_V1ALPHA1"
+    ]
+  },
+  "legacy": {
+    "campaignId": "fixture-campaignid",
+    "checks": [],
+    "dockerContext": "fixture",
+    "dockerEndpointKind": "unix",
+    "externalResourcesCreated": [],
+    "generatedAt": "2026-01-01T00:00:00Z",
+    "passed": false,
+    "schemaVersion": "data.harness.local-source-evidence/v1",
+    "sources": []
+  },
+  "schemaVersion": "harness.planeon.ai/data-harness-v1-fixture/v1"
+}

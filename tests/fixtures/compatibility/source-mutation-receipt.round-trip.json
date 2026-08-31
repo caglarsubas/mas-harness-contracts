@@ -1,0 +1,30 @@
+{
+  "caseId": "source-mutation-receipt-round-trip",
+  "contract": "source-mutation-receipt",
+  "expected": {
+    "intentionalLossCodes": [
+      "CANONICAL_COMPATIBILITY_METADATA_NOT_EMITTED_TO_LEGACY",
+      "CANONICAL_STATE_VIEW_NOT_EMITTED_TO_LEGACY"
+    ],
+    "legacyRoundTrip": "EXACT",
+    "warningCodes": [
+      "LEGACY_DATA_HARNESS_V1_DEPRECATED",
+      "MIGRATE_TO_HARNESS_PLANEON_AI_V1ALPHA1"
+    ]
+  },
+  "legacy": {
+    "actionDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "actionId": "fixture-actionid",
+    "auditDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "compensationOf": "fixture",
+    "completedAt": "2026-01-01T00:00:00Z",
+    "idempotencyKey": "fixture",
+    "policyDecisionId": "fixture-policydecisionid",
+    "receiptId": "fixture-receiptid",
+    "schemaVersion": "data.harness/v1",
+    "sourceVersion": "1.0.0",
+    "startedAt": "2026-01-01T00:00:00Z",
+    "state": "executed"
+  },
+  "schemaVersion": "harness.planeon.ai/data-harness-v1-fixture/v1"
+}

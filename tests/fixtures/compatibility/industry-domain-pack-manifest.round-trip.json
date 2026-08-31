@@ -1,0 +1,27 @@
+{
+  "caseId": "industry-domain-pack-manifest-round-trip",
+  "contract": "industry-domain-pack-manifest",
+  "expected": {
+    "intentionalLossCodes": [
+      "CANONICAL_COMPATIBILITY_METADATA_NOT_EMITTED_TO_LEGACY",
+      "CANONICAL_STATE_VIEW_NOT_EMITTED_TO_LEGACY"
+    ],
+    "legacyRoundTrip": "EXACT",
+    "warningCodes": [
+      "LEGACY_DATA_HARNESS_V1_DEPRECATED",
+      "MIGRATE_TO_HARNESS_PLANEON_AI_V1ALPHA1"
+    ]
+  },
+  "legacy": {
+    "acceptanceScenarios": [],
+    "domains": [],
+    "industry": "fixture",
+    "kind": "IndustryDomainPackManifest",
+    "mockDatasets": [],
+    "packId": "fixture-packid",
+    "schemaVersion": "data.harness/v1",
+    "technologyExamples": [],
+    "version": "1.0.0"
+  },
+  "schemaVersion": "harness.planeon.ai/data-harness-v1-fixture/v1"
+}

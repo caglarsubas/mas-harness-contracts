@@ -1,0 +1,23 @@
+{
+  "caseId": "source-action-capability-profile-round-trip",
+  "contract": "source-action-capability-profile",
+  "expected": {
+    "intentionalLossCodes": [
+      "CANONICAL_COMPATIBILITY_METADATA_NOT_EMITTED_TO_LEGACY",
+      "CANONICAL_STATE_VIEW_NOT_EMITTED_TO_LEGACY"
+    ],
+    "legacyRoundTrip": "EXACT",
+    "warningCodes": [
+      "LEGACY_DATA_HARNESS_V1_DEPRECATED",
+      "MIGRATE_TO_HARNESS_PLANEON_AI_V1ALPHA1"
+    ]
+  },
+  "legacy": {
+    "connectorVersion": "1.0.0",
+    "kind": "SourceActionCapabilityProfile",
+    "operations": [],
+    "schemaVersion": "data.harness/v1",
+    "sourceId": "fixture-sourceid"
+  },
+  "schemaVersion": "harness.planeon.ai/data-harness-v1-fixture/v1"
+}

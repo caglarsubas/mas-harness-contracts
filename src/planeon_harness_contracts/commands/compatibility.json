@@ -1,0 +1,6 @@
+{
+  "schemaVersion": "harness.planeon.ai/harnessctl-command/v1alpha1",
+  "packetId": "CON-006",
+  "command": "compatibility",
+  "handler": "planeon_harness_contracts.compatibility_data_harness_v1:compatibility_command"
+}

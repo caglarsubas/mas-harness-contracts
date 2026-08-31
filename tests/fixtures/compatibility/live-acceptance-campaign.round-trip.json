@@ -1,0 +1,29 @@
+{
+  "caseId": "live-acceptance-campaign-round-trip",
+  "contract": "live-acceptance-campaign",
+  "expected": {
+    "intentionalLossCodes": [
+      "CANONICAL_COMPATIBILITY_METADATA_NOT_EMITTED_TO_LEGACY",
+      "CANONICAL_STATE_VIEW_NOT_EMITTED_TO_LEGACY"
+    ],
+    "legacyRoundTrip": "EXACT",
+    "warningCodes": [
+      "LEGACY_DATA_HARNESS_V1_DEPRECATED",
+      "MIGRATE_TO_HARNESS_PLANEON_AI_V1ALPHA1"
+    ]
+  },
+  "legacy": {
+    "accepted": false,
+    "artifacts": [],
+    "blockers": [],
+    "campaignId": "fixture-campaignid",
+    "costBoundary": {},
+    "evidence": [],
+    "generatedAt": "2026-01-01T00:00:00Z",
+    "releaseSet": "fixture",
+    "releaseSetDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "schemaVersion": "data.harness/v1",
+    "sources": []
+  },
+  "schemaVersion": "harness.planeon.ai/data-harness-v1-fixture/v1"
+}

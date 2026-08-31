@@ -1,0 +1,31 @@
+{
+  "caseId": "local-harness-runtime-evidence-round-trip",
+  "contract": "local-harness-runtime-evidence",
+  "expected": {
+    "intentionalLossCodes": [
+      "CANONICAL_COMPATIBILITY_METADATA_NOT_EMITTED_TO_LEGACY",
+      "CANONICAL_STATE_VIEW_NOT_EMITTED_TO_LEGACY"
+    ],
+    "legacyRoundTrip": "EXACT",
+    "warningCodes": [
+      "LEGACY_DATA_HARNESS_V1_DEPRECATED",
+      "MIGRATE_TO_HARNESS_PLANEON_AI_V1ALPHA1"
+    ]
+  },
+  "legacy": {
+    "artifactDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "baseImageDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "campaignId": "phase7-white-goods-local-harness-runtime",
+    "checks": [],
+    "externalResourcesCreated": [],
+    "generatedAt": "2026-01-01T00:00:00Z",
+    "harnessVersion": "1.0.0",
+    "networkMode": "compose-internal",
+    "passed": false,
+    "revision": "fixture",
+    "schemaVersion": "data.harness.local-harness-runtime-evidence/v1",
+    "sourceRecordCounts": {},
+    "wheelhouseDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "schemaVersion": "harness.planeon.ai/data-harness-v1-fixture/v1"
+}
