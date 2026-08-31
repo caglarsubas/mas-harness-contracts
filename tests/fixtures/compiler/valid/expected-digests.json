@@ -1,8 +1,8 @@
 {
-  "profile.json": "sha256:eec8c80f75dd3594b903e9b278377f8b0e3f319ea3dc2cae578edf47bcb0d0b3",
+  "profile.json": "sha256:f6c19e4ec6b6bf8d8f4967ccad4b1d16e01c3a0db2ad37419971f04c85001669",
   "bom.json": "sha256:1f13b0187175c34b6deff24aebe69e94d3a85df916bd90ba2c2e2e32ff362622",
   "install-plan.json": "sha256:424c3d8c88c24bbca004fb3307849c64fdd993a8c0c67ff89eba1492b416b67b",
   "evidence-plan.json": "sha256:8b3905562bf214c6cc1447891111efb7c87dc55a210c4392ea6278e20889d94f",
   "explanation.md": "sha256:211f771a75709cd6c6e167e08a68c51e0b857a39dc87effae29965a7d2cbfe14",
-  "profile.sha256": "sha256:c53c03f99f25ce993c24164e2286fe53d71fe140bea7e8d89ba741d3ef5d59db"
+  "profile.sha256": "sha256:add596ee06b788e899f5f9735eb78268638045b8361b4c3e5bce2f0d1655cdbe"
 }
