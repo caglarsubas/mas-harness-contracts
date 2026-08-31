@@ -27,8 +27,9 @@
     "environment": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["deploymentMode", "architecture", "operatingSystem", "kubernetesDistribution", "capabilities", "attestationDigest", "signatureStatus"],
+      "required": ["tenantId", "deploymentMode", "architecture", "operatingSystem", "kubernetesDistribution", "capabilities", "attestationDigest", "signatureStatus"],
       "properties": {
+        "tenantId": {"$ref": "#/$defs/stableId"},
         "deploymentMode": {"enum": ["operator-hosted-saas", "tenant-public-cloud", "self-managed", "air-gapped"]},
         "architecture": {"enum": ["amd64", "arm64", "platform-supplied"]},
         "operatingSystem": {"enum": ["linux", "macos", "platform-supplied"]},

@@ -15,7 +15,8 @@ The compiler applies the following order and fails closed at the first boundary:
 2. Admit only registered `PUBLIC_DEMAND` capabilities and explicit provider
    selectors in `requestedCapabilities`. Signed environment facts have a
    separate input and cannot be tenant demand.
-3. Require a verified, SHA-256-bound environment attestation and check the
+3. Require a verified, SHA-256-bound environment attestation for the same
+   `tenantId` as the compile request and check the
    declared deployment mode, architecture, operating system, Kubernetes
    distribution, and connectivity facts.
 4. Identify active provider groups from accepted public demand. Compatible
@@ -57,6 +58,10 @@ The output set is exactly:
 JSON uses `SORTED_UTF8_JSON_V1`: UTF-8, lexical object keys, compact separators,
 no non-finite numbers, and one trailing newline. `profile.sha256` contains the
 lower-case SHA-256 reference for the exact `profile.json` bytes.
+
+The compiler structurally requires the upstream verifier's `VERIFIED` signature
+status and tenant-bound digest; cryptographic trust-store verification remains an
+upstream admission responsibility rather than a self-assertion generated here.
 
 All emitted profiles, BOMs, plans, providers, modules, and install-unit digests
 remain `PLANNED` or `MISSING_PLANNED`. Compilation is source-level contract

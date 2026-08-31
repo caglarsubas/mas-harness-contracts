@@ -48,6 +48,8 @@ def test_valid_profile_is_closed_planned_and_explicit() -> None:
     profile_document = json.loads(outputs["profile.json"])
     profile = profile_document["profile"]
     assert profile["spec"]["state"] == "PLANNED"
+    assert profile["spec"]["tenantId"] == "tenant.compiler-fixture"
+    assert profile_document["tenantDemand"]["spec"]["tenantId"] == "tenant.compiler-fixture"
     assert profile["spec"]["selectedHarnessIds"] == [
         "runtime.infrastructure",
         "runtime.model-inference",
@@ -165,6 +167,12 @@ def test_blocked_readiness_and_unbounded_budget_fail_before_output() -> None:
     unbounded = request()
     unbounded["demand"]["executionBudget"]["maxRetries"] = 101
     assert error_code(unbounded) == "EXECUTION_BUDGET_INVALID"
+
+
+def test_environment_attestation_is_bound_to_the_same_tenant() -> None:
+    mismatched = request()
+    mismatched["demand"]["environment"]["tenantId"] = "tenant.someone-else"
+    assert error_code(mismatched) == "TENANT_BOUNDARY_MISMATCH"
 
 
 def test_composition_schemas_and_compiled_outputs_validate_without_retrieval() -> None:

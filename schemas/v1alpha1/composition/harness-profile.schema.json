@@ -12,9 +12,10 @@
     "spec": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["state", "catalogDigest", "tenantDemandId", "readinessAssessmentId", "readinessStatus", "requestedCapabilities", "directHarnessIds", "selectedHarnessIds", "acceptedPrerequisiteHarnessIds", "selectedModuleIds", "selectedProviderIds", "providerSelections", "proposedSelectors", "assuranceSubjects", "executionBudgetId", "environmentAttestationDigest"],
+      "required": ["state", "tenantId", "catalogDigest", "tenantDemandId", "readinessAssessmentId", "readinessStatus", "requestedCapabilities", "directHarnessIds", "selectedHarnessIds", "acceptedPrerequisiteHarnessIds", "selectedModuleIds", "selectedProviderIds", "providerSelections", "proposedSelectors", "assuranceSubjects", "executionBudgetId", "environmentAttestationDigest"],
       "properties": {
         "state": {"const": "PLANNED"},
+        "tenantId": {"$ref": "common.schema.json#/$defs/stableId"},
         "catalogDigest": {"$ref": "common.schema.json#/$defs/sha256"},
         "tenantDemandId": {"$ref": "common.schema.json#/$defs/stableId"},
         "readinessAssessmentId": {"$ref": "common.schema.json#/$defs/stableId"},

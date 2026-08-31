@@ -186,6 +186,7 @@ def _validate_request(request: Mapping[str, Any]) -> dict[str, Any]:
     environment = _closed_mapping(
         demand.get("environment"),
         {
+            "tenantId",
             "deploymentMode",
             "architecture",
             "operatingSystem",
@@ -196,6 +197,11 @@ def _validate_request(request: Mapping[str, Any]) -> dict[str, Any]:
         },
         "environment",
     )
+    if environment.get("tenantId") != metadata.get("tenantId"):
+        raise CompilationError(
+            "TENANT_BOUNDARY_MISMATCH",
+            "environment attestation tenant must match the compile request tenant",
+        )
     for field, allowed in ENVIRONMENT_VALUES.items():
         if environment.get(field) not in allowed:
             raise CompilationError("INVALID_COMBINATION", f"environment {field} is invalid")
@@ -495,7 +501,15 @@ def compile_profile(
     for harness_id, harness in harnesses.items():
         for capability in _mapping_items(_spec(harness).get("capabilities")):
             if capability.get("classification") == "PUBLIC_DEMAND":
-                capability_owners[str(capability["id"])] = harness_id
+                capability_id = str(capability["id"])
+                existing_owner = capability_owners.get(capability_id)
+                if existing_owner is not None and existing_owner != harness_id:
+                    raise CompilationError(
+                        "CATALOG_INVALID",
+                        "public capability has more than one harness owner",
+                        {"capability": capability_id},
+                    )
+                capability_owners[capability_id] = harness_id
     direct_harnesses = {
         capability_owners[capability]
         for capability in requested_public
@@ -600,6 +614,7 @@ def compile_profile(
         "kind": "TenantDemand",
         "metadata": {"id": metadata["demandId"], "version": version},
         "spec": {
+            "tenantId": metadata["tenantId"],
             "questionnaireAnswerSetId": _resource_id(normalized["answers"]),
             "readinessAssessmentId": _resource_id(normalized["readiness"]),
             "requestedCapabilities": list(requested),
@@ -628,6 +643,7 @@ def compile_profile(
         "metadata": {"id": metadata["profileId"], "version": version},
         "spec": {
             "state": "PLANNED",
+            "tenantId": metadata["tenantId"],
             "catalogDigest": catalog_digest,
             "tenantDemandId": metadata["demandId"],
             "readinessAssessmentId": _resource_id(normalized["readiness"]),

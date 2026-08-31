@@ -73,6 +73,7 @@
       "trust.security-safety"
     ],
     "environment": {
+      "tenantId": "tenant.compiler-fixture",
       "deploymentMode": "self-managed",
       "architecture": "amd64",
       "operatingSystem": "linux",

@@ -111,3 +111,20 @@ def test_symmetric_selected_conflict_is_never_order_dependent() -> None:
         with pytest.raises(CompilationError) as captured:
             compile_profile(request(), ordered, CATALOG_DIGEST)
         assert captured.value.code == "HARNESS_CONFLICT"
+
+
+def test_duplicate_public_capability_ownership_fails_closed() -> None:
+    catalog = list(copy.deepcopy(resources()))
+    for resource in catalog:
+        if resource["metadata"]["id"] == "runtime.infrastructure":
+            resource["spec"]["capabilities"].append(
+                {
+                    "id": "model.local-cpu",
+                    "classification": "PUBLIC_DEMAND",
+                    "signedAttestationRequired": False,
+                }
+            )
+            break
+    with pytest.raises(CompilationError) as captured:
+        compile_profile(request(), tuple(catalog), CATALOG_DIGEST)
+    assert captured.value.code == "CATALOG_INVALID"
