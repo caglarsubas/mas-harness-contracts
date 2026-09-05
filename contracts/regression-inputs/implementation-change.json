@@ -1,0 +1,43 @@
+{
+  "packetId": "CON-FIX-001",
+  "packetSha256": "15040a4811277880118d58121a7d23721d8a91b4ab6d3211f960189d6a351a14",
+  "path": "src/planeon_harness_contracts/state_machine.py",
+  "function": "aggregate_status",
+  "beforeSha256": "c18d938bbd5f9c62f25bdb01df983f3b55a16acdd2b4e610ea7b34ffbf22353b",
+  "afterSha256": "85b36b490b73c8256727d2f2a41a2fbd4251c73ae7cb36e25bc9d3b33bac8c46",
+  "preservedPrefixSha256": "3aa0ce8d7694b74b53a24931ffa6dad4405e54a970625642c76f7b3f0e7b8072",
+  "preservedSuffixSha256": "61b5d6ac974f75a181e349c7164feb656abb393fabc0fb724650425c28a65a91",
+  "releaseEntryException": {
+    "path": "src/planeon_harness_contracts/state_machine.py",
+    "role": "MODEL_IMPLEMENTATION",
+    "beforeSha256": "sha256:c18d938bbd5f9c62f25bdb01df983f3b55a16acdd2b4e610ea7b34ffbf22353b",
+    "afterSha256": "sha256:85b36b490b73c8256727d2f2a41a2fbd4251c73ae7cb36e25bc9d3b33bac8c46"
+  },
+  "preFixEvidence": {
+    "execution": "LOCAL_SIGNED_HOST_OFFLINE_REPLAY",
+    "sourceCommit": "5ccac6027bc090a6332ec7eef5581d7934c59853",
+    "workingTreeOverlay": false,
+    "launcherSha256": "dd59a14d5da5dee9ff63f2d2f781c72b6b209ccada53626e25678c0734b90c13",
+    "outputSha256": "2db2f4d832fc9cdd6335dd2398640baeeb6f97151571ed760faf9606422ea378",
+    "exitCode": 1,
+    "passed": 753,
+    "failed": 3,
+    "skipped": 0,
+    "testId": "tests/model/test_aggregation_interoperability.py::test_blocked_selection_precedes_degraded_installation_independent_vector",
+    "selectionState": "BLOCKED",
+    "installationState": "DEGRADED",
+    "freshnessState": "CURRENT",
+    "allElevenAxesRequiredPass": true,
+    "expected": "BLOCKED",
+    "actual": "DEGRADED"
+  },
+  "independentVector": {
+    "path": "tests/fixtures/status/aggregation-interoperability.json",
+    "role": "INDEPENDENT_CONTRACT_VECTOR",
+    "sha256": "sha256:4cfd71c300ccb2209a52d00230711820a0da52faea5169b86f5db1d3638d56bc"
+  },
+  "wireAndCompatibilityChanges": [],
+  "derivedIndexChanged": false,
+  "runtimeEvidenceIncluded": false,
+  "tenantAcceptanceIncluded": false
+}

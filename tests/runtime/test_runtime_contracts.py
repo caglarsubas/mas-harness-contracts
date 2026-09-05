@@ -4,6 +4,7 @@ import base64
 import copy
 import hashlib
 import json
+import re
 from typing import Any
 
 import pytest
@@ -13,6 +14,17 @@ from tests.model.schema_support import ROOT, load_json, validator
 
 FIXTURES = ROOT / "tests" / "fixtures" / "runtime"
 SCHEMAS = ROOT / "schemas" / "v1alpha1" / "runtime"
+
+
+def _require_additive_lineage(manifest: dict, predecessors: tuple[str, ...] = ("CON-007",)) -> None:
+    assert manifest["packetId"] == "CON-006"
+    extensions = manifest["extensionPacketIds"]
+    assert isinstance(extensions, list)
+    assert all(isinstance(item, str) and re.fullmatch(r"[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+", item)
+               for item in extensions)
+    assert len(extensions) == len(set(extensions)), "duplicate extension"
+    assert manifest["packetId"] not in extensions
+    assert extensions[:len(predecessors)] == list(predecessors), "dropped or reordered predecessor"
 
 SCHEMA_BY_FIXTURE = {
     "valid-trust-bundle.json": "runtime-trust-bundle.schema.json",
@@ -220,8 +232,7 @@ def test_key_ids_are_unique_in_golden_bundle() -> None:
 
 def test_release_manifest_carries_con007_as_an_additive_contract_extension() -> None:
     manifest = load_json(ROOT / "contracts" / "release-manifest.json")
-    assert manifest["packetId"] == "CON-006"
-    assert manifest["extensionPacketIds"] == ["CON-007"]
+    _require_additive_lineage(manifest)
     entries = {entry["path"]: entry["role"] for entry in manifest["entries"]}
     assert entries["docs/runtime-admission.md"] == "DOCUMENTATION"
     assert (
@@ -232,3 +243,25 @@ def test_release_manifest_carries_con007_as_an_additive_contract_extension() -> 
         path for path in entries if path.startswith("schemas/v1alpha1/runtime/")
     }
     assert len(runtime_schemas) == 6
+
+
+@pytest.mark.parametrize("extensions", [
+    [], ["CON-FIX-001"], ["CON-007", "CON-007"],
+    ["CON-FIX-001", "CON-007"], ["CON-007", "CON-006"],
+    ["CON-007", None], ["CON-007", "mutable-ref"],
+])
+def test_additive_lineage_rejects_dropped_duplicated_or_reordered_predecessors(extensions: list) -> None:
+    candidate = copy.deepcopy(load_json(ROOT / "contracts/release-manifest.json"))
+    candidate["extensionPacketIds"] = extensions
+    with pytest.raises(AssertionError):
+        _require_additive_lineage(candidate)
+
+
+def test_additive_lineage_accepts_future_extensions_and_retains_their_order() -> None:
+    candidate = copy.deepcopy(load_json(ROOT / "contracts/release-manifest.json"))
+    candidate["extensionPacketIds"] = ["CON-007", "CON-FIX-001", "CON-MODEL-001"]
+    _require_additive_lineage(candidate)
+    _require_additive_lineage(candidate, ("CON-007", "CON-FIX-001"))
+    candidate["extensionPacketIds"] = ["CON-007", "CON-MODEL-001", "CON-FIX-001"]
+    with pytest.raises(AssertionError, match="reordered predecessor"):
+        _require_additive_lineage(candidate, ("CON-007", "CON-FIX-001"))

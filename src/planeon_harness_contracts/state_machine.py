@@ -349,7 +349,9 @@ def aggregate_status(
             state = "REVOKED"
         elif installation == "FAILED":
             state = "FAILED"
-        elif harness["selectionState"] == "BLOCKED" or installation != "READY":
+        elif harness["selectionState"] == "BLOCKED":
+            state = "BLOCKED"
+        elif installation != "READY":
             state = "DEGRADED" if installation == "DEGRADED" else "BLOCKED"
         for axis in harness["axes"]:
             contribution = _axis_contribution(axis)

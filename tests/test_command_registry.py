@@ -37,7 +37,21 @@ class CommandRegistryTests(unittest.TestCase):
         return path
 
     def test_bootstrap_cli_has_no_registered_commands(self) -> None:
-        self.assertEqual(dict(load_command_registry()), {})
+        # Bootstrap is an empty-directory scenario, not the installed registry.
+        self.assertEqual(dict(load_command_registry(self.root)), {})
+
+    def test_current_registry_and_cli_keep_every_authorized_owner(self) -> None:
+        registry = load_command_registry(authorized_packets={"CON-002", "CON-004", "CON-006"})
+        self.assertEqual(
+            {command: registration.packet_id for command, registration in registry.items()},
+            {
+                "catalog": "CON-002",
+                "compatibility": "CON-006",
+                "validate": "CON-002",
+                "verify-determinism": "CON-004",
+            },
+        )
+        self.assertEqual(dict(load_command_registry()), dict(registry))
         self.assertEqual(cli_main(("--self-check",)), 0)
 
     def test_valid_future_descriptor_requires_authorized_owner(self) -> None:
@@ -86,4 +100,3 @@ class CommandRegistryTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
