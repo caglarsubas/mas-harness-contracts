@@ -6,7 +6,8 @@ import unittest
 from collections import Counter
 from pathlib import Path
 
-from planeon_harness_contracts.command_registry import load_command_registry
+from planeon_harness_contracts.command_registry import build_command_registry, load_command_registry
+from planeon_harness_contracts.errors import CommandRegistryError
 from planeon_harness_contracts.registry import (
     ContractRegistry,
     expected_catalog_lock,
@@ -138,8 +139,32 @@ class TaxonomyContractTests(unittest.TestCase):
                 "ModuleRelease",
             ),
         )
-        commands = load_command_registry(authorized_packets={"CON-002"})
+        descriptors = ROOT / "src/planeon_harness_contracts/commands"
+        commands = build_command_registry(
+            (descriptors / "catalog.json", descriptors / "validate.json"),
+            authorized_packets={"CON-002"},
+        )
         self.assertEqual(tuple(commands), ("catalog", "validate"))
+        self.assertEqual({item.packet_id for item in commands.values()}, {"CON-002"})
+
+    def test_later_descriptors_are_rejected_by_con002_authority(self) -> None:
+        descriptors = ROOT / "src/planeon_harness_contracts/commands"
+        for name in ("compatibility.json", "verify-determinism.json"):
+            with self.subTest(descriptor=name):
+                with self.assertRaisesRegex(CommandRegistryError, "outside predecessor closure"):
+                    build_command_registry(
+                        (descriptors / name,), authorized_packets={"CON-002"},
+                    )
+        with self.assertRaisesRegex(CommandRegistryError, "outside predecessor closure"):
+            load_command_registry(authorized_packets={"CON-002"})
+
+    def test_current_registry_retains_exact_cumulative_owners(self) -> None:
+        commands = load_command_registry(authorized_packets={"CON-002", "CON-004", "CON-006"})
+        self.assertEqual(
+            {name: registration.packet_id for name, registration in commands.items()},
+            {"catalog": "CON-002", "validate": "CON-002", "compatibility": "CON-006",
+             "verify-determinism": "CON-004"},
+        )
 
     def test_catalog_lock_is_current_and_repeatable(self) -> None:
         first = expected_catalog_lock(CATALOG)

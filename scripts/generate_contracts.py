@@ -41,31 +41,31 @@ def _sha256(value: bytes) -> str:
     return f"sha256:{hashlib.sha256(value).hexdigest()}"
 
 
-def _json_contract_paths() -> tuple[Path, ...]:
+def _json_contract_paths(root: Path = ROOT) -> tuple[Path, ...]:
     roots = (
-        ROOT / "schemas" / "v1alpha1" / "composition",
-        ROOT / "schemas" / "v1alpha1" / "lifecycle",
-        ROOT / "schemas" / "v1alpha1" / "status",
-        ROOT / "schemas" / "v1alpha1" / "events",
-        ROOT / "schemas" / "v1alpha1" / "runtime",
-        ROOT / "openapi",
-        ROOT / "asyncapi",
+        root / "schemas" / "v1alpha1" / "composition",
+        root / "schemas" / "v1alpha1" / "lifecycle",
+        root / "schemas" / "v1alpha1" / "status",
+        root / "schemas" / "v1alpha1" / "events",
+        root / "schemas" / "v1alpha1" / "runtime",
+        root / "openapi",
+        root / "asyncapi",
     )
     paths: list[Path] = []
-    for root in roots:
-        if not root.is_dir() or root.is_symlink():
-            raise ValueError(f"contract directory is missing or linked: {root.relative_to(ROOT)}")
-        entries = tuple(sorted(root.iterdir(), key=lambda item: item.name))
+    for directory in roots:
+        if not directory.is_dir() or directory.is_symlink():
+            raise ValueError(f"contract directory is missing or linked: {directory.relative_to(root)}")
+        entries = tuple(sorted(directory.iterdir(), key=lambda item: item.name))
         for entry in entries:
             if entry.is_symlink() or not entry.is_file() or entry.suffix != ".json":
-                raise ValueError(f"contract entry must be regular JSON: {entry.relative_to(ROOT)}")
-            paths.append(entry.relative_to(ROOT))
+                raise ValueError(f"contract entry must be regular JSON: {entry.relative_to(root)}")
+            paths.append(entry.relative_to(root))
     return tuple(sorted(paths, key=lambda item: item.as_posix()))
 
 
-def _read_canonical_source(path: Path) -> bytes:
+def _read_canonical_source(path: Path, root: Path = ROOT) -> bytes:
     try:
-        value = json.loads((ROOT / path).read_text(encoding="utf-8"))
+        value = json.loads((root / path).read_text(encoding="utf-8"))
     except (OSError, UnicodeError, json.JSONDecodeError) as exc:
         raise ValueError(f"invalid contract JSON: {path.as_posix()}") from exc
     if not isinstance(value, dict):
@@ -73,7 +73,7 @@ def _read_canonical_source(path: Path) -> bytes:
     return canonical_json_bytes(value)
 
 
-def expected_outputs() -> dict[Path, bytes]:
+def expected_outputs(*, root: Path = ROOT) -> dict[Path, bytes]:
     """Build every generated file in dependency order without writing."""
 
     outputs: dict[Path, bytes] = {
@@ -83,8 +83,8 @@ def expected_outputs() -> dict[Path, bytes]:
         COMPATIBILITY_TARGETS[1]: canonical_json_bytes(deprecation_document()),
     }
     entries: list[dict[str, Any]] = []
-    for path in _json_contract_paths():
-        content = _read_canonical_source(path)
+    for path in _json_contract_paths(root):
+        content = _read_canonical_source(path, root)
         role = "PREDECESSOR_CONTRACT" if "/composition/" in path.as_posix() else "PUBLIC_CONTRACT"
         entries.append({"path": path.as_posix(), "sha256": _sha256(content), "role": role})
     for path in GENERATED_TARGETS[:2]:
@@ -132,7 +132,7 @@ def expected_outputs() -> dict[Path, bytes]:
         Path("tests/fixtures/runtime/valid-trust-bundle.json"): "INTEROPERABILITY_VECTOR",
     }
     for path, role in release_sources.items():
-        absolute = ROOT / path
+        absolute = root / path
         if not absolute.is_file() or absolute.is_symlink():
             raise ValueError(f"release source is missing or linked: {path.as_posix()}")
         release_entries.append(
@@ -156,24 +156,24 @@ def expected_outputs() -> dict[Path, bytes]:
     return outputs
 
 
-def _check(outputs: dict[Path, bytes]) -> None:
+def _check(outputs: dict[Path, bytes], *, root: Path = ROOT) -> None:
     for path, expected in outputs.items():
-        absolute = ROOT / path
+        absolute = root / path
         if not absolute.is_file() or absolute.is_symlink():
             raise ValueError(f"generated output is missing or linked: {path.as_posix()}")
         if absolute.read_bytes() != expected:
             raise ValueError(f"generated output is stale: {path.as_posix()}")
-    generated = ROOT / "generated"
-    actual = {path.relative_to(ROOT) for path in generated.iterdir() if path.is_file()}
+    generated = root / "generated"
+    actual = {path.relative_to(root) for path in generated.iterdir() if path.is_file()}
     if actual != set(GENERATED_TARGETS):
         raise ValueError("generated directory contains an undeclared output")
-    compatibility = ROOT / "compatibility" / "data-harness-v1"
+    compatibility = root / "compatibility" / "data-harness-v1"
     if not compatibility.is_dir() or compatibility.is_symlink():
         raise ValueError("compatibility output directory is missing or linked")
     compatibility_entries = tuple(compatibility.iterdir())
     if any(path.is_symlink() or not path.is_file() for path in compatibility_entries):
         raise ValueError("compatibility directory contains a non-regular output")
-    actual_compatibility = {path.relative_to(ROOT) for path in compatibility_entries}
+    actual_compatibility = {path.relative_to(root) for path in compatibility_entries}
     if actual_compatibility != set(COMPATIBILITY_TARGETS):
         raise ValueError("compatibility directory contains an undeclared output")
 
