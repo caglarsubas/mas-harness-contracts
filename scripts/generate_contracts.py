@@ -130,6 +130,7 @@ def expected_outputs(*, root: Path = ROOT) -> dict[Path, bytes]:
         Path("tests/fixtures/runtime/valid-budget-consumption.json"): "INTEROPERABILITY_VECTOR",
         Path("tests/fixtures/runtime/valid-replay-record.json"): "INTEROPERABILITY_VECTOR",
         Path("tests/fixtures/runtime/valid-trust-bundle.json"): "INTEROPERABILITY_VECTOR",
+        Path("tests/fixtures/status/aggregation-interoperability.json"): "INDEPENDENT_CONTRACT_VECTOR",
     }
     for path, role in release_sources.items():
         absolute = root / path
@@ -145,7 +146,7 @@ def expected_outputs(*, root: Path = ROOT) -> dict[Path, bytes]:
             "apiVersion": "harness.planeon.ai/v1alpha1",
             "releaseVersion": "0.1.0",
             "packetId": "CON-006",
-            "extensionPacketIds": ["CON-007"],
+            "extensionPacketIds": ["CON-007", "CON-FIX-001"],
             "canonicalization": "SORTED_UTF8_JSON_V1",
             "artifactState": "SOURCE_CONTRACT_ONLY",
             "runtimeEvidenceIncluded": False,

@@ -243,6 +243,56 @@ def test_con007_baseline_manifest_and_raw_predecessor_bytes_are_retained() -> No
         assert change["preFixEvidence"]["actual"] == "DEGRADED"
 
 
+def test_corrective_release_retains_executed_regression_and_exact_exception() -> None:
+    change = load_json(REGRESSION_INPUTS / "implementation-change.json")
+    baseline = load_json(REGRESSION_INPUTS / "con-007-baseline.json")
+    manifest = load_json(ROOT / RELEASE_MANIFEST)
+    entries = {entry["path"]: entry for entry in manifest["entries"]}
+    boundary = baseline["implementationBoundary"]
+    assert change["packetId"] == "CON-FIX-001"
+    assert change["packetSha256"] == "15040a4811277880118d58121a7d23721d8a91b4ab6d3211f960189d6a351a14"
+    assert manifest["extensionPacketIds"][:2] == ["CON-007", "CON-FIX-001"]
+    assert change["preservedPrefixSha256"] == boundary["prefixSha256"]
+    assert change["preservedSuffixSha256"] == boundary["suffixSha256"]
+    assert change["releaseEntryException"] == {
+        "path": boundary["path"], "role": "MODEL_IMPLEMENTATION",
+        "beforeSha256": "sha256:" + boundary["beforeSha256"],
+        "afterSha256": entries[boundary["path"]]["sha256"],
+    }
+    evidence = change["preFixEvidence"]
+    assert evidence["execution"] == "LOCAL_SIGNED_HOST_OFFLINE_REPLAY"
+    assert evidence["workingTreeOverlay"] is False
+    assert evidence["sourceCommit"] == "5ccac6027bc090a6332ec7eef5581d7934c59853"
+    assert evidence["outputSha256"] == "2db2f4d832fc9cdd6335dd2398640baeeb6f97151571ed760faf9606422ea378"
+    assert evidence["launcherSha256"] == "dd59a14d5da5dee9ff63f2d2f781c72b6b209ccada53626e25678c0734b90c13"
+    assert (evidence["exitCode"], evidence["passed"], evidence["failed"], evidence["skipped"]) == (1, 753, 3, 0)
+    assert evidence["testId"] == (
+        "tests/model/test_aggregation_interoperability.py::"
+        "test_blocked_selection_precedes_degraded_installation_independent_vector"
+    )
+    assert (evidence["selectionState"], evidence["installationState"], evidence["freshnessState"]) == (
+        "BLOCKED", "DEGRADED", "CURRENT",
+    )
+    assert evidence["allElevenAxesRequiredPass"] is True
+    assert change["wireAndCompatibilityChanges"] == []
+    assert change["derivedIndexChanged"] is False
+    if manifest["extensionPacketIds"] == ["CON-007", "CON-FIX-001"]:
+        _require_raw_digest(ROOT / "generated/contract-index.json", baseline["rawFileSha256"]["generated/contract-index.json"])
+    assert change["runtimeEvidenceIncluded"] is change["tenantAcceptanceIncluded"] is False
+
+
+def test_independent_status_vectors_are_immutable_digest_bound_release_inputs() -> None:
+    relative = "tests/fixtures/status/aggregation-interoperability.json"
+    expected_digest = "4cfd71c300ccb2209a52d00230711820a0da52faea5169b86f5db1d3638d56bc"
+    _require_raw_digest(ROOT / relative, expected_digest)
+    manifest = load_json(ROOT / RELEASE_MANIFEST)
+    matches = [entry for entry in manifest["entries"] if entry["path"] == relative]
+    assert matches == [{"path": relative, "sha256": "sha256:" + expected_digest,
+                        "role": "INDEPENDENT_CONTRACT_VECTOR"}]
+    change = load_json(REGRESSION_INPUTS / "implementation-change.json")
+    assert change["independentVector"] == matches[0]
+
+
 @pytest.mark.parametrize("relative", [
     "openapi/status.openapi.json", "compatibility/data-harness-v1/mappings.json",
 ])
