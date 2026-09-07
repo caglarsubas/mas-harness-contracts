@@ -205,7 +205,7 @@ def test_openapi_exposes_only_the_explicit_local_subset_and_signed_boundary():
     expected = {"/v1/models": "get", "/v1/chat/completions": "post", "/v1/completions": "post",
                 "/v1/responses": "post", "/v1/embeddings": "post", "/v1/rerank": "post",
                 "/healthz": "get", "/readyz": "get", "/metrics": "get"}
-    assert api["openapi"] == "3.1.1" and api["servers"] == [{"url": "/"}]
+    assert api["openapi"] == "3.1.1" and "servers" not in api
     assert api["x-external-schema-resolution"] is False
     assert set(api["paths"]) == set(expected)
     assert api["components"]["securitySchemes"]["localMutualTLS"]["type"] == "mutualTLS"

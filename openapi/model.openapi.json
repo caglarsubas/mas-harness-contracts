@@ -5,11 +5,6 @@
     "version": "0.1.0",
     "description": "CON-MODEL-001 source contracts only. Partial OpenAI wire compatibility; rerank and signed admission are Planeon extensions. No hosted provider, route activation, tools execution or credentials supplied by this document."
   },
-  "servers": [
-    {
-      "url": "/"
-    }
-  ],
   "paths": {
     "/v1/models": {
       "get": {

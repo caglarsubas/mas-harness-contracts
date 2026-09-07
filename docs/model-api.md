@@ -39,6 +39,9 @@ validation or runtime. No OpenAI account, hosted endpoint or API key is needed.
 | GET /metrics | Authorized local operator only; bounded content-free Prometheus text; no external exporter configuration |
 
 All routes require a verified locally managed workload identity over mutual TLS.
+This reuses the predecessor operator API's workloadIdentity primitive; it does
+not introduce a certificate authority or a new authentication implementation.
+As with predecessor APIs, the description contains no servers/deployment target.
 Tenant routes additionally require organization/model authorization; metrics
 requires a distinct operator permission. No unauthenticated probe exemption is
 implicitly introduced. Any deployment-specific probe adapter is a later concern.
@@ -260,3 +263,34 @@ publish a reviewed successor. Never rewrite original evidence or delete model PV
 Next: MODEL-001 only after this packet's merge/verification and fresh native Linux
 AMD64 baseline PASS. ARM64 and GPU qualification are independent. No phase-end
 model-effort transition is due while Alpha 2 remains ongoing.
+
+## Executed candidate checkpoint — blocked predecessor scope
+
+The exact source candidate 95a97ad761efc53d134f44aa9503fa0ab0430761 ran all three
+declared argv through the unchanged signed localhost launcher, with deny-all
+outbound isolation. Both generation checks passed. The full suite reported
+1048 passed, one failed, zero skipped (1049 collected, including all 758
+predecessor test identities and 291 new tests). Exact log SHA-256:
+68d9956a5ef9a7700f27989cbc9205692e8557487486640c07f8ee5fb584b346.
+
+The failure is tests/model/test_lifecycle_contracts.py::
+test_five_openapi_documents_have_local_resolvable_refs_and_no_servers: its
+hard-coded equality admits only the original five OpenAPI files, so the required
+model.openapi.json makes the list unequal. This separate fixed-count assumption
+was missed by the earlier readiness review. The file is not owned by this packet
+and remains byte-identical. No skip, xfail, deselection, monkeypatch, file hiding
+or generator exception is introduced to evade it.
+
+A nearby assertion also forbids any servers member. Source inspection found the
+new model API's relative servers declaration would conflict after the inventory
+assertion was repaired. That new-file declaration was removed within this packet's
+existing scope and its independent test now preserves the predecessor convention.
+This is not a reproduced second pytest failure and is not represented as one.
+
+Completion needs a separately approved authority amendment for only the legacy
+test's inventory assertion: retain every original required API and all per-file
+OpenAPI-version, no-server, nonempty-path and local-reference checks while allowing
+additive APIs. Preserve the test identity and every byte outside that predicate;
+add negative coverage under this packet's existing model test paths. Do not simply
+change the fixed count from five to six. No product acceptance, green CI, merge,
+native Linux, runtime or tenant PASS is claimed at this source checkpoint.
