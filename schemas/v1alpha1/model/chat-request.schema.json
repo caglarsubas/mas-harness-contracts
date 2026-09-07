@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/model/chat-request.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "model",
+    "messages"
+  ],
+  "properties": {
+    "model": {
+      "$ref": "common.schema.json#/$defs/model"
+    },
+    "stream": {
+      "type": "boolean",
+      "default": false
+    },
+    "temperature": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 2,
+      "default": 1
+    },
+    "messages": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "items": {
+        "$ref": "common.schema.json#/$defs/message"
+      }
+    },
+    "max_completion_tokens": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 32768,
+      "default": 1024
+    },
+    "n": {
+      "const": 1,
+      "default": 1
+    },
+    "stream_options": {
+      "$ref": "common.schema.json#/$defs/streamOptions"
+    },
+    "response_format": {
+      "$ref": "common.schema.json#/$defs/responseFormat"
+    },
+    "tools": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": {
+        "$ref": "common.schema.json#/$defs/tool"
+      }
+    },
+    "tool_choice": {
+      "enum": [
+        "auto",
+        "none",
+        "required"
+      ]
+    },
+    "parallel_tool_calls": {
+      "const": false,
+      "default": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "stream_options"
+        ]
+      },
+      "then": {
+        "required": [
+          "stream"
+        ],
+        "properties": {
+          "stream": {
+            "const": true
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "tools"
+        ]
+      },
+      "then": {
+        "properties": {
+          "stream": {
+            "const": false
+          },
+          "response_format": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "const": "text"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "tool_choice"
+        ],
+        "properties": {
+          "tool_choice": {
+            "enum": [
+              "auto",
+              "required"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "tools"
+        ]
+      }
+    }
+  ]
+}

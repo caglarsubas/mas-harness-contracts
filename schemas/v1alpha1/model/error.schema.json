@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/model/error.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "error"
+  ],
+  "properties": {
+    "error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "type",
+        "message",
+        "param"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "common.schema.json#/$defs/reason"
+        },
+        "type": {
+          "enum": [
+            "invalid_request_error",
+            "authentication_error",
+            "permission_error",
+            "not_found_error",
+            "rate_limit_error",
+            "server_error",
+            "cancelled_error"
+          ]
+        },
+        "message": {
+          "const": "The request could not be completed."
+        },
+        "param": {
+          "type": "null"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/model/request-binding.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "organizationId",
+    "subjectDigest",
+    "releaseDigest",
+    "policyDigest",
+    "budgetDigest",
+    "requestId",
+    "method",
+    "path",
+    "bodySha256",
+    "deadlineUnixMs"
+  ],
+  "properties": {
+    "organizationId": {
+      "$ref": "common.schema.json#/$defs/organizationId"
+    },
+    "subjectDigest": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "releaseDigest": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "policyDigest": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "budgetDigest": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "requestId": {
+      "$ref": "common.schema.json#/$defs/id"
+    },
+    "method": {
+      "const": "POST"
+    },
+    "path": {
+      "$ref": "common.schema.json#/$defs/endpoint"
+    },
+    "bodySha256": {
+      "$ref": "common.schema.json#/$defs/sha256"
+    },
+    "deadlineUnixMs": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 253402300799000
+    }
+  }
+}

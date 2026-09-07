@@ -1,0 +1,309 @@
+{
+  "provenance": "INDEPENDENT_CONTRACT_VECTOR",
+  "cases": [
+    {
+      "id": "chat-complete",
+      "kind": "chat",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": true,
+      "raw": "id: request-1:0\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}\n\nid: request-1:1\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":\"One two\"},\"finish_reason\":null}]}\n\nid: request-1:2\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}\n\nid: request-1:3\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":2,\"total_tokens\":6},\"choices\":[]}\n\nid: request-1:4\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "completion-complete",
+      "kind": "completion",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": true,
+      "raw": "id: request-1:0\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[{\"index\":0,\"text\":\"One two\",\"finish_reason\":null,\"logprobs\":null}],\"usage\":null}\n\nid: request-1:1\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[{\"index\":0,\"text\":\"\",\"finish_reason\":\"stop\",\"logprobs\":null}],\"usage\":null}\n\nid: request-1:2\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[],\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":2,\"total_tokens\":6}}\n\nid: request-1:3\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "responses-complete",
+      "kind": "response",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": true,
+      "raw": "event: response.created\nid: request-1:0\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":0}\n\nevent: response.in_progress\nid: request-1:1\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":1}\n\nevent: response.output_item.added\nid: request-1:2\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"in_progress\",\"content\":[]},\"sequence_number\":2}\n\nevent: response.content_part.added\nid: request-1:3\ndata: {\"type\":\"response.content_part.added\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[]},\"sequence_number\":3}\n\nevent: response.output_text.delta\nid: request-1:4\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"delta\":\"One two\",\"sequence_number\":4}\n\nevent: response.output_text.done\nid: request-1:5\ndata: {\"type\":\"response.output_text.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"text\":\"One two\",\"sequence_number\":5}\n\nevent: response.content_part.done\nid: request-1:6\ndata: {\"type\":\"response.content_part.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]},\"sequence_number\":6}\n\nevent: response.output_item.done\nid: request-1:7\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]},\"sequence_number\":7}\n\nevent: response.completed\nid: request-1:8\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"completed\",\"output\":[{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]}],\"usage\":{\"input_tokens\":4,\"output_tokens\":2,\"total_tokens\":6},\"error\":null,\"incomplete_details\":null},\"sequence_number\":8}\n\n"
+    },
+    {
+      "id": "chat-no-usage",
+      "kind": "chat",
+      "requestId": "request-1",
+      "includeUsage": false,
+      "valid": true,
+      "raw": "id: request-1:0\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}\n\nid: request-1:1\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":\"One two\"},\"finish_reason\":null}]}\n\nid: request-1:2\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}\n\nid: request-1:3\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "completion-no-usage",
+      "kind": "completion",
+      "requestId": "request-1",
+      "includeUsage": false,
+      "valid": true,
+      "raw": "id: request-1:0\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[{\"index\":0,\"text\":\"One two\",\"finish_reason\":null,\"logprobs\":null}],\"usage\":null}\n\nid: request-1:1\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[{\"index\":0,\"text\":\"\",\"finish_reason\":\"stop\",\"logprobs\":null}],\"usage\":null}\n\nid: request-1:2\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "chat-error",
+      "kind": "chat",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": true,
+      "raw": "id: request-1:0\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}\n\nid: request-1:1\ndata: {\"error\":{\"code\":\"INTERNAL_ERROR\",\"type\":\"server_error\",\"message\":\"The request could not be completed.\",\"param\":null}}\n\nid: request-1:2\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "completion-error",
+      "kind": "completion",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": true,
+      "raw": "id: request-1:0\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[{\"index\":0,\"text\":\"One two\",\"finish_reason\":null,\"logprobs\":null}],\"usage\":null}\n\nid: request-1:1\ndata: {\"error\":{\"code\":\"INTERNAL_ERROR\",\"type\":\"server_error\",\"message\":\"The request could not be completed.\",\"param\":null}}\n\nid: request-1:2\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "responses-failed",
+      "kind": "response",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": true,
+      "raw": "event: response.created\nid: request-1:0\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":0}\n\nevent: response.in_progress\nid: request-1:1\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":1}\n\nevent: response.failed\nid: request-1:2\ndata: {\"type\":\"response.failed\",\"sequence_number\":2,\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"failed\",\"output\":[],\"usage\":null,\"error\":{\"code\":\"INTERNAL_ERROR\",\"message\":\"The request could not be completed.\"},\"incomplete_details\":null}}\n\n"
+    },
+    {
+      "id": "responses-error",
+      "kind": "response",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": true,
+      "raw": "event: response.created\nid: request-1:0\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":0}\n\nevent: error\nid: request-1:1\ndata: {\"type\":\"error\",\"sequence_number\":1,\"code\":\"INTERNAL_ERROR\",\"message\":\"The request could not be completed.\",\"param\":null}\n\n"
+    },
+    {
+      "id": "responses-incomplete",
+      "kind": "response",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": true,
+      "raw": "event: response.created\nid: request-1:0\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":0}\n\nevent: response.in_progress\nid: request-1:1\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":1}\n\nevent: response.output_item.added\nid: request-1:2\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"in_progress\",\"content\":[]},\"sequence_number\":2}\n\nevent: response.content_part.added\nid: request-1:3\ndata: {\"type\":\"response.content_part.added\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[]},\"sequence_number\":3}\n\nevent: response.output_text.delta\nid: request-1:4\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"delta\":\"One two\",\"sequence_number\":4}\n\nevent: response.output_text.done\nid: request-1:5\ndata: {\"type\":\"response.output_text.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"text\":\"One two\",\"sequence_number\":5}\n\nevent: response.content_part.done\nid: request-1:6\ndata: {\"type\":\"response.content_part.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]},\"sequence_number\":6}\n\nevent: response.output_item.done\nid: request-1:7\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"incomplete\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]},\"sequence_number\":7}\n\nevent: response.incomplete\nid: request-1:8\ndata: {\"type\":\"response.incomplete\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"incomplete\",\"output\":[{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"incomplete\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]}],\"usage\":{\"input_tokens\":4,\"output_tokens\":2,\"total_tokens\":6},\"error\":null,\"incomplete_details\":{\"reason\":\"max_output_tokens\"}},\"sequence_number\":8}\n\n"
+    },
+    {
+      "id": "chat-missing-terminal",
+      "kind": "chat",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "id: request-1:0\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}\n\nid: request-1:1\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":\"One two\"},\"finish_reason\":null}]}\n\nid: request-1:2\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}\n\nid: request-1:3\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":2,\"total_tokens\":6},\"choices\":[]}\n\n"
+    },
+    {
+      "id": "chat-duplicate-terminal",
+      "kind": "chat",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "id: request-1:0\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}\n\nid: request-1:1\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":\"One two\"},\"finish_reason\":null}]}\n\nid: request-1:2\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}\n\nid: request-1:3\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":2,\"total_tokens\":6},\"choices\":[]}\n\nid: request-1:4\ndata: [DONE]\n\nid: request-1:5\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "chat-cross-request",
+      "kind": "chat",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "id: request-1:0\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}\n\nid: request-1:1\ndata: {\"id\":\"other\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":\"One two\"},\"finish_reason\":null}]}\n\nid: request-1:2\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}\n\nid: request-1:3\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":2,\"total_tokens\":6},\"choices\":[]}\n\nid: request-1:4\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "chat-cross-model",
+      "kind": "chat",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "id: request-1:0\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}\n\nid: request-1:1\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"other\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":\"One two\"},\"finish_reason\":null}]}\n\nid: request-1:2\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}\n\nid: request-1:3\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":2,\"total_tokens\":6},\"choices\":[]}\n\nid: request-1:4\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "completion-missing-terminal",
+      "kind": "completion",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "id: request-1:0\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[{\"index\":0,\"text\":\"One two\",\"finish_reason\":null,\"logprobs\":null}],\"usage\":null}\n\nid: request-1:1\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[{\"index\":0,\"text\":\"\",\"finish_reason\":\"stop\",\"logprobs\":null}],\"usage\":null}\n\nid: request-1:2\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[],\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":2,\"total_tokens\":6}}\n\n"
+    },
+    {
+      "id": "completion-duplicate-terminal",
+      "kind": "completion",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "id: request-1:0\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[{\"index\":0,\"text\":\"One two\",\"finish_reason\":null,\"logprobs\":null}],\"usage\":null}\n\nid: request-1:1\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[{\"index\":0,\"text\":\"\",\"finish_reason\":\"stop\",\"logprobs\":null}],\"usage\":null}\n\nid: request-1:2\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[],\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":2,\"total_tokens\":6}}\n\nid: request-1:3\ndata: [DONE]\n\nid: request-1:4\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "completion-cross-request",
+      "kind": "completion",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "id: request-1:0\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[{\"index\":0,\"text\":\"One two\",\"finish_reason\":null,\"logprobs\":null}],\"usage\":null}\n\nid: request-1:1\ndata: {\"id\":\"other\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[{\"index\":0,\"text\":\"\",\"finish_reason\":\"stop\",\"logprobs\":null}],\"usage\":null}\n\nid: request-1:2\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[],\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":2,\"total_tokens\":6}}\n\nid: request-1:3\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "completion-cross-model",
+      "kind": "completion",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "id: request-1:0\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[{\"index\":0,\"text\":\"One two\",\"finish_reason\":null,\"logprobs\":null}],\"usage\":null}\n\nid: request-1:1\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"other\",\"choices\":[{\"index\":0,\"text\":\"\",\"finish_reason\":\"stop\",\"logprobs\":null}],\"usage\":null}\n\nid: request-1:2\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[],\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":2,\"total_tokens\":6}}\n\nid: request-1:3\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "response-missing-terminal",
+      "kind": "response",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "event: response.created\nid: request-1:0\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":0}\n\nevent: response.in_progress\nid: request-1:1\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":1}\n\nevent: response.output_item.added\nid: request-1:2\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"in_progress\",\"content\":[]},\"sequence_number\":2}\n\nevent: response.content_part.added\nid: request-1:3\ndata: {\"type\":\"response.content_part.added\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[]},\"sequence_number\":3}\n\nevent: response.output_text.delta\nid: request-1:4\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"delta\":\"One two\",\"sequence_number\":4}\n\nevent: response.output_text.done\nid: request-1:5\ndata: {\"type\":\"response.output_text.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"text\":\"One two\",\"sequence_number\":5}\n\nevent: response.content_part.done\nid: request-1:6\ndata: {\"type\":\"response.content_part.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]},\"sequence_number\":6}\n\nevent: response.output_item.done\nid: request-1:7\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]},\"sequence_number\":7}\n\n"
+    },
+    {
+      "id": "response-duplicate-terminal",
+      "kind": "response",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "event: response.created\nid: request-1:0\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":0}\n\nevent: response.in_progress\nid: request-1:1\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":1}\n\nevent: response.output_item.added\nid: request-1:2\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"in_progress\",\"content\":[]},\"sequence_number\":2}\n\nevent: response.content_part.added\nid: request-1:3\ndata: {\"type\":\"response.content_part.added\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[]},\"sequence_number\":3}\n\nevent: response.output_text.delta\nid: request-1:4\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"delta\":\"One two\",\"sequence_number\":4}\n\nevent: response.output_text.done\nid: request-1:5\ndata: {\"type\":\"response.output_text.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"text\":\"One two\",\"sequence_number\":5}\n\nevent: response.content_part.done\nid: request-1:6\ndata: {\"type\":\"response.content_part.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]},\"sequence_number\":6}\n\nevent: response.output_item.done\nid: request-1:7\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]},\"sequence_number\":7}\n\nevent: response.completed\nid: request-1:8\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"completed\",\"output\":[{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]}],\"usage\":{\"input_tokens\":4,\"output_tokens\":2,\"total_tokens\":6},\"error\":null,\"incomplete_details\":null},\"sequence_number\":8}\n\nevent: response.completed\nid: request-1:9\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"completed\",\"output\":[{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]}],\"usage\":{\"input_tokens\":4,\"output_tokens\":2,\"total_tokens\":6},\"error\":null,\"incomplete_details\":null},\"sequence_number\":8}\n\n"
+    },
+    {
+      "id": "response-cross-request",
+      "kind": "response",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "event: response.created\nid: request-1:0\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":0}\n\nevent: response.in_progress\nid: request-1:1\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":1}\n\nevent: response.output_item.added\nid: request-1:2\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"in_progress\",\"content\":[]},\"sequence_number\":2}\n\nevent: response.content_part.added\nid: request-1:3\ndata: {\"type\":\"response.content_part.added\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[]},\"sequence_number\":3}\n\nevent: response.output_text.delta\nid: request-1:4\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"content_index\":0,\"item_id\":\"other\",\"delta\":\"One two\",\"sequence_number\":4}\n\nevent: response.output_text.done\nid: request-1:5\ndata: {\"type\":\"response.output_text.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"text\":\"One two\",\"sequence_number\":5}\n\nevent: response.content_part.done\nid: request-1:6\ndata: {\"type\":\"response.content_part.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]},\"sequence_number\":6}\n\nevent: response.output_item.done\nid: request-1:7\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]},\"sequence_number\":7}\n\nevent: response.completed\nid: request-1:8\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"completed\",\"output\":[{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]}],\"usage\":{\"input_tokens\":4,\"output_tokens\":2,\"total_tokens\":6},\"error\":null,\"incomplete_details\":null},\"sequence_number\":8}\n\n"
+    },
+    {
+      "id": "response-cross-model",
+      "kind": "response",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "event: response.created\nid: request-1:0\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":0}\n\nevent: response.in_progress\nid: request-1:1\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":1}\n\nevent: response.output_item.added\nid: request-1:2\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"in_progress\",\"content\":[]},\"sequence_number\":2}\n\nevent: response.content_part.added\nid: request-1:3\ndata: {\"type\":\"response.content_part.added\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[]},\"sequence_number\":3}\n\nevent: response.output_text.delta\nid: request-1:4\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"delta\":\"One two\",\"sequence_number\":4}\n\nevent: response.output_text.done\nid: request-1:5\ndata: {\"type\":\"response.output_text.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"text\":\"One two\",\"sequence_number\":5}\n\nevent: response.content_part.done\nid: request-1:6\ndata: {\"type\":\"response.content_part.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]},\"sequence_number\":6}\n\nevent: response.output_item.done\nid: request-1:7\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]},\"sequence_number\":7}\n\nevent: response.completed\nid: request-1:8\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"other\",\"status\":\"completed\",\"output\":[{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]}],\"usage\":{\"input_tokens\":4,\"output_tokens\":2,\"total_tokens\":6},\"error\":null,\"incomplete_details\":null},\"sequence_number\":8}\n\n"
+    },
+    {
+      "id": "chat-missing-finish",
+      "kind": "chat",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "id: request-1:0\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}\n\nid: request-1:1\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":\"One two\"},\"finish_reason\":null}]}\n\nid: request-1:2\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":2,\"total_tokens\":6},\"choices\":[]}\n\nid: request-1:3\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "chat-double-usage",
+      "kind": "chat",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "id: request-1:0\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}\n\nid: request-1:1\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":\"One two\"},\"finish_reason\":null}]}\n\nid: request-1:2\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}\n\nid: request-1:3\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":2,\"total_tokens\":6},\"choices\":[]}\n\nid: request-1:4\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":2,\"total_tokens\":6},\"choices\":[]}\n\nid: request-1:5\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "chat-text-after-finish",
+      "kind": "chat",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "id: request-1:0\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}\n\nid: request-1:1\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":\"One two\"},\"finish_reason\":null}]}\n\nid: request-1:2\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}\n\nid: request-1:3\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":\"One two\"},\"finish_reason\":null}]}\n\nid: request-1:4\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":2,\"total_tokens\":6},\"choices\":[]}\n\nid: request-1:5\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "responses-done-mismatch",
+      "kind": "response",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "event: response.created\nid: request-1:0\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":0}\n\nevent: response.in_progress\nid: request-1:1\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":1}\n\nevent: response.output_item.added\nid: request-1:2\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"in_progress\",\"content\":[]},\"sequence_number\":2}\n\nevent: response.content_part.added\nid: request-1:3\ndata: {\"type\":\"response.content_part.added\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[]},\"sequence_number\":3}\n\nevent: response.output_text.delta\nid: request-1:4\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"delta\":\"One two\",\"sequence_number\":4}\n\nevent: response.output_text.done\nid: request-1:5\ndata: {\"type\":\"response.output_text.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"text\":\"Different\",\"sequence_number\":5}\n\nevent: response.content_part.done\nid: request-1:6\ndata: {\"type\":\"response.content_part.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]},\"sequence_number\":6}\n\nevent: response.output_item.done\nid: request-1:7\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]},\"sequence_number\":7}\n\nevent: response.completed\nid: request-1:8\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"completed\",\"output\":[{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]}],\"usage\":{\"input_tokens\":4,\"output_tokens\":2,\"total_tokens\":6},\"error\":null,\"incomplete_details\":null},\"sequence_number\":8}\n\n"
+    },
+    {
+      "id": "responses-duplicate-sequence",
+      "kind": "response",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "event: response.created\nid: request-1:0\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":0}\n\nevent: response.in_progress\nid: request-1:1\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":1}\n\nevent: response.output_item.added\nid: request-1:2\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"in_progress\",\"content\":[]},\"sequence_number\":2}\n\nevent: response.content_part.added\nid: request-1:3\ndata: {\"type\":\"response.content_part.added\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[]},\"sequence_number\":3}\n\nevent: response.output_text.delta\nid: request-1:4\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"delta\":\"One two\",\"sequence_number\":3}\n\nevent: response.output_text.done\nid: request-1:5\ndata: {\"type\":\"response.output_text.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"text\":\"One two\",\"sequence_number\":5}\n\nevent: response.content_part.done\nid: request-1:6\ndata: {\"type\":\"response.content_part.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]},\"sequence_number\":6}\n\nevent: response.output_item.done\nid: request-1:7\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]},\"sequence_number\":7}\n\nevent: response.completed\nid: request-1:8\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"completed\",\"output\":[{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]}],\"usage\":{\"input_tokens\":4,\"output_tokens\":2,\"total_tokens\":6},\"error\":null,\"incomplete_details\":null},\"sequence_number\":8}\n\n"
+    },
+    {
+      "id": "responses-wrong-order",
+      "kind": "response",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "event: response.created\nid: request-1:0\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":0}\n\nevent: response.in_progress\nid: request-1:1\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":1}\n\nevent: response.content_part.added\nid: request-1:2\ndata: {\"type\":\"response.content_part.added\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[]},\"sequence_number\":2}\n\nevent: response.output_item.added\nid: request-1:3\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"in_progress\",\"content\":[]},\"sequence_number\":3}\n\nevent: response.output_text.delta\nid: request-1:4\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"delta\":\"One two\",\"sequence_number\":4}\n\nevent: response.output_text.done\nid: request-1:5\ndata: {\"type\":\"response.output_text.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"text\":\"One two\",\"sequence_number\":5}\n\nevent: response.content_part.done\nid: request-1:6\ndata: {\"type\":\"response.content_part.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]},\"sequence_number\":6}\n\nevent: response.output_item.done\nid: request-1:7\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]},\"sequence_number\":7}\n\nevent: response.completed\nid: request-1:8\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"completed\",\"output\":[{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]}],\"usage\":{\"input_tokens\":4,\"output_tokens\":2,\"total_tokens\":6},\"error\":null,\"incomplete_details\":null},\"sequence_number\":8}\n\n"
+    },
+    {
+      "id": "chat-complete-bad-frame-id",
+      "kind": "chat",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "id: request-2:0\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}\n\nid: request-1:1\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":\"One two\"},\"finish_reason\":null}]}\n\nid: request-1:2\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}\n\nid: request-1:3\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":2,\"total_tokens\":6},\"choices\":[]}\n\nid: request-1:4\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "completion-complete-bad-frame-id",
+      "kind": "completion",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "id: request-2:0\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[{\"index\":0,\"text\":\"One two\",\"finish_reason\":null,\"logprobs\":null}],\"usage\":null}\n\nid: request-1:1\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[{\"index\":0,\"text\":\"\",\"finish_reason\":\"stop\",\"logprobs\":null}],\"usage\":null}\n\nid: request-1:2\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[],\"usage\":{\"prompt_tokens\":4,\"completion_tokens\":2,\"total_tokens\":6}}\n\nid: request-1:3\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "responses-complete-bad-frame-id",
+      "kind": "response",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "event: response.created\nid: request-2:0\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":0}\n\nevent: response.in_progress\nid: request-1:1\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":1}\n\nevent: response.output_item.added\nid: request-1:2\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"in_progress\",\"content\":[]},\"sequence_number\":2}\n\nevent: response.content_part.added\nid: request-1:3\ndata: {\"type\":\"response.content_part.added\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[]},\"sequence_number\":3}\n\nevent: response.output_text.delta\nid: request-1:4\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"delta\":\"One two\",\"sequence_number\":4}\n\nevent: response.output_text.done\nid: request-1:5\ndata: {\"type\":\"response.output_text.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"text\":\"One two\",\"sequence_number\":5}\n\nevent: response.content_part.done\nid: request-1:6\ndata: {\"type\":\"response.content_part.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]},\"sequence_number\":6}\n\nevent: response.output_item.done\nid: request-1:7\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]},\"sequence_number\":7}\n\nevent: response.completed\nid: request-1:8\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"completed\",\"output\":[{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"completed\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]}],\"usage\":{\"input_tokens\":4,\"output_tokens\":2,\"total_tokens\":6},\"error\":null,\"incomplete_details\":null},\"sequence_number\":8}\n\n"
+    },
+    {
+      "id": "chat-no-usage-bad-frame-id",
+      "kind": "chat",
+      "requestId": "request-1",
+      "includeUsage": false,
+      "valid": false,
+      "raw": "id: request-2:0\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}\n\nid: request-1:1\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"content\":\"One two\"},\"finish_reason\":null}]}\n\nid: request-1:2\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}\n\nid: request-1:3\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "completion-no-usage-bad-frame-id",
+      "kind": "completion",
+      "requestId": "request-1",
+      "includeUsage": false,
+      "valid": false,
+      "raw": "id: request-2:0\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[{\"index\":0,\"text\":\"One two\",\"finish_reason\":null,\"logprobs\":null}],\"usage\":null}\n\nid: request-1:1\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[{\"index\":0,\"text\":\"\",\"finish_reason\":\"stop\",\"logprobs\":null}],\"usage\":null}\n\nid: request-1:2\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "chat-error-bad-frame-id",
+      "kind": "chat",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "id: request-2:0\ndata: {\"id\":\"request-1\",\"created\":1,\"model\":\"local-text\",\"object\":\"chat.completion.chunk\",\"usage\":null,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}\n\nid: request-1:1\ndata: {\"error\":{\"code\":\"INTERNAL_ERROR\",\"type\":\"server_error\",\"message\":\"The request could not be completed.\",\"param\":null}}\n\nid: request-1:2\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "completion-error-bad-frame-id",
+      "kind": "completion",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "id: request-2:0\ndata: {\"id\":\"request-1\",\"object\":\"text_completion\",\"created\":1,\"model\":\"local-text\",\"choices\":[{\"index\":0,\"text\":\"One two\",\"finish_reason\":null,\"logprobs\":null}],\"usage\":null}\n\nid: request-1:1\ndata: {\"error\":{\"code\":\"INTERNAL_ERROR\",\"type\":\"server_error\",\"message\":\"The request could not be completed.\",\"param\":null}}\n\nid: request-1:2\ndata: [DONE]\n\n"
+    },
+    {
+      "id": "responses-failed-bad-frame-id",
+      "kind": "response",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "event: response.created\nid: request-2:0\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":0}\n\nevent: response.in_progress\nid: request-1:1\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":1}\n\nevent: response.failed\nid: request-1:2\ndata: {\"type\":\"response.failed\",\"sequence_number\":2,\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"failed\",\"output\":[],\"usage\":null,\"error\":{\"code\":\"INTERNAL_ERROR\",\"message\":\"The request could not be completed.\"},\"incomplete_details\":null}}\n\n"
+    },
+    {
+      "id": "responses-error-bad-frame-id",
+      "kind": "response",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "event: response.created\nid: request-2:0\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":0}\n\nevent: error\nid: request-1:1\ndata: {\"type\":\"error\",\"sequence_number\":1,\"code\":\"INTERNAL_ERROR\",\"message\":\"The request could not be completed.\",\"param\":null}\n\n"
+    },
+    {
+      "id": "responses-incomplete-bad-frame-id",
+      "kind": "response",
+      "requestId": "request-1",
+      "includeUsage": true,
+      "valid": false,
+      "raw": "event: response.created\nid: request-2:0\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":0}\n\nevent: response.in_progress\nid: request-1:1\ndata: {\"type\":\"response.in_progress\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"in_progress\",\"output\":[],\"usage\":null,\"error\":null,\"incomplete_details\":null},\"sequence_number\":1}\n\nevent: response.output_item.added\nid: request-1:2\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"in_progress\",\"content\":[]},\"sequence_number\":2}\n\nevent: response.content_part.added\nid: request-1:3\ndata: {\"type\":\"response.content_part.added\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"\",\"annotations\":[]},\"sequence_number\":3}\n\nevent: response.output_text.delta\nid: request-1:4\ndata: {\"type\":\"response.output_text.delta\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"delta\":\"One two\",\"sequence_number\":4}\n\nevent: response.output_text.done\nid: request-1:5\ndata: {\"type\":\"response.output_text.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"text\":\"One two\",\"sequence_number\":5}\n\nevent: response.content_part.done\nid: request-1:6\ndata: {\"type\":\"response.content_part.done\",\"output_index\":0,\"content_index\":0,\"item_id\":\"message-1\",\"part\":{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]},\"sequence_number\":6}\n\nevent: response.output_item.done\nid: request-1:7\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"incomplete\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]},\"sequence_number\":7}\n\nevent: response.incomplete\nid: request-1:8\ndata: {\"type\":\"response.incomplete\",\"response\":{\"id\":\"request-1\",\"object\":\"response\",\"created_at\":1,\"model\":\"local-text\",\"status\":\"incomplete\",\"output\":[{\"id\":\"message-1\",\"type\":\"message\",\"role\":\"assistant\",\"status\":\"incomplete\",\"content\":[{\"type\":\"output_text\",\"text\":\"One two\",\"annotations\":[]}]}],\"usage\":{\"input_tokens\":4,\"output_tokens\":2,\"total_tokens\":6},\"error\":null,\"incomplete_details\":{\"reason\":\"max_output_tokens\"}},\"sequence_number\":8}\n\n"
+    }
+  ]
+}

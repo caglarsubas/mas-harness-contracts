@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/model/models-response.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "object",
+    "data"
+  ],
+  "properties": {
+    "object": {
+      "const": "list"
+    },
+    "data": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 256,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "object",
+          "created",
+          "owned_by",
+          "capabilities"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "common.schema.json#/$defs/model"
+          },
+          "object": {
+            "const": "model"
+          },
+          "created": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 253402300799
+          },
+          "owned_by": {
+            "const": "local"
+          },
+          "capabilities": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "endpoints",
+              "streaming",
+              "structured_output",
+              "tools",
+              "max_input_tokens",
+              "max_output_tokens",
+              "embedding_dimensions",
+              "visibility"
+            ],
+            "properties": {
+              "endpoints": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 5,
+                "items": {
+                  "$ref": "common.schema.json#/$defs/endpoint"
+                },
+                "uniqueItems": true
+              },
+              "streaming": {
+                "type": "boolean"
+              },
+              "structured_output": {
+                "type": "boolean"
+              },
+              "tools": {
+                "type": "boolean"
+              },
+              "max_input_tokens": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10000000
+              },
+              "max_output_tokens": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 32768
+              },
+              "embedding_dimensions": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 4096
+                  }
+                ]
+              },
+              "visibility": {
+                "const": "AUTHORIZED_ORGANIZATION"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

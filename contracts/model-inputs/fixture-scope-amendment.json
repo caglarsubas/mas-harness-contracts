@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "harness.planeon.ai/model-fixture-scope-amendment/v1",
+  "authorityPacket": "MET-REPAIR-005",
+  "approvalDate": "2026-09-07",
+  "historicalPacketCount": 121,
+  "currentPacketCount": 122,
+  "metaBaseline": "a50f878296295abf42dc48093904d99f046f0d2b",
+  "baseline": {
+    "repository": "mas-harness-contracts",
+    "commit": "fb365aabfd8c5560e064be5d97ff9f2bcc69c57c",
+    "packetSha256": "807efc83ddd77e27e19d0e7d53811321c9b00c95972b53e78b263f385fd41d48",
+    "execution": "LOCAL_SIGNED_HOST_OFFLINE_REPLAY",
+    "passed": 758,
+    "failed": 0,
+    "skipped": 0,
+    "commandsCompleted": 3,
+    "outputSha256": "563390fc76763cc347c6327b7e219ae2077ad94592a061f92ee97a705fae9af7",
+    "workingTreeOverlay": false,
+    "trackedFilesUnchanged": true
+  },
+  "testChange": {
+    "path": "tests/golden/test_generated_contracts.py",
+    "beforeSha256": "856b1d14e0f4d4ee84f6c4f973db412f9905559124091355bec7de85cc818080",
+    "helper": "_copy_generation_inputs",
+    "beforeHelper": "def _copy_generation_inputs(destination: Path) -> None:\n    for relative in (\n        \"schemas\", \"openapi\", \"asyncapi\", \"src\", \"docs\",\n        \"tests/fixtures/runtime\", \"tests/fixtures/status\", \"contracts/regression-inputs\",\n    ):\n        shutil.copytree(ROOT / relative, destination / relative)\n",
+    "afterHelper": "def _copy_generation_inputs(destination: Path) -> None:\n    for relative in (\n        \"schemas\", \"openapi\", \"asyncapi\", \"src\", \"docs\",\n        \"tests/fixtures/runtime\", \"tests/fixtures/status\", \"contracts/regression-inputs\",\n        \"tests/fixtures/model\", \"contracts/model-inputs\",\n    ):\n        shutil.copytree(ROOT / relative, destination / relative)\n    shutil.copy2(ROOT / \"contracts/model-inputs.lock.json\", destination / \"contracts/model-inputs.lock.json\")\n",
+    "prefixSha256": "057dd3b6f8e6f97f78957ae6e359e7fda6dd03038b4e9d05bc0f6ccfbc8e0a4c",
+    "suffixSha256": "c1cb7096aa6e2ef684e5b9533c7493974bb47d71e48ac95ae82b9c56a85b4e3b",
+    "otherBytes": "UNCHANGED",
+    "otherAssertions": "UNCHANGED",
+    "directoryCopies": [
+      "tests/fixtures/model",
+      "contracts/model-inputs"
+    ],
+    "fileCopies": [
+      "contracts/model-inputs.lock.json"
+    ],
+    "missingInputs": "FAIL_CLOSED",
+    "diagnosis": "SOURCE_INSPECTION_ONLY",
+    "productImplementation": "NOT_RUN",
+    "negativeCasesOwner": "tests/model_api/"
+  },
+  "packetDigests": {
+    "MET-REPAIR-005": "680335751aab8ac403f73db751d67c0ba98fce09017d51eebd7fa36d7b9fb5d0",
+    "CON-MODEL-001": "fff08209e76c2287c257a8d37a29aba159f82019e70f51d36bcaebf9d6805f33"
+  },
+  "protectedFiles": {
+    "architecture/model-fixture-inputs/CON-MODEL-001.before.yaml": "807efc83ddd77e27e19d0e7d53811321c9b00c95972b53e78b263f385fd41d48",
+    "architecture/model-fixture-inputs/test_generated_contracts.before.txt": "856b1d14e0f4d4ee84f6c4f973db412f9905559124091355bec7de85cc818080",
+    "architecture/readiness-repairs.json": "30db784918bb651cc81f26d23cb4b1d7f790ef260ef5e48a2d7ae2ae94c12a0d",
+    "architecture/readiness-repair-amendment.json": "c3caa938557f1b9bb195188e35edc946fbdea36f0f1b235ab23f2689ffc54912",
+    "architecture/linux-readiness.json": "2ac76f01df10f3267b23340dd2af7c466647f5bd9f3645d6203c4de93c0a8762",
+    "architecture/linux-readiness-amendment.json": "3a59552dbadd6a9e7579038523787926b921c35a3c71d036d2705b1c95b804a6",
+    "architecture/linux-test-ownership-amendment.json": "5aa1e79de247ebed7550b56db48266182941232d9036840beade99fbcf11172f",
+    "task-packets/MET-REPAIR-004.yaml": "3217293d977e25f0c6e7f6e6bb0134c27d840fd8769dc285494ecc7f351f6d94",
+    "task-packets/CON-FIX-001.yaml": "15040a4811277880118d58121a7d23721d8a91b4ab6d3211f960189d6a351a14",
+    "task-packets/CTRL-FIX-003.yaml": "42876f9ab5ab8c227920fe6eee3a913b72f6940a989a8d128d627fbfea43c48f"
+  },
+  "preserved": {
+    "runtimeCodingRequires": "FRESH_NATIVE_LINUX_AMD64_PASS",
+    "nativeLinuxStatus": "NOT_RUN_ENV_UNAVAILABLE",
+    "sourceAccess": "PROHIBITED",
+    "billingBoundary": "UNCHANGED",
+    "rootPolicyChange": false,
+    "modelEffortTransition": "NOT_DUE"
+  },
+  "evidenceBoundary": "AUTHORITY_ONLY_NOT_PRODUCT_TEST_CHANGE_MODEL_CONTRACT_RELEASE_NATIVE_LINUX_OR_TENANT_ACCEPTANCE"
+}

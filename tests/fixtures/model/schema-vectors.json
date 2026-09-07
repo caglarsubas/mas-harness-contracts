@@ -1,0 +1,1948 @@
+{
+  "provenance": "INDEPENDENT_CONTRACT_VECTOR",
+  "originalSourceTests": "NOT_RUN_ENV_UNAVAILABLE",
+  "originalSourceBehavioralParity": "NOT_ESTABLISHED",
+  "cases": [
+    {
+      "id": "chat-request",
+      "schema": "chat-request.schema.json",
+      "valid": true,
+      "value": {
+        "model": "local-text",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Count to two."
+          }
+        ],
+        "max_completion_tokens": 32
+      }
+    },
+    {
+      "id": "chat-response",
+      "schema": "chat-response.schema.json",
+      "valid": true,
+      "value": {
+        "id": "request-1",
+        "object": "chat.completion",
+        "created": 1,
+        "model": "local-text",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "One two"
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 4,
+          "completion_tokens": 2,
+          "total_tokens": 6
+        }
+      }
+    },
+    {
+      "id": "completion-request",
+      "schema": "completion-request.schema.json",
+      "valid": true,
+      "value": {
+        "model": "local-text",
+        "prompt": "Count to two.",
+        "max_tokens": 32
+      }
+    },
+    {
+      "id": "completion-response",
+      "schema": "completion-response.schema.json",
+      "valid": true,
+      "value": {
+        "id": "request-1",
+        "object": "text_completion",
+        "created": 1,
+        "model": "local-text",
+        "choices": [
+          {
+            "index": 0,
+            "text": "One two",
+            "finish_reason": "stop",
+            "logprobs": null
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 4,
+          "completion_tokens": 2,
+          "total_tokens": 6
+        }
+      }
+    },
+    {
+      "id": "response-request",
+      "schema": "response-request.schema.json",
+      "valid": true,
+      "value": {
+        "model": "local-text",
+        "input": "Count to two.",
+        "store": false,
+        "max_output_tokens": 32
+      }
+    },
+    {
+      "id": "response-response",
+      "schema": "response-response.schema.json",
+      "valid": true,
+      "value": {
+        "id": "request-1",
+        "object": "response",
+        "created_at": 1,
+        "model": "local-text",
+        "status": "completed",
+        "output": [
+          {
+            "id": "message-1",
+            "type": "message",
+            "role": "assistant",
+            "status": "completed",
+            "content": [
+              {
+                "type": "output_text",
+                "text": "One two",
+                "annotations": []
+              }
+            ]
+          }
+        ],
+        "usage": {
+          "input_tokens": 4,
+          "output_tokens": 2,
+          "total_tokens": 6
+        },
+        "error": null,
+        "incomplete_details": null
+      }
+    },
+    {
+      "id": "embedding-request",
+      "schema": "embedding-request.schema.json",
+      "valid": true,
+      "value": {
+        "model": "local-embedding",
+        "input": [
+          "First",
+          "Second"
+        ],
+        "dimensions": 2
+      }
+    },
+    {
+      "id": "embedding-response",
+      "schema": "embedding-response.schema.json",
+      "valid": true,
+      "value": {
+        "object": "list",
+        "model": "local-embedding",
+        "data": [
+          {
+            "object": "embedding",
+            "index": 0,
+            "embedding": [
+              0.2,
+              -0.3
+            ]
+          },
+          {
+            "object": "embedding",
+            "index": 1,
+            "embedding": [
+              0.4,
+              0.1
+            ]
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 4,
+          "total_tokens": 4
+        }
+      }
+    },
+    {
+      "id": "rerank-request",
+      "schema": "rerank-request.schema.json",
+      "valid": true,
+      "value": {
+        "model": "local-rerank",
+        "query": "Second",
+        "documents": [
+          "First",
+          "Second"
+        ],
+        "top_n": 2
+      }
+    },
+    {
+      "id": "rerank-response",
+      "schema": "rerank-response.schema.json",
+      "valid": true,
+      "value": {
+        "id": "request-1",
+        "model": "local-rerank",
+        "results": [
+          {
+            "index": 1,
+            "relevance_score": 0.9
+          },
+          {
+            "index": 0,
+            "relevance_score": 0.2
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 4,
+          "total_tokens": 4
+        }
+      }
+    },
+    {
+      "id": "models-response",
+      "schema": "models-response.schema.json",
+      "valid": true,
+      "value": {
+        "object": "list",
+        "data": [
+          {
+            "id": "local-text",
+            "object": "model",
+            "created": 1,
+            "owned_by": "local",
+            "capabilities": {
+              "endpoints": [
+                "/v1/chat/completions",
+                "/v1/completions",
+                "/v1/responses"
+              ],
+              "streaming": true,
+              "structured_output": true,
+              "tools": true,
+              "max_input_tokens": 8192,
+              "max_output_tokens": 32768,
+              "embedding_dimensions": null,
+              "visibility": "AUTHORIZED_ORGANIZATION"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "health-response",
+      "schema": "health-response.schema.json",
+      "valid": true,
+      "value": {
+        "status": "alive"
+      }
+    },
+    {
+      "id": "ready-response",
+      "schema": "ready-response.schema.json",
+      "valid": true,
+      "value": {
+        "status": "ready"
+      }
+    },
+    {
+      "id": "error",
+      "schema": "error.schema.json",
+      "valid": true,
+      "value": {
+        "error": {
+          "code": "INTERNAL_ERROR",
+          "type": "server_error",
+          "message": "The request could not be completed.",
+          "param": null
+        }
+      }
+    },
+    {
+      "id": "request-binding",
+      "schema": "request-binding.schema.json",
+      "valid": true,
+      "value": {
+        "organizationId": "org-a",
+        "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestId": "request-1",
+        "method": "POST",
+        "path": "/v1/chat/completions",
+        "bodySha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "deadlineUnixMs": 2000
+      }
+    },
+    {
+      "id": "usage-observation",
+      "schema": "usage-observation.schema.json",
+      "valid": true,
+      "value": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": "org-a",
+        "admissionDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "model": "local-text",
+        "endpoint": "/v1/chat/completions",
+        "state": "COMPLETED",
+        "stream": false,
+        "measurement": "MEASURED",
+        "inputTokens": 4,
+        "outputTokens": 2,
+        "cachedTokens": null,
+        "totalTokens": 6,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": null,
+        "reason": null,
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": false
+      }
+    },
+    {
+      "id": "lifecycle-trace",
+      "schema": "lifecycle-trace.schema.json",
+      "valid": true,
+      "value": {
+        "requestId": "request-1",
+        "queueCapacity": 2,
+        "queuedAhead": 0,
+        "timeoutMs": 2000,
+        "events": [
+          {
+            "requestId": "request-1",
+            "atMs": 0,
+            "action": "QUEUE",
+            "state": "QUEUED"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 1,
+            "action": "START",
+            "state": "RUNNING"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 2,
+            "action": "FIRST_BYTE",
+            "state": "RUNNING"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 3,
+            "action": "COMPLETE",
+            "state": "COMPLETED"
+          }
+        ]
+      }
+    },
+    {
+      "id": "not-ready",
+      "schema": "ready-response.schema.json",
+      "valid": true,
+      "value": {
+        "status": "not_ready",
+        "reason": "NO_ACTIVE_ROUTE"
+      }
+    },
+    {
+      "id": "structured-chat",
+      "schema": "chat-request.schema.json",
+      "valid": true,
+      "value": {
+        "model": "local-text",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Count to two."
+          }
+        ],
+        "max_completion_tokens": 32,
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "result",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "answer": {
+                  "type": "string",
+                  "maxLength": 32
+                }
+              },
+              "required": [
+                "answer"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "chat-tool",
+      "schema": "chat-request.schema.json",
+      "valid": true,
+      "value": {
+        "model": "local-text",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Count to two."
+          }
+        ],
+        "max_completion_tokens": 32,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup",
+              "strict": true,
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "answer": {
+                    "type": "string",
+                    "maxLength": 32
+                  }
+                },
+                "required": [
+                  "answer"
+                ]
+              }
+            }
+          }
+        ],
+        "tool_choice": "required"
+      }
+    },
+    {
+      "id": "responses-items",
+      "schema": "response-request.schema.json",
+      "valid": true,
+      "value": {
+        "model": "local-text",
+        "input": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "Count."
+              }
+            ]
+          }
+        ],
+        "store": false,
+        "max_output_tokens": 32
+      }
+    },
+    {
+      "id": "chat-stream-options",
+      "schema": "chat-request.schema.json",
+      "valid": true,
+      "value": {
+        "model": "local-text",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Count to two."
+          }
+        ],
+        "max_completion_tokens": 32,
+        "stream": true,
+        "stream_options": {
+          "include_usage": true
+        }
+      }
+    },
+    {
+      "id": "chat-chunk-0",
+      "schema": "chat-chunk.schema.json",
+      "valid": true,
+      "value": {
+        "id": "request-1",
+        "created": 1,
+        "model": "local-text",
+        "object": "chat.completion.chunk",
+        "usage": null,
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "role": "assistant",
+              "content": ""
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "chat-chunk-1",
+      "schema": "chat-chunk.schema.json",
+      "valid": true,
+      "value": {
+        "id": "request-1",
+        "created": 1,
+        "model": "local-text",
+        "object": "chat.completion.chunk",
+        "usage": null,
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "One two"
+            },
+            "finish_reason": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "chat-chunk-2",
+      "schema": "chat-chunk.schema.json",
+      "valid": true,
+      "value": {
+        "id": "request-1",
+        "created": 1,
+        "model": "local-text",
+        "object": "chat.completion.chunk",
+        "usage": null,
+        "choices": [
+          {
+            "index": 0,
+            "delta": {},
+            "finish_reason": "stop"
+          }
+        ]
+      }
+    },
+    {
+      "id": "chat-chunk-3",
+      "schema": "chat-chunk.schema.json",
+      "valid": true,
+      "value": {
+        "id": "request-1",
+        "created": 1,
+        "model": "local-text",
+        "object": "chat.completion.chunk",
+        "usage": {
+          "prompt_tokens": 4,
+          "completion_tokens": 2,
+          "total_tokens": 6
+        },
+        "choices": []
+      }
+    },
+    {
+      "id": "completion-chunk-0",
+      "schema": "completion-chunk.schema.json",
+      "valid": true,
+      "value": {
+        "id": "request-1",
+        "object": "text_completion",
+        "created": 1,
+        "model": "local-text",
+        "choices": [
+          {
+            "index": 0,
+            "text": "One two",
+            "finish_reason": null,
+            "logprobs": null
+          }
+        ],
+        "usage": null
+      }
+    },
+    {
+      "id": "completion-chunk-1",
+      "schema": "completion-chunk.schema.json",
+      "valid": true,
+      "value": {
+        "id": "request-1",
+        "object": "text_completion",
+        "created": 1,
+        "model": "local-text",
+        "choices": [
+          {
+            "index": 0,
+            "text": "",
+            "finish_reason": "stop",
+            "logprobs": null
+          }
+        ],
+        "usage": null
+      }
+    },
+    {
+      "id": "completion-chunk-2",
+      "schema": "completion-chunk.schema.json",
+      "valid": true,
+      "value": {
+        "id": "request-1",
+        "object": "text_completion",
+        "created": 1,
+        "model": "local-text",
+        "choices": [],
+        "usage": {
+          "prompt_tokens": 4,
+          "completion_tokens": 2,
+          "total_tokens": 6
+        }
+      }
+    },
+    {
+      "id": "response-event-0",
+      "schema": "response-event.schema.json",
+      "valid": true,
+      "value": {
+        "type": "response.created",
+        "response": {
+          "id": "request-1",
+          "object": "response",
+          "created_at": 1,
+          "model": "local-text",
+          "status": "in_progress",
+          "output": [],
+          "usage": null,
+          "error": null,
+          "incomplete_details": null
+        },
+        "sequence_number": 0
+      }
+    },
+    {
+      "id": "response-event-1",
+      "schema": "response-event.schema.json",
+      "valid": true,
+      "value": {
+        "type": "response.in_progress",
+        "response": {
+          "id": "request-1",
+          "object": "response",
+          "created_at": 1,
+          "model": "local-text",
+          "status": "in_progress",
+          "output": [],
+          "usage": null,
+          "error": null,
+          "incomplete_details": null
+        },
+        "sequence_number": 1
+      }
+    },
+    {
+      "id": "response-event-2",
+      "schema": "response-event.schema.json",
+      "valid": true,
+      "value": {
+        "type": "response.output_item.added",
+        "output_index": 0,
+        "item": {
+          "id": "message-1",
+          "type": "message",
+          "role": "assistant",
+          "status": "in_progress",
+          "content": []
+        },
+        "sequence_number": 2
+      }
+    },
+    {
+      "id": "response-event-3",
+      "schema": "response-event.schema.json",
+      "valid": true,
+      "value": {
+        "type": "response.content_part.added",
+        "output_index": 0,
+        "content_index": 0,
+        "item_id": "message-1",
+        "part": {
+          "type": "output_text",
+          "text": "",
+          "annotations": []
+        },
+        "sequence_number": 3
+      }
+    },
+    {
+      "id": "response-event-4",
+      "schema": "response-event.schema.json",
+      "valid": true,
+      "value": {
+        "type": "response.output_text.delta",
+        "output_index": 0,
+        "content_index": 0,
+        "item_id": "message-1",
+        "delta": "One two",
+        "sequence_number": 4
+      }
+    },
+    {
+      "id": "response-event-5",
+      "schema": "response-event.schema.json",
+      "valid": true,
+      "value": {
+        "type": "response.output_text.done",
+        "output_index": 0,
+        "content_index": 0,
+        "item_id": "message-1",
+        "text": "One two",
+        "sequence_number": 5
+      }
+    },
+    {
+      "id": "response-event-6",
+      "schema": "response-event.schema.json",
+      "valid": true,
+      "value": {
+        "type": "response.content_part.done",
+        "output_index": 0,
+        "content_index": 0,
+        "item_id": "message-1",
+        "part": {
+          "type": "output_text",
+          "text": "One two",
+          "annotations": []
+        },
+        "sequence_number": 6
+      }
+    },
+    {
+      "id": "response-event-7",
+      "schema": "response-event.schema.json",
+      "valid": true,
+      "value": {
+        "type": "response.output_item.done",
+        "output_index": 0,
+        "item": {
+          "id": "message-1",
+          "type": "message",
+          "role": "assistant",
+          "status": "completed",
+          "content": [
+            {
+              "type": "output_text",
+              "text": "One two",
+              "annotations": []
+            }
+          ]
+        },
+        "sequence_number": 7
+      }
+    },
+    {
+      "id": "response-event-8",
+      "schema": "response-event.schema.json",
+      "valid": true,
+      "value": {
+        "type": "response.completed",
+        "response": {
+          "id": "request-1",
+          "object": "response",
+          "created_at": 1,
+          "model": "local-text",
+          "status": "completed",
+          "output": [
+            {
+              "id": "message-1",
+              "type": "message",
+              "role": "assistant",
+              "status": "completed",
+              "content": [
+                {
+                  "type": "output_text",
+                  "text": "One two",
+                  "annotations": []
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "input_tokens": 4,
+            "output_tokens": 2,
+            "total_tokens": 6
+          },
+          "error": null,
+          "incomplete_details": null
+        },
+        "sequence_number": 8
+      }
+    },
+    {
+      "id": "chat-request-unknown",
+      "schema": "chat-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Count to two."
+          }
+        ],
+        "max_completion_tokens": 32,
+        "unknown": true
+      }
+    },
+    {
+      "id": "chat-response-unknown",
+      "schema": "chat-response.schema.json",
+      "valid": false,
+      "value": {
+        "id": "request-1",
+        "object": "chat.completion",
+        "created": 1,
+        "model": "local-text",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "One two"
+            },
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 4,
+          "completion_tokens": 2,
+          "total_tokens": 6
+        },
+        "unknown": true
+      }
+    },
+    {
+      "id": "completion-request-unknown",
+      "schema": "completion-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "prompt": "Count to two.",
+        "max_tokens": 32,
+        "unknown": true
+      }
+    },
+    {
+      "id": "completion-response-unknown",
+      "schema": "completion-response.schema.json",
+      "valid": false,
+      "value": {
+        "id": "request-1",
+        "object": "text_completion",
+        "created": 1,
+        "model": "local-text",
+        "choices": [
+          {
+            "index": 0,
+            "text": "One two",
+            "finish_reason": "stop",
+            "logprobs": null
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 4,
+          "completion_tokens": 2,
+          "total_tokens": 6
+        },
+        "unknown": true
+      }
+    },
+    {
+      "id": "response-request-unknown",
+      "schema": "response-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "input": "Count to two.",
+        "store": false,
+        "max_output_tokens": 32,
+        "unknown": true
+      }
+    },
+    {
+      "id": "response-response-unknown",
+      "schema": "response-response.schema.json",
+      "valid": false,
+      "value": {
+        "id": "request-1",
+        "object": "response",
+        "created_at": 1,
+        "model": "local-text",
+        "status": "completed",
+        "output": [
+          {
+            "id": "message-1",
+            "type": "message",
+            "role": "assistant",
+            "status": "completed",
+            "content": [
+              {
+                "type": "output_text",
+                "text": "One two",
+                "annotations": []
+              }
+            ]
+          }
+        ],
+        "usage": {
+          "input_tokens": 4,
+          "output_tokens": 2,
+          "total_tokens": 6
+        },
+        "error": null,
+        "incomplete_details": null,
+        "unknown": true
+      }
+    },
+    {
+      "id": "embedding-request-unknown",
+      "schema": "embedding-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-embedding",
+        "input": [
+          "First",
+          "Second"
+        ],
+        "dimensions": 2,
+        "unknown": true
+      }
+    },
+    {
+      "id": "embedding-response-unknown",
+      "schema": "embedding-response.schema.json",
+      "valid": false,
+      "value": {
+        "object": "list",
+        "model": "local-embedding",
+        "data": [
+          {
+            "object": "embedding",
+            "index": 0,
+            "embedding": [
+              0.2,
+              -0.3
+            ]
+          },
+          {
+            "object": "embedding",
+            "index": 1,
+            "embedding": [
+              0.4,
+              0.1
+            ]
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 4,
+          "total_tokens": 4
+        },
+        "unknown": true
+      }
+    },
+    {
+      "id": "rerank-request-unknown",
+      "schema": "rerank-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-rerank",
+        "query": "Second",
+        "documents": [
+          "First",
+          "Second"
+        ],
+        "top_n": 2,
+        "unknown": true
+      }
+    },
+    {
+      "id": "rerank-response-unknown",
+      "schema": "rerank-response.schema.json",
+      "valid": false,
+      "value": {
+        "id": "request-1",
+        "model": "local-rerank",
+        "results": [
+          {
+            "index": 1,
+            "relevance_score": 0.9
+          },
+          {
+            "index": 0,
+            "relevance_score": 0.2
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 4,
+          "total_tokens": 4
+        },
+        "unknown": true
+      }
+    },
+    {
+      "id": "models-response-unknown",
+      "schema": "models-response.schema.json",
+      "valid": false,
+      "value": {
+        "object": "list",
+        "data": [
+          {
+            "id": "local-text",
+            "object": "model",
+            "created": 1,
+            "owned_by": "local",
+            "capabilities": {
+              "endpoints": [
+                "/v1/chat/completions",
+                "/v1/completions",
+                "/v1/responses"
+              ],
+              "streaming": true,
+              "structured_output": true,
+              "tools": true,
+              "max_input_tokens": 8192,
+              "max_output_tokens": 32768,
+              "embedding_dimensions": null,
+              "visibility": "AUTHORIZED_ORGANIZATION"
+            }
+          }
+        ],
+        "unknown": true
+      }
+    },
+    {
+      "id": "health-response-unknown",
+      "schema": "health-response.schema.json",
+      "valid": false,
+      "value": {
+        "status": "alive",
+        "unknown": true
+      }
+    },
+    {
+      "id": "ready-response-unknown",
+      "schema": "ready-response.schema.json",
+      "valid": false,
+      "value": {
+        "status": "ready",
+        "unknown": true
+      }
+    },
+    {
+      "id": "error-unknown",
+      "schema": "error.schema.json",
+      "valid": false,
+      "value": {
+        "error": {
+          "code": "INTERNAL_ERROR",
+          "type": "server_error",
+          "message": "The request could not be completed.",
+          "param": null
+        },
+        "unknown": true
+      }
+    },
+    {
+      "id": "request-binding-unknown",
+      "schema": "request-binding.schema.json",
+      "valid": false,
+      "value": {
+        "organizationId": "org-a",
+        "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestId": "request-1",
+        "method": "POST",
+        "path": "/v1/chat/completions",
+        "bodySha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "deadlineUnixMs": 2000,
+        "unknown": true
+      }
+    },
+    {
+      "id": "usage-observation-unknown",
+      "schema": "usage-observation.schema.json",
+      "valid": false,
+      "value": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": "org-a",
+        "admissionDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "model": "local-text",
+        "endpoint": "/v1/chat/completions",
+        "state": "COMPLETED",
+        "stream": false,
+        "measurement": "MEASURED",
+        "inputTokens": 4,
+        "outputTokens": 2,
+        "cachedTokens": null,
+        "totalTokens": 6,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": null,
+        "reason": null,
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": false,
+        "unknown": true
+      }
+    },
+    {
+      "id": "lifecycle-trace-unknown",
+      "schema": "lifecycle-trace.schema.json",
+      "valid": false,
+      "value": {
+        "requestId": "request-1",
+        "queueCapacity": 2,
+        "queuedAhead": 0,
+        "timeoutMs": 2000,
+        "events": [
+          {
+            "requestId": "request-1",
+            "atMs": 0,
+            "action": "QUEUE",
+            "state": "QUEUED"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 1,
+            "action": "START",
+            "state": "RUNNING"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 2,
+            "action": "FIRST_BYTE",
+            "state": "RUNNING"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 3,
+            "action": "COMPLETE",
+            "state": "COMPLETED"
+          }
+        ],
+        "unknown": true
+      }
+    },
+    {
+      "id": "not-ready-unknown",
+      "schema": "ready-response.schema.json",
+      "valid": false,
+      "value": {
+        "status": "not_ready",
+        "reason": "NO_ACTIVE_ROUTE",
+        "unknown": true
+      }
+    },
+    {
+      "id": "structured-chat-unknown",
+      "schema": "chat-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Count to two."
+          }
+        ],
+        "max_completion_tokens": 32,
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "result",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "answer": {
+                  "type": "string",
+                  "maxLength": 32
+                }
+              },
+              "required": [
+                "answer"
+              ]
+            }
+          }
+        },
+        "unknown": true
+      }
+    },
+    {
+      "id": "chat-tool-unknown",
+      "schema": "chat-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Count to two."
+          }
+        ],
+        "max_completion_tokens": 32,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup",
+              "strict": true,
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "answer": {
+                    "type": "string",
+                    "maxLength": 32
+                  }
+                },
+                "required": [
+                  "answer"
+                ]
+              }
+            }
+          }
+        ],
+        "tool_choice": "required",
+        "unknown": true
+      }
+    },
+    {
+      "id": "responses-items-unknown",
+      "schema": "response-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "input": [
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "input_text",
+                "text": "Count."
+              }
+            ]
+          }
+        ],
+        "store": false,
+        "max_output_tokens": 32,
+        "unknown": true
+      }
+    },
+    {
+      "id": "chat-stream-options-unknown",
+      "schema": "chat-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Count to two."
+          }
+        ],
+        "max_completion_tokens": 32,
+        "stream": true,
+        "stream_options": {
+          "include_usage": true
+        },
+        "unknown": true
+      }
+    },
+    {
+      "id": "chat-chunk-0-unknown",
+      "schema": "chat-chunk.schema.json",
+      "valid": false,
+      "value": {
+        "id": "request-1",
+        "created": 1,
+        "model": "local-text",
+        "object": "chat.completion.chunk",
+        "usage": null,
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "role": "assistant",
+              "content": ""
+            },
+            "finish_reason": null
+          }
+        ],
+        "unknown": true
+      }
+    },
+    {
+      "id": "chat-chunk-1-unknown",
+      "schema": "chat-chunk.schema.json",
+      "valid": false,
+      "value": {
+        "id": "request-1",
+        "created": 1,
+        "model": "local-text",
+        "object": "chat.completion.chunk",
+        "usage": null,
+        "choices": [
+          {
+            "index": 0,
+            "delta": {
+              "content": "One two"
+            },
+            "finish_reason": null
+          }
+        ],
+        "unknown": true
+      }
+    },
+    {
+      "id": "chat-chunk-2-unknown",
+      "schema": "chat-chunk.schema.json",
+      "valid": false,
+      "value": {
+        "id": "request-1",
+        "created": 1,
+        "model": "local-text",
+        "object": "chat.completion.chunk",
+        "usage": null,
+        "choices": [
+          {
+            "index": 0,
+            "delta": {},
+            "finish_reason": "stop"
+          }
+        ],
+        "unknown": true
+      }
+    },
+    {
+      "id": "chat-chunk-3-unknown",
+      "schema": "chat-chunk.schema.json",
+      "valid": false,
+      "value": {
+        "id": "request-1",
+        "created": 1,
+        "model": "local-text",
+        "object": "chat.completion.chunk",
+        "usage": {
+          "prompt_tokens": 4,
+          "completion_tokens": 2,
+          "total_tokens": 6
+        },
+        "choices": [],
+        "unknown": true
+      }
+    },
+    {
+      "id": "completion-chunk-0-unknown",
+      "schema": "completion-chunk.schema.json",
+      "valid": false,
+      "value": {
+        "id": "request-1",
+        "object": "text_completion",
+        "created": 1,
+        "model": "local-text",
+        "choices": [
+          {
+            "index": 0,
+            "text": "One two",
+            "finish_reason": null,
+            "logprobs": null
+          }
+        ],
+        "usage": null,
+        "unknown": true
+      }
+    },
+    {
+      "id": "completion-chunk-1-unknown",
+      "schema": "completion-chunk.schema.json",
+      "valid": false,
+      "value": {
+        "id": "request-1",
+        "object": "text_completion",
+        "created": 1,
+        "model": "local-text",
+        "choices": [
+          {
+            "index": 0,
+            "text": "",
+            "finish_reason": "stop",
+            "logprobs": null
+          }
+        ],
+        "usage": null,
+        "unknown": true
+      }
+    },
+    {
+      "id": "completion-chunk-2-unknown",
+      "schema": "completion-chunk.schema.json",
+      "valid": false,
+      "value": {
+        "id": "request-1",
+        "object": "text_completion",
+        "created": 1,
+        "model": "local-text",
+        "choices": [],
+        "usage": {
+          "prompt_tokens": 4,
+          "completion_tokens": 2,
+          "total_tokens": 6
+        },
+        "unknown": true
+      }
+    },
+    {
+      "id": "response-event-0-unknown",
+      "schema": "response-event.schema.json",
+      "valid": false,
+      "value": {
+        "type": "response.created",
+        "response": {
+          "id": "request-1",
+          "object": "response",
+          "created_at": 1,
+          "model": "local-text",
+          "status": "in_progress",
+          "output": [],
+          "usage": null,
+          "error": null,
+          "incomplete_details": null
+        },
+        "sequence_number": 0,
+        "unknown": true
+      }
+    },
+    {
+      "id": "response-event-1-unknown",
+      "schema": "response-event.schema.json",
+      "valid": false,
+      "value": {
+        "type": "response.in_progress",
+        "response": {
+          "id": "request-1",
+          "object": "response",
+          "created_at": 1,
+          "model": "local-text",
+          "status": "in_progress",
+          "output": [],
+          "usage": null,
+          "error": null,
+          "incomplete_details": null
+        },
+        "sequence_number": 1,
+        "unknown": true
+      }
+    },
+    {
+      "id": "response-event-2-unknown",
+      "schema": "response-event.schema.json",
+      "valid": false,
+      "value": {
+        "type": "response.output_item.added",
+        "output_index": 0,
+        "item": {
+          "id": "message-1",
+          "type": "message",
+          "role": "assistant",
+          "status": "in_progress",
+          "content": []
+        },
+        "sequence_number": 2,
+        "unknown": true
+      }
+    },
+    {
+      "id": "response-event-3-unknown",
+      "schema": "response-event.schema.json",
+      "valid": false,
+      "value": {
+        "type": "response.content_part.added",
+        "output_index": 0,
+        "content_index": 0,
+        "item_id": "message-1",
+        "part": {
+          "type": "output_text",
+          "text": "",
+          "annotations": []
+        },
+        "sequence_number": 3,
+        "unknown": true
+      }
+    },
+    {
+      "id": "response-event-4-unknown",
+      "schema": "response-event.schema.json",
+      "valid": false,
+      "value": {
+        "type": "response.output_text.delta",
+        "output_index": 0,
+        "content_index": 0,
+        "item_id": "message-1",
+        "delta": "One two",
+        "sequence_number": 4,
+        "unknown": true
+      }
+    },
+    {
+      "id": "response-event-5-unknown",
+      "schema": "response-event.schema.json",
+      "valid": false,
+      "value": {
+        "type": "response.output_text.done",
+        "output_index": 0,
+        "content_index": 0,
+        "item_id": "message-1",
+        "text": "One two",
+        "sequence_number": 5,
+        "unknown": true
+      }
+    },
+    {
+      "id": "response-event-6-unknown",
+      "schema": "response-event.schema.json",
+      "valid": false,
+      "value": {
+        "type": "response.content_part.done",
+        "output_index": 0,
+        "content_index": 0,
+        "item_id": "message-1",
+        "part": {
+          "type": "output_text",
+          "text": "One two",
+          "annotations": []
+        },
+        "sequence_number": 6,
+        "unknown": true
+      }
+    },
+    {
+      "id": "response-event-7-unknown",
+      "schema": "response-event.schema.json",
+      "valid": false,
+      "value": {
+        "type": "response.output_item.done",
+        "output_index": 0,
+        "item": {
+          "id": "message-1",
+          "type": "message",
+          "role": "assistant",
+          "status": "completed",
+          "content": [
+            {
+              "type": "output_text",
+              "text": "One two",
+              "annotations": []
+            }
+          ]
+        },
+        "sequence_number": 7,
+        "unknown": true
+      }
+    },
+    {
+      "id": "response-event-8-unknown",
+      "schema": "response-event.schema.json",
+      "valid": false,
+      "value": {
+        "type": "response.completed",
+        "response": {
+          "id": "request-1",
+          "object": "response",
+          "created_at": 1,
+          "model": "local-text",
+          "status": "completed",
+          "output": [
+            {
+              "id": "message-1",
+              "type": "message",
+              "role": "assistant",
+              "status": "completed",
+              "content": [
+                {
+                  "type": "output_text",
+                  "text": "One two",
+                  "annotations": []
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "input_tokens": 4,
+            "output_tokens": 2,
+            "total_tokens": 6
+          },
+          "error": null,
+          "incomplete_details": null
+        },
+        "sequence_number": 8,
+        "unknown": true
+      }
+    },
+    {
+      "id": "tenant-spoof",
+      "schema": "chat-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Count to two."
+          }
+        ],
+        "max_completion_tokens": 32,
+        "organizationId": "org-b"
+      }
+    },
+    {
+      "id": "route-spoof",
+      "schema": "chat-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Count to two."
+          }
+        ],
+        "max_completion_tokens": 32,
+        "route_id": "route-b"
+      }
+    },
+    {
+      "id": "hosted-tools",
+      "schema": "response-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "input": "Count to two.",
+        "store": false,
+        "max_output_tokens": 32,
+        "tools": [
+          {
+            "type": "web_search"
+          }
+        ]
+      }
+    },
+    {
+      "id": "response-storage",
+      "schema": "response-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "input": "Count to two.",
+        "store": true,
+        "max_output_tokens": 32
+      }
+    },
+    {
+      "id": "null-prompt",
+      "schema": "completion-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "prompt": null,
+        "max_tokens": 32
+      }
+    },
+    {
+      "id": "empty-embeddings",
+      "schema": "embedding-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-embedding",
+        "input": [],
+        "dimensions": 2
+      }
+    },
+    {
+      "id": "base64-embeddings",
+      "schema": "embedding-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-embedding",
+        "input": [
+          "First",
+          "Second"
+        ],
+        "dimensions": 2,
+        "encoding_format": "base64"
+      }
+    },
+    {
+      "id": "negative-dimension",
+      "schema": "embedding-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-embedding",
+        "input": [
+          "First",
+          "Second"
+        ],
+        "dimensions": 0
+      }
+    },
+    {
+      "id": "empty-rerank",
+      "schema": "rerank-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-rerank",
+        "query": "Second",
+        "documents": [],
+        "top_n": 2
+      }
+    },
+    {
+      "id": "multi-choice",
+      "schema": "chat-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Count to two."
+          }
+        ],
+        "max_completion_tokens": 32,
+        "n": 2
+      }
+    },
+    {
+      "id": "invalid-temperature",
+      "schema": "chat-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Count to two."
+          }
+        ],
+        "max_completion_tokens": 32,
+        "temperature": 2.1
+      }
+    },
+    {
+      "id": "bool-token-limit",
+      "schema": "chat-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Count to two."
+          }
+        ],
+        "max_completion_tokens": true
+      }
+    },
+    {
+      "id": "stream-options-without-stream",
+      "schema": "chat-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Count to two."
+          }
+        ],
+        "max_completion_tokens": 32,
+        "stream_options": {
+          "include_usage": true
+        }
+      }
+    },
+    {
+      "id": "tool-stream",
+      "schema": "chat-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Count to two."
+          }
+        ],
+        "max_completion_tokens": 32,
+        "stream": true,
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup",
+              "strict": true,
+              "parameters": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "answer": {
+                    "type": "string",
+                    "maxLength": 32
+                  }
+                },
+                "required": [
+                  "answer"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "remote-structured-ref",
+      "schema": "chat-request.schema.json",
+      "valid": false,
+      "value": {
+        "model": "local-text",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Count to two."
+          }
+        ],
+        "max_completion_tokens": 32,
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "result",
+            "strict": true,
+            "schema": {
+              "$ref": "https://invalid.example/schema"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "error-content-leak",
+      "schema": "error.schema.json",
+      "valid": false,
+      "value": {
+        "error": {
+          "code": "INTERNAL_ERROR",
+          "type": "server_error",
+          "message": "secret raw backend failure",
+          "param": null
+        }
+      }
+    },
+    {
+      "id": "error-prompt-param",
+      "schema": "error.schema.json",
+      "valid": false,
+      "value": {
+        "error": {
+          "code": "INTERNAL_ERROR",
+          "type": "server_error",
+          "message": "The request could not be completed.",
+          "param": "messages[0]"
+        }
+      }
+    },
+    {
+      "id": "usage-ledger-forgery",
+      "schema": "usage-observation.schema.json",
+      "valid": false,
+      "value": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": "org-a",
+        "admissionDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "model": "local-text",
+        "endpoint": "/v1/chat/completions",
+        "state": "COMPLETED",
+        "stream": false,
+        "measurement": "MEASURED",
+        "inputTokens": 4,
+        "outputTokens": 2,
+        "cachedTokens": null,
+        "totalTokens": 6,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": null,
+        "reason": null,
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": true
+      }
+    },
+    {
+      "id": "usage-negative",
+      "schema": "usage-observation.schema.json",
+      "valid": false,
+      "value": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": "org-a",
+        "admissionDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "model": "local-text",
+        "endpoint": "/v1/chat/completions",
+        "state": "COMPLETED",
+        "stream": false,
+        "measurement": "MEASURED",
+        "inputTokens": -1,
+        "outputTokens": 2,
+        "cachedTokens": null,
+        "totalTokens": 6,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": null,
+        "reason": null,
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": false
+      }
+    }
+  ]
+}

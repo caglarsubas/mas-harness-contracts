@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/model/chat-chunk.schema.json",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "created",
+        "model",
+        "object",
+        "choices",
+        "usage"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "created": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 253402300799
+        },
+        "model": {
+          "$ref": "common.schema.json#/$defs/model"
+        },
+        "object": {
+          "const": "chat.completion.chunk"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "index",
+              "delta",
+              "finish_reason"
+            ],
+            "properties": {
+              "index": {
+                "const": 0
+              },
+              "delta": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "role",
+                      "content"
+                    ],
+                    "properties": {
+                      "role": {
+                        "const": "assistant"
+                      },
+                      "content": {
+                        "const": ""
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "content"
+                    ],
+                    "properties": {
+                      "content": {
+                        "$ref": "common.schema.json#/$defs/outputText"
+                      }
+                    }
+                  }
+                ]
+              },
+              "finish_reason": {
+                "type": "null"
+              }
+            }
+          },
+          "maxItems": 1,
+          "minItems": 1
+        },
+        "usage": {
+          "type": "null"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "created",
+        "model",
+        "object",
+        "choices",
+        "usage"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "created": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 253402300799
+        },
+        "model": {
+          "$ref": "common.schema.json#/$defs/model"
+        },
+        "object": {
+          "const": "chat.completion.chunk"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "index",
+              "delta",
+              "finish_reason"
+            ],
+            "properties": {
+              "index": {
+                "const": 0
+              },
+              "delta": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [],
+                "properties": {}
+              },
+              "finish_reason": {
+                "enum": [
+                  "stop",
+                  "length"
+                ]
+              }
+            }
+          },
+          "maxItems": 1,
+          "minItems": 1
+        },
+        "usage": {
+          "type": "null"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "created",
+        "model",
+        "object",
+        "choices",
+        "usage"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "created": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 253402300799
+        },
+        "model": {
+          "$ref": "common.schema.json#/$defs/model"
+        },
+        "object": {
+          "const": "chat.completion.chunk"
+        },
+        "choices": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "usage": {
+          "$ref": "common.schema.json#/$defs/usage"
+        }
+      }
+    }
+  ]
+}

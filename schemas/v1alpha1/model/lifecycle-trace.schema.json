@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/model/lifecycle-trace.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "requestId",
+    "queueCapacity",
+    "queuedAhead",
+    "timeoutMs",
+    "events"
+  ],
+  "properties": {
+    "requestId": {
+      "$ref": "common.schema.json#/$defs/id"
+    },
+    "queueCapacity": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1024
+    },
+    "queuedAhead": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1024
+    },
+    "timeoutMs": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 300000
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "requestId",
+          "atMs",
+          "action",
+          "state"
+        ],
+        "properties": {
+          "requestId": {
+            "$ref": "common.schema.json#/$defs/id"
+          },
+          "atMs": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 300000
+          },
+          "action": {
+            "enum": [
+              "QUEUE",
+              "START",
+              "FIRST_BYTE",
+              "COMPLETE",
+              "CANCEL",
+              "TIMEOUT",
+              "REJECT",
+              "FAIL",
+              "RETRY",
+              "SWITCH_PROVIDER"
+            ]
+          },
+          "state": {
+            "$ref": "common.schema.json#/$defs/state"
+          }
+        }
+      },
+      "maxItems": 1024,
+      "minItems": 1
+    }
+  }
+}

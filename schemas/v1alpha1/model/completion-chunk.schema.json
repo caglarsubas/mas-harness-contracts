@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/model/completion-chunk.schema.json",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "created",
+        "model",
+        "object",
+        "choices",
+        "usage"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "created": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 253402300799
+        },
+        "model": {
+          "$ref": "common.schema.json#/$defs/model"
+        },
+        "object": {
+          "const": "text_completion"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "index",
+              "text",
+              "logprobs",
+              "finish_reason"
+            ],
+            "properties": {
+              "index": {
+                "const": 0
+              },
+              "text": {
+                "$ref": "common.schema.json#/$defs/outputText"
+              },
+              "logprobs": {
+                "type": "null"
+              },
+              "finish_reason": {
+                "type": "null"
+              }
+            }
+          },
+          "maxItems": 1,
+          "minItems": 1
+        },
+        "usage": {
+          "type": "null"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "created",
+        "model",
+        "object",
+        "choices",
+        "usage"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "created": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 253402300799
+        },
+        "model": {
+          "$ref": "common.schema.json#/$defs/model"
+        },
+        "object": {
+          "const": "text_completion"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "index",
+              "text",
+              "logprobs",
+              "finish_reason"
+            ],
+            "properties": {
+              "index": {
+                "const": 0
+              },
+              "text": {
+                "const": ""
+              },
+              "logprobs": {
+                "type": "null"
+              },
+              "finish_reason": {
+                "enum": [
+                  "stop",
+                  "length"
+                ]
+              }
+            }
+          },
+          "maxItems": 1,
+          "minItems": 1
+        },
+        "usage": {
+          "type": "null"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "created",
+        "model",
+        "object",
+        "choices",
+        "usage"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "created": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 253402300799
+        },
+        "model": {
+          "$ref": "common.schema.json#/$defs/model"
+        },
+        "object": {
+          "const": "text_completion"
+        },
+        "choices": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "usage": {
+          "$ref": "common.schema.json#/$defs/usage"
+        }
+      }
+    }
+  ]
+}

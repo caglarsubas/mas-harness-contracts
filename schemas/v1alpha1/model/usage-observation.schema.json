@@ -1,0 +1,236 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/model/usage-observation.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "event",
+    "observationId",
+    "requestId",
+    "organizationId",
+    "admissionDigest",
+    "requestDigest",
+    "releaseDigest",
+    "policyDigest",
+    "budgetDigest",
+    "model",
+    "endpoint",
+    "state",
+    "stream",
+    "measurement",
+    "inputTokens",
+    "outputTokens",
+    "cachedTokens",
+    "totalTokens",
+    "inputTokenUpperBound",
+    "outputTokenLimit",
+    "durationMs",
+    "firstByteMs",
+    "reason",
+    "recordedAt",
+    "ledgerAuthority"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "harness.planeon.ai/model-usage-observation/v1alpha1"
+    },
+    "event": {
+      "const": "model.usage.observed.v1"
+    },
+    "observationId": {
+      "$ref": "common.schema.json#/$defs/id"
+    },
+    "requestId": {
+      "$ref": "common.schema.json#/$defs/id"
+    },
+    "organizationId": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/organizationId"
+        }
+      ]
+    },
+    "admissionDigest": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      ]
+    },
+    "requestDigest": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      ]
+    },
+    "releaseDigest": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      ]
+    },
+    "policyDigest": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      ]
+    },
+    "budgetDigest": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      ]
+    },
+    "model": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/model"
+        }
+      ]
+    },
+    "endpoint": {
+      "$ref": "common.schema.json#/$defs/endpoint"
+    },
+    "state": {
+      "$ref": "common.schema.json#/$defs/terminal"
+    },
+    "stream": {
+      "type": "boolean"
+    },
+    "measurement": {
+      "enum": [
+        "MEASURED",
+        "PARTIAL",
+        "UNAVAILABLE"
+      ]
+    },
+    "inputTokens": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/tokens"
+        }
+      ]
+    },
+    "outputTokens": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/tokens"
+        }
+      ]
+    },
+    "cachedTokens": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/tokens"
+        }
+      ]
+    },
+    "totalTokens": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/tokens"
+        }
+      ]
+    },
+    "inputTokenUpperBound": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/tokens"
+        }
+      ]
+    },
+    "outputTokenLimit": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 32768
+        }
+      ]
+    },
+    "durationMs": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 300000
+        }
+      ]
+    },
+    "firstByteMs": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 300000
+        }
+      ]
+    },
+    "reason": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/reason"
+        }
+      ]
+    },
+    "recordedAt": {
+      "$ref": "common.schema.json#/$defs/timestamp"
+    },
+    "ledgerAuthority": {
+      "const": false
+    }
+  }
+}

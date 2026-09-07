@@ -1,0 +1,3306 @@
+{
+  "provenance": "INDEPENDENT_CONTRACT_VECTOR",
+  "signatureEvidence": "RELATIONSHIP_VECTORS_ONLY_NOT_CRYPTOGRAPHIC_VERIFICATION",
+  "cases": [
+    {
+      "id": "chat-semantic",
+      "kind": "response",
+      "valid": true,
+      "input": {
+        "kind": "chat",
+        "request": {
+          "model": "local-text",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Count to two."
+            }
+          ],
+          "max_completion_tokens": 32
+        },
+        "response": {
+          "id": "request-1",
+          "object": "chat.completion",
+          "created": 1,
+          "model": "local-text",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "One two"
+              },
+              "finish_reason": "stop"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "completion_tokens": 2,
+            "total_tokens": 6
+          }
+        }
+      }
+    },
+    {
+      "id": "completion-semantic",
+      "kind": "response",
+      "valid": true,
+      "input": {
+        "kind": "completion",
+        "request": {
+          "model": "local-text",
+          "prompt": "Count to two.",
+          "max_tokens": 32
+        },
+        "response": {
+          "id": "request-1",
+          "object": "text_completion",
+          "created": 1,
+          "model": "local-text",
+          "choices": [
+            {
+              "index": 0,
+              "text": "One two",
+              "finish_reason": "stop",
+              "logprobs": null
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "completion_tokens": 2,
+            "total_tokens": 6
+          }
+        }
+      }
+    },
+    {
+      "id": "response-semantic",
+      "kind": "response",
+      "valid": true,
+      "input": {
+        "kind": "response",
+        "request": {
+          "model": "local-text",
+          "input": "Count to two.",
+          "store": false,
+          "max_output_tokens": 32
+        },
+        "response": {
+          "id": "request-1",
+          "object": "response",
+          "created_at": 1,
+          "model": "local-text",
+          "status": "completed",
+          "output": [
+            {
+              "id": "message-1",
+              "type": "message",
+              "role": "assistant",
+              "status": "completed",
+              "content": [
+                {
+                  "type": "output_text",
+                  "text": "One two",
+                  "annotations": []
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "input_tokens": 4,
+            "output_tokens": 2,
+            "total_tokens": 6
+          },
+          "error": null,
+          "incomplete_details": null
+        }
+      }
+    },
+    {
+      "id": "embedding-semantic",
+      "kind": "response",
+      "valid": true,
+      "input": {
+        "kind": "embedding",
+        "request": {
+          "model": "local-embedding",
+          "input": [
+            "First",
+            "Second"
+          ],
+          "dimensions": 2
+        },
+        "response": {
+          "object": "list",
+          "model": "local-embedding",
+          "data": [
+            {
+              "object": "embedding",
+              "index": 0,
+              "embedding": [
+                0.2,
+                -0.3
+              ]
+            },
+            {
+              "object": "embedding",
+              "index": 1,
+              "embedding": [
+                0.4,
+                0.1
+              ]
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "total_tokens": 4
+          }
+        }
+      }
+    },
+    {
+      "id": "rerank-semantic",
+      "kind": "response",
+      "valid": true,
+      "input": {
+        "kind": "rerank",
+        "request": {
+          "model": "local-rerank",
+          "query": "Second",
+          "documents": [
+            "First",
+            "Second"
+          ],
+          "top_n": 2
+        },
+        "response": {
+          "id": "request-1",
+          "model": "local-rerank",
+          "results": [
+            {
+              "index": 1,
+              "relevance_score": 0.9
+            },
+            {
+              "index": 0,
+              "relevance_score": 0.2
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "total_tokens": 4
+          }
+        }
+      }
+    },
+    {
+      "id": "chat-capability",
+      "kind": "request",
+      "valid": true,
+      "input": {
+        "kind": "chat",
+        "request": {
+          "model": "local-text",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Count to two."
+            }
+          ],
+          "max_completion_tokens": 32
+        },
+        "capabilities": {
+          "endpoints": [
+            "/v1/chat/completions",
+            "/v1/completions",
+            "/v1/responses"
+          ],
+          "streaming": true,
+          "structured_output": true,
+          "tools": true,
+          "max_input_tokens": 8192,
+          "max_output_tokens": 32768,
+          "embedding_dimensions": null,
+          "visibility": "AUTHORIZED_ORGANIZATION"
+        }
+      }
+    },
+    {
+      "id": "capability-wrong-endpoint",
+      "kind": "request",
+      "valid": false,
+      "input": {
+        "kind": "embedding",
+        "request": {
+          "model": "local-embedding",
+          "input": [
+            "First",
+            "Second"
+          ],
+          "dimensions": 2
+        },
+        "capabilities": {
+          "endpoints": [
+            "/v1/chat/completions",
+            "/v1/completions",
+            "/v1/responses"
+          ],
+          "streaming": true,
+          "structured_output": true,
+          "tools": true,
+          "max_input_tokens": 8192,
+          "max_output_tokens": 32768,
+          "embedding_dimensions": null,
+          "visibility": "AUTHORIZED_ORGANIZATION"
+        }
+      }
+    },
+    {
+      "id": "capability-stream-disabled",
+      "kind": "request",
+      "valid": false,
+      "input": {
+        "kind": "chat",
+        "request": {
+          "model": "local-text",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Count to two."
+            }
+          ],
+          "max_completion_tokens": 32,
+          "stream": true
+        },
+        "capabilities": {
+          "endpoints": [
+            "/v1/chat/completions",
+            "/v1/completions",
+            "/v1/responses"
+          ],
+          "streaming": false,
+          "structured_output": true,
+          "tools": true,
+          "max_input_tokens": 8192,
+          "max_output_tokens": 32768,
+          "embedding_dimensions": null,
+          "visibility": "AUTHORIZED_ORGANIZATION"
+        }
+      }
+    },
+    {
+      "id": "structured-valid",
+      "kind": "response",
+      "valid": true,
+      "input": {
+        "kind": "chat",
+        "request": {
+          "model": "local-text",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Count to two."
+            }
+          ],
+          "max_completion_tokens": 32,
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "result",
+              "strict": true,
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "answer": {
+                    "type": "string",
+                    "maxLength": 32
+                  }
+                },
+                "required": [
+                  "answer"
+                ]
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "request-1",
+          "object": "chat.completion",
+          "created": 1,
+          "model": "local-text",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "{\"answer\":\"two\"}"
+              },
+              "finish_reason": "stop"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "completion_tokens": 2,
+            "total_tokens": 6
+          }
+        }
+      }
+    },
+    {
+      "id": "structured-bad-value",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "chat",
+        "request": {
+          "model": "local-text",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Count to two."
+            }
+          ],
+          "max_completion_tokens": 32,
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "result",
+              "strict": true,
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "answer": {
+                    "type": "string",
+                    "maxLength": 32
+                  }
+                },
+                "required": [
+                  "answer"
+                ]
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "request-1",
+          "object": "chat.completion",
+          "created": 1,
+          "model": "local-text",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "One two"
+              },
+              "finish_reason": "stop"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "completion_tokens": 2,
+            "total_tokens": 6
+          }
+        }
+      }
+    },
+    {
+      "id": "structured-stream-rejected",
+      "kind": "request",
+      "valid": false,
+      "input": {
+        "kind": "chat",
+        "request": {
+          "model": "local-text",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Count to two."
+            }
+          ],
+          "max_completion_tokens": 32,
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "result",
+              "strict": true,
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "answer": {
+                    "type": "string",
+                    "maxLength": 32
+                  }
+                },
+                "required": [
+                  "answer"
+                ]
+              }
+            }
+          },
+          "stream": true
+        }
+      }
+    },
+    {
+      "id": "structured-capability-disabled",
+      "kind": "request",
+      "valid": false,
+      "input": {
+        "kind": "chat",
+        "request": {
+          "model": "local-text",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Count to two."
+            }
+          ],
+          "max_completion_tokens": 32,
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "result",
+              "strict": true,
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "answer": {
+                    "type": "string",
+                    "maxLength": 32
+                  }
+                },
+                "required": [
+                  "answer"
+                ]
+              }
+            }
+          }
+        },
+        "capabilities": {
+          "endpoints": [
+            "/v1/chat/completions",
+            "/v1/completions",
+            "/v1/responses"
+          ],
+          "streaming": true,
+          "structured_output": false,
+          "tools": true,
+          "max_input_tokens": 8192,
+          "max_output_tokens": 32768,
+          "embedding_dimensions": null,
+          "visibility": "AUTHORIZED_ORGANIZATION"
+        }
+      }
+    },
+    {
+      "id": "structured-required-mismatch",
+      "kind": "request",
+      "valid": false,
+      "input": {
+        "kind": "chat",
+        "request": {
+          "model": "local-text",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Count to two."
+            }
+          ],
+          "max_completion_tokens": 32,
+          "response_format": {
+            "type": "json_schema",
+            "json_schema": {
+              "name": "result",
+              "strict": true,
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "answer": {
+                    "type": "string",
+                    "maxLength": 32
+                  }
+                },
+                "required": [
+                  "different"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "tool-proposal-valid",
+      "kind": "response",
+      "valid": true,
+      "input": {
+        "kind": "chat",
+        "request": {
+          "model": "local-text",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Count to two."
+            }
+          ],
+          "max_completion_tokens": 32,
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup",
+                "strict": true,
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "answer": {
+                      "type": "string",
+                      "maxLength": 32
+                    }
+                  },
+                  "required": [
+                    "answer"
+                  ]
+                }
+              }
+            }
+          ],
+          "tool_choice": "required"
+        },
+        "response": {
+          "id": "request-1",
+          "object": "chat.completion",
+          "created": 1,
+          "model": "local-text",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": null,
+                "tool_calls": [
+                  {
+                    "id": "call-1",
+                    "type": "function",
+                    "function": {
+                      "name": "lookup",
+                      "arguments": "{\"answer\":\"two\"}"
+                    }
+                  }
+                ]
+              },
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "completion_tokens": 2,
+            "total_tokens": 6
+          }
+        }
+      }
+    },
+    {
+      "id": "required-tool-not-proposed",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "chat",
+        "request": {
+          "model": "local-text",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Count to two."
+            }
+          ],
+          "max_completion_tokens": 32,
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup",
+                "strict": true,
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "answer": {
+                      "type": "string",
+                      "maxLength": 32
+                    }
+                  },
+                  "required": [
+                    "answer"
+                  ]
+                }
+              }
+            }
+          ],
+          "tool_choice": "required"
+        },
+        "response": {
+          "id": "request-1",
+          "object": "chat.completion",
+          "created": 1,
+          "model": "local-text",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "One two"
+              },
+              "finish_reason": "stop"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "completion_tokens": 2,
+            "total_tokens": 6
+          }
+        }
+      }
+    },
+    {
+      "id": "tool-proposal-wrong-name",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "chat",
+        "request": {
+          "model": "local-text",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Count to two."
+            }
+          ],
+          "max_completion_tokens": 32,
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup",
+                "strict": true,
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "answer": {
+                      "type": "string",
+                      "maxLength": 32
+                    }
+                  },
+                  "required": [
+                    "answer"
+                  ]
+                }
+              }
+            }
+          ],
+          "tool_choice": "required"
+        },
+        "response": {
+          "id": "request-1",
+          "object": "chat.completion",
+          "created": 1,
+          "model": "local-text",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": null,
+                "tool_calls": [
+                  {
+                    "id": "call-1",
+                    "type": "function",
+                    "function": {
+                      "name": "other",
+                      "arguments": "{\"answer\":\"two\"}"
+                    }
+                  }
+                ]
+              },
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "completion_tokens": 2,
+            "total_tokens": 6
+          }
+        }
+      }
+    },
+    {
+      "id": "tool-proposal-invalid-arguments",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "chat",
+        "request": {
+          "model": "local-text",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Count to two."
+            }
+          ],
+          "max_completion_tokens": 32,
+          "tools": [
+            {
+              "type": "function",
+              "function": {
+                "name": "lookup",
+                "strict": true,
+                "parameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "answer": {
+                      "type": "string",
+                      "maxLength": 32
+                    }
+                  },
+                  "required": [
+                    "answer"
+                  ]
+                }
+              }
+            }
+          ],
+          "tool_choice": "required"
+        },
+        "response": {
+          "id": "request-1",
+          "object": "chat.completion",
+          "created": 1,
+          "model": "local-text",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": null,
+                "tool_calls": [
+                  {
+                    "id": "call-1",
+                    "type": "function",
+                    "function": {
+                      "name": "lookup",
+                      "arguments": "{\"answer\":4}"
+                    }
+                  }
+                ]
+              },
+              "finish_reason": "tool_calls"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "completion_tokens": 2,
+            "total_tokens": 6
+          }
+        }
+      }
+    },
+    {
+      "id": "tool-history-resolved",
+      "kind": "request",
+      "valid": true,
+      "input": {
+        "kind": "chat",
+        "request": {
+          "model": "local-text",
+          "messages": [
+            {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call-1",
+                  "type": "function",
+                  "function": {
+                    "name": "lookup",
+                    "arguments": "{\"answer\":\"two\"}"
+                  }
+                }
+              ]
+            },
+            {
+              "role": "tool",
+              "content": "two",
+              "tool_call_id": "call-1"
+            }
+          ],
+          "max_completion_tokens": 32
+        }
+      }
+    },
+    {
+      "id": "tool-history-orphan",
+      "kind": "request",
+      "valid": false,
+      "input": {
+        "kind": "chat",
+        "request": {
+          "model": "local-text",
+          "messages": [
+            {
+              "role": "tool",
+              "content": "two",
+              "tool_call_id": "call-1"
+            }
+          ],
+          "max_completion_tokens": 32
+        }
+      }
+    },
+    {
+      "id": "tool-history-unresolved",
+      "kind": "request",
+      "valid": false,
+      "input": {
+        "kind": "chat",
+        "request": {
+          "model": "local-text",
+          "messages": [
+            {
+              "role": "assistant",
+              "content": null,
+              "tool_calls": [
+                {
+                  "id": "call-1",
+                  "type": "function",
+                  "function": {
+                    "name": "lookup",
+                    "arguments": "{\"answer\":\"two\"}"
+                  }
+                }
+              ]
+            }
+          ],
+          "max_completion_tokens": 32
+        }
+      }
+    },
+    {
+      "id": "chat-wrong-usage-total",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "chat",
+        "request": {
+          "model": "local-text",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Count to two."
+            }
+          ],
+          "max_completion_tokens": 32
+        },
+        "response": {
+          "id": "request-1",
+          "object": "chat.completion",
+          "created": 1,
+          "model": "local-text",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "One two"
+              },
+              "finish_reason": "stop"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "completion_tokens": 2,
+            "total_tokens": 99
+          }
+        }
+      }
+    },
+    {
+      "id": "chat-cross-model",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "chat",
+        "request": {
+          "model": "local-text",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Count to two."
+            }
+          ],
+          "max_completion_tokens": 32
+        },
+        "response": {
+          "id": "request-1",
+          "object": "chat.completion",
+          "created": 1,
+          "model": "other",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "One two"
+              },
+              "finish_reason": "stop"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "completion_tokens": 2,
+            "total_tokens": 6
+          }
+        }
+      }
+    },
+    {
+      "id": "completion-wrong-usage-total",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "completion",
+        "request": {
+          "model": "local-text",
+          "prompt": "Count to two.",
+          "max_tokens": 32
+        },
+        "response": {
+          "id": "request-1",
+          "object": "text_completion",
+          "created": 1,
+          "model": "local-text",
+          "choices": [
+            {
+              "index": 0,
+              "text": "One two",
+              "finish_reason": "stop",
+              "logprobs": null
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "completion_tokens": 2,
+            "total_tokens": 99
+          }
+        }
+      }
+    },
+    {
+      "id": "completion-cross-model",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "completion",
+        "request": {
+          "model": "local-text",
+          "prompt": "Count to two.",
+          "max_tokens": 32
+        },
+        "response": {
+          "id": "request-1",
+          "object": "text_completion",
+          "created": 1,
+          "model": "other",
+          "choices": [
+            {
+              "index": 0,
+              "text": "One two",
+              "finish_reason": "stop",
+              "logprobs": null
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "completion_tokens": 2,
+            "total_tokens": 6
+          }
+        }
+      }
+    },
+    {
+      "id": "response-wrong-usage-total",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "response",
+        "request": {
+          "model": "local-text",
+          "input": "Count to two.",
+          "store": false,
+          "max_output_tokens": 32
+        },
+        "response": {
+          "id": "request-1",
+          "object": "response",
+          "created_at": 1,
+          "model": "local-text",
+          "status": "completed",
+          "output": [
+            {
+              "id": "message-1",
+              "type": "message",
+              "role": "assistant",
+              "status": "completed",
+              "content": [
+                {
+                  "type": "output_text",
+                  "text": "One two",
+                  "annotations": []
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "input_tokens": 4,
+            "output_tokens": 2,
+            "total_tokens": 99
+          },
+          "error": null,
+          "incomplete_details": null
+        }
+      }
+    },
+    {
+      "id": "response-cross-model",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "response",
+        "request": {
+          "model": "local-text",
+          "input": "Count to two.",
+          "store": false,
+          "max_output_tokens": 32
+        },
+        "response": {
+          "id": "request-1",
+          "object": "response",
+          "created_at": 1,
+          "model": "other",
+          "status": "completed",
+          "output": [
+            {
+              "id": "message-1",
+              "type": "message",
+              "role": "assistant",
+              "status": "completed",
+              "content": [
+                {
+                  "type": "output_text",
+                  "text": "One two",
+                  "annotations": []
+                }
+              ]
+            }
+          ],
+          "usage": {
+            "input_tokens": 4,
+            "output_tokens": 2,
+            "total_tokens": 6
+          },
+          "error": null,
+          "incomplete_details": null
+        }
+      }
+    },
+    {
+      "id": "embedding-wrong-usage-total",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "embedding",
+        "request": {
+          "model": "local-embedding",
+          "input": [
+            "First",
+            "Second"
+          ],
+          "dimensions": 2
+        },
+        "response": {
+          "object": "list",
+          "model": "local-embedding",
+          "data": [
+            {
+              "object": "embedding",
+              "index": 0,
+              "embedding": [
+                0.2,
+                -0.3
+              ]
+            },
+            {
+              "object": "embedding",
+              "index": 1,
+              "embedding": [
+                0.4,
+                0.1
+              ]
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "total_tokens": 99
+          }
+        }
+      }
+    },
+    {
+      "id": "embedding-cross-model",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "embedding",
+        "request": {
+          "model": "local-embedding",
+          "input": [
+            "First",
+            "Second"
+          ],
+          "dimensions": 2
+        },
+        "response": {
+          "object": "list",
+          "model": "other",
+          "data": [
+            {
+              "object": "embedding",
+              "index": 0,
+              "embedding": [
+                0.2,
+                -0.3
+              ]
+            },
+            {
+              "object": "embedding",
+              "index": 1,
+              "embedding": [
+                0.4,
+                0.1
+              ]
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "total_tokens": 4
+          }
+        }
+      }
+    },
+    {
+      "id": "rerank-wrong-usage-total",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "rerank",
+        "request": {
+          "model": "local-rerank",
+          "query": "Second",
+          "documents": [
+            "First",
+            "Second"
+          ],
+          "top_n": 2
+        },
+        "response": {
+          "id": "request-1",
+          "model": "local-rerank",
+          "results": [
+            {
+              "index": 1,
+              "relevance_score": 0.9
+            },
+            {
+              "index": 0,
+              "relevance_score": 0.2
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "total_tokens": 99
+          }
+        }
+      }
+    },
+    {
+      "id": "rerank-cross-model",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "rerank",
+        "request": {
+          "model": "local-rerank",
+          "query": "Second",
+          "documents": [
+            "First",
+            "Second"
+          ],
+          "top_n": 2
+        },
+        "response": {
+          "id": "request-1",
+          "model": "other",
+          "results": [
+            {
+              "index": 1,
+              "relevance_score": 0.9
+            },
+            {
+              "index": 0,
+              "relevance_score": 0.2
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "total_tokens": 4
+          }
+        }
+      }
+    },
+    {
+      "id": "wrong-indices",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "embedding",
+        "request": {
+          "model": "local-embedding",
+          "input": [
+            "First",
+            "Second"
+          ],
+          "dimensions": 2
+        },
+        "response": {
+          "object": "list",
+          "model": "local-embedding",
+          "data": [
+            {
+              "object": "embedding",
+              "index": 0,
+              "embedding": [
+                0.2,
+                -0.3
+              ]
+            },
+            {
+              "object": "embedding",
+              "index": 0,
+              "embedding": [
+                0.4,
+                0.1
+              ]
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "total_tokens": 4
+          }
+        }
+      }
+    },
+    {
+      "id": "wrong-dimensions",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "embedding",
+        "request": {
+          "model": "local-embedding",
+          "input": [
+            "First",
+            "Second"
+          ],
+          "dimensions": 2
+        },
+        "response": {
+          "object": "list",
+          "model": "local-embedding",
+          "data": [
+            {
+              "object": "embedding",
+              "index": 0,
+              "embedding": [
+                0.2,
+                -0.3,
+                0
+              ]
+            },
+            {
+              "object": "embedding",
+              "index": 1,
+              "embedding": [
+                0.4,
+                0.1
+              ]
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "total_tokens": 4
+          }
+        }
+      }
+    },
+    {
+      "id": "missing-embedding",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "embedding",
+        "request": {
+          "model": "local-embedding",
+          "input": [
+            "First",
+            "Second"
+          ],
+          "dimensions": 2
+        },
+        "response": {
+          "object": "list",
+          "model": "local-embedding",
+          "data": [
+            {
+              "object": "embedding",
+              "index": 0,
+              "embedding": [
+                0.2,
+                -0.3
+              ]
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "total_tokens": 4
+          }
+        }
+      }
+    },
+    {
+      "id": "duplicate-ranking",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "rerank",
+        "request": {
+          "model": "local-rerank",
+          "query": "Second",
+          "documents": [
+            "First",
+            "Second"
+          ],
+          "top_n": 2
+        },
+        "response": {
+          "id": "request-1",
+          "model": "local-rerank",
+          "results": [
+            {
+              "index": 1,
+              "relevance_score": 0.9
+            },
+            {
+              "index": 1,
+              "relevance_score": 0.2
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "total_tokens": 4
+          }
+        }
+      }
+    },
+    {
+      "id": "wrong-ranking-order",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "rerank",
+        "request": {
+          "model": "local-rerank",
+          "query": "Second",
+          "documents": [
+            "First",
+            "Second"
+          ],
+          "top_n": 2
+        },
+        "response": {
+          "id": "request-1",
+          "model": "local-rerank",
+          "results": [
+            {
+              "index": 0,
+              "relevance_score": 0.2
+            },
+            {
+              "index": 1,
+              "relevance_score": 0.9
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "total_tokens": 4
+          }
+        }
+      }
+    },
+    {
+      "id": "out-of-range-ranking",
+      "kind": "response",
+      "valid": false,
+      "input": {
+        "kind": "rerank",
+        "request": {
+          "model": "local-rerank",
+          "query": "Second",
+          "documents": [
+            "First",
+            "Second"
+          ],
+          "top_n": 2
+        },
+        "response": {
+          "id": "request-1",
+          "model": "local-rerank",
+          "results": [
+            {
+              "index": 2,
+              "relevance_score": 0.9
+            },
+            {
+              "index": 0,
+              "relevance_score": 0.2
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 4,
+            "total_tokens": 4
+          }
+        }
+      }
+    },
+    {
+      "id": "top-n-too-large",
+      "kind": "request",
+      "valid": false,
+      "input": {
+        "kind": "rerank",
+        "request": {
+          "model": "local-rerank",
+          "query": "Second",
+          "documents": [
+            "First",
+            "Second"
+          ],
+          "top_n": 3
+        }
+      }
+    },
+    {
+      "id": "usage-measured",
+      "kind": "observation",
+      "valid": true,
+      "input": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": "org-a",
+        "admissionDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "model": "local-text",
+        "endpoint": "/v1/chat/completions",
+        "state": "COMPLETED",
+        "stream": false,
+        "measurement": "MEASURED",
+        "inputTokens": 4,
+        "outputTokens": 2,
+        "cachedTokens": null,
+        "totalTokens": 6,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": null,
+        "reason": null,
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": false
+      }
+    },
+    {
+      "id": "usage-partial",
+      "kind": "observation",
+      "valid": true,
+      "input": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": "org-a",
+        "admissionDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "model": "local-text",
+        "endpoint": "/v1/chat/completions",
+        "state": "CANCELLED",
+        "stream": false,
+        "measurement": "PARTIAL",
+        "inputTokens": 4,
+        "outputTokens": null,
+        "cachedTokens": null,
+        "totalTokens": null,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": null,
+        "reason": "CANCELLED",
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": false
+      }
+    },
+    {
+      "id": "usage-unavailable",
+      "kind": "observation",
+      "valid": true,
+      "input": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": "org-a",
+        "admissionDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "model": "local-text",
+        "endpoint": "/v1/chat/completions",
+        "state": "COMPLETED",
+        "stream": false,
+        "measurement": "UNAVAILABLE",
+        "inputTokens": null,
+        "outputTokens": null,
+        "cachedTokens": null,
+        "totalTokens": null,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": null,
+        "reason": null,
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": false
+      }
+    },
+    {
+      "id": "usage-unbound-rejection",
+      "kind": "observation",
+      "valid": true,
+      "input": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": null,
+        "admissionDigest": null,
+        "requestDigest": null,
+        "releaseDigest": null,
+        "policyDigest": null,
+        "budgetDigest": null,
+        "model": null,
+        "endpoint": "/v1/chat/completions",
+        "state": "REJECTED",
+        "stream": false,
+        "measurement": "UNAVAILABLE",
+        "inputTokens": null,
+        "outputTokens": null,
+        "cachedTokens": null,
+        "totalTokens": null,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": null,
+        "reason": "UNAUTHENTICATED",
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": false
+      }
+    },
+    {
+      "id": "usage-null-not-zero",
+      "kind": "observation",
+      "valid": false,
+      "input": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": "org-a",
+        "admissionDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "model": "local-text",
+        "endpoint": "/v1/chat/completions",
+        "state": "COMPLETED",
+        "stream": false,
+        "measurement": "UNAVAILABLE",
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "cachedTokens": null,
+        "totalTokens": 0,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": null,
+        "reason": null,
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": false
+      }
+    },
+    {
+      "id": "usage-estimate-not-measured",
+      "kind": "observation",
+      "valid": false,
+      "input": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": "org-a",
+        "admissionDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "model": "local-text",
+        "endpoint": "/v1/chat/completions",
+        "state": "COMPLETED",
+        "stream": false,
+        "measurement": "ESTIMATED",
+        "inputTokens": 4,
+        "outputTokens": 2,
+        "cachedTokens": null,
+        "totalTokens": 6,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": null,
+        "reason": null,
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": false
+      }
+    },
+    {
+      "id": "usage-cached-double-count",
+      "kind": "observation",
+      "valid": false,
+      "input": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": "org-a",
+        "admissionDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "model": "local-text",
+        "endpoint": "/v1/chat/completions",
+        "state": "COMPLETED",
+        "stream": false,
+        "measurement": "MEASURED",
+        "inputTokens": 4,
+        "outputTokens": 2,
+        "cachedTokens": 5,
+        "totalTokens": 6,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": null,
+        "reason": null,
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": false
+      }
+    },
+    {
+      "id": "usage-wrong-total",
+      "kind": "observation",
+      "valid": false,
+      "input": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": "org-a",
+        "admissionDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "model": "local-text",
+        "endpoint": "/v1/chat/completions",
+        "state": "COMPLETED",
+        "stream": false,
+        "measurement": "MEASURED",
+        "inputTokens": 4,
+        "outputTokens": 2,
+        "cachedTokens": null,
+        "totalTokens": 7,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": null,
+        "reason": null,
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": false
+      }
+    },
+    {
+      "id": "usage-false-partial",
+      "kind": "observation",
+      "valid": false,
+      "input": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": "org-a",
+        "admissionDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "model": "local-text",
+        "endpoint": "/v1/chat/completions",
+        "state": "COMPLETED",
+        "stream": false,
+        "measurement": "PARTIAL",
+        "inputTokens": 4,
+        "outputTokens": 2,
+        "cachedTokens": null,
+        "totalTokens": 6,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": null,
+        "reason": null,
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": false
+      }
+    },
+    {
+      "id": "usage-partial-bindings",
+      "kind": "observation",
+      "valid": false,
+      "input": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": "org-a",
+        "admissionDigest": null,
+        "requestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "model": "local-text",
+        "endpoint": "/v1/chat/completions",
+        "state": "COMPLETED",
+        "stream": false,
+        "measurement": "MEASURED",
+        "inputTokens": 4,
+        "outputTokens": 2,
+        "cachedTokens": null,
+        "totalTokens": 6,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": null,
+        "reason": null,
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": false
+      }
+    },
+    {
+      "id": "usage-first-byte-after-end",
+      "kind": "observation",
+      "valid": false,
+      "input": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": "org-a",
+        "admissionDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "model": "local-text",
+        "endpoint": "/v1/chat/completions",
+        "state": "COMPLETED",
+        "stream": false,
+        "measurement": "MEASURED",
+        "inputTokens": 4,
+        "outputTokens": 2,
+        "cachedTokens": null,
+        "totalTokens": 6,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": 6,
+        "reason": null,
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": false
+      }
+    },
+    {
+      "id": "usage-success-with-error",
+      "kind": "observation",
+      "valid": false,
+      "input": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": "org-a",
+        "admissionDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "model": "local-text",
+        "endpoint": "/v1/chat/completions",
+        "state": "COMPLETED",
+        "stream": false,
+        "measurement": "MEASURED",
+        "inputTokens": 4,
+        "outputTokens": 2,
+        "cachedTokens": null,
+        "totalTokens": 6,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": null,
+        "reason": "INTERNAL_ERROR",
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": false
+      }
+    },
+    {
+      "id": "usage-cancel-without-reason",
+      "kind": "observation",
+      "valid": false,
+      "input": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": "org-a",
+        "admissionDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "model": "local-text",
+        "endpoint": "/v1/chat/completions",
+        "state": "CANCELLED",
+        "stream": false,
+        "measurement": "MEASURED",
+        "inputTokens": 4,
+        "outputTokens": 2,
+        "cachedTokens": null,
+        "totalTokens": 6,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": null,
+        "reason": null,
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": false
+      }
+    },
+    {
+      "id": "usage-embedding-generates-tokens",
+      "kind": "observation",
+      "valid": false,
+      "input": {
+        "schemaVersion": "harness.planeon.ai/model-usage-observation/v1alpha1",
+        "event": "model.usage.observed.v1",
+        "observationId": "observation-1",
+        "requestId": "request-1",
+        "organizationId": "org-a",
+        "admissionDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "requestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "model": "local-text",
+        "endpoint": "/v1/embeddings",
+        "state": "COMPLETED",
+        "stream": false,
+        "measurement": "MEASURED",
+        "inputTokens": 4,
+        "outputTokens": 2,
+        "cachedTokens": null,
+        "totalTokens": 6,
+        "inputTokenUpperBound": 5,
+        "outputTokenLimit": 32,
+        "durationMs": 5,
+        "firstByteMs": null,
+        "reason": null,
+        "recordedAt": "2026-09-07T00:00:00Z",
+        "ledgerAuthority": false
+      }
+    },
+    {
+      "id": "lifecycle-completion",
+      "kind": "lifecycle",
+      "valid": true,
+      "input": {
+        "requestId": "request-1",
+        "queueCapacity": 2,
+        "queuedAhead": 0,
+        "timeoutMs": 2000,
+        "events": [
+          {
+            "requestId": "request-1",
+            "atMs": 0,
+            "action": "QUEUE",
+            "state": "QUEUED"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 1,
+            "action": "START",
+            "state": "RUNNING"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 2,
+            "action": "FIRST_BYTE",
+            "state": "RUNNING"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 3,
+            "action": "COMPLETE",
+            "state": "COMPLETED"
+          }
+        ]
+      }
+    },
+    {
+      "id": "queue-full-reject",
+      "kind": "lifecycle",
+      "valid": true,
+      "input": {
+        "requestId": "request-1",
+        "queueCapacity": 2,
+        "queuedAhead": 2,
+        "timeoutMs": 2000,
+        "events": [
+          {
+            "requestId": "request-1",
+            "action": "REJECT",
+            "state": "REJECTED",
+            "atMs": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "queued-cancel",
+      "kind": "lifecycle",
+      "valid": true,
+      "input": {
+        "requestId": "request-1",
+        "queueCapacity": 2,
+        "queuedAhead": 0,
+        "timeoutMs": 2000,
+        "events": [
+          {
+            "requestId": "request-1",
+            "action": "QUEUE",
+            "state": "QUEUED",
+            "atMs": 0
+          },
+          {
+            "requestId": "request-1",
+            "action": "CANCEL",
+            "state": "CANCELLED",
+            "atMs": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "running-timeout",
+      "kind": "lifecycle",
+      "valid": true,
+      "input": {
+        "requestId": "request-1",
+        "queueCapacity": 2,
+        "queuedAhead": 0,
+        "timeoutMs": 2000,
+        "events": [
+          {
+            "requestId": "request-1",
+            "action": "QUEUE",
+            "state": "QUEUED",
+            "atMs": 0
+          },
+          {
+            "requestId": "request-1",
+            "action": "START",
+            "state": "RUNNING",
+            "atMs": 1
+          },
+          {
+            "requestId": "request-1",
+            "action": "TIMEOUT",
+            "state": "TIMED_OUT",
+            "atMs": 2000
+          }
+        ]
+      }
+    },
+    {
+      "id": "queue-wait-timeout",
+      "kind": "lifecycle",
+      "valid": true,
+      "input": {
+        "requestId": "request-1",
+        "queueCapacity": 2,
+        "queuedAhead": 0,
+        "timeoutMs": 20000,
+        "events": [
+          {
+            "requestId": "request-1",
+            "action": "QUEUE",
+            "state": "QUEUED",
+            "atMs": 0
+          },
+          {
+            "requestId": "request-1",
+            "action": "TIMEOUT",
+            "state": "TIMED_OUT",
+            "atMs": 10000
+          }
+        ]
+      }
+    },
+    {
+      "id": "queue-full-start",
+      "kind": "lifecycle",
+      "valid": false,
+      "input": {
+        "requestId": "request-1",
+        "queueCapacity": 2,
+        "queuedAhead": 2,
+        "timeoutMs": 2000,
+        "events": [
+          {
+            "requestId": "request-1",
+            "atMs": 0,
+            "action": "QUEUE",
+            "state": "QUEUED"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 1,
+            "action": "START",
+            "state": "RUNNING"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 2,
+            "action": "FIRST_BYTE",
+            "state": "RUNNING"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 3,
+            "action": "COMPLETE",
+            "state": "COMPLETED"
+          }
+        ]
+      }
+    },
+    {
+      "id": "deadline-completion",
+      "kind": "lifecycle",
+      "valid": false,
+      "input": {
+        "requestId": "request-1",
+        "queueCapacity": 2,
+        "queuedAhead": 0,
+        "timeoutMs": 2000,
+        "events": [
+          {
+            "requestId": "request-1",
+            "action": "QUEUE",
+            "state": "QUEUED",
+            "atMs": 0
+          },
+          {
+            "requestId": "request-1",
+            "action": "START",
+            "state": "RUNNING",
+            "atMs": 1
+          },
+          {
+            "requestId": "request-1",
+            "action": "COMPLETE",
+            "state": "COMPLETED",
+            "atMs": 2000
+          }
+        ]
+      }
+    },
+    {
+      "id": "repeated-terminal",
+      "kind": "lifecycle",
+      "valid": false,
+      "input": {
+        "requestId": "request-1",
+        "queueCapacity": 2,
+        "queuedAhead": 0,
+        "timeoutMs": 2000,
+        "events": [
+          {
+            "requestId": "request-1",
+            "atMs": 0,
+            "action": "QUEUE",
+            "state": "QUEUED"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 1,
+            "action": "START",
+            "state": "RUNNING"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 2,
+            "action": "FIRST_BYTE",
+            "state": "RUNNING"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 3,
+            "action": "COMPLETE",
+            "state": "COMPLETED"
+          },
+          {
+            "requestId": "request-1",
+            "action": "CANCEL",
+            "state": "CANCELLED",
+            "atMs": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "missing-terminal",
+      "kind": "lifecycle",
+      "valid": false,
+      "input": {
+        "requestId": "request-1",
+        "queueCapacity": 2,
+        "queuedAhead": 0,
+        "timeoutMs": 2000,
+        "events": [
+          {
+            "requestId": "request-1",
+            "atMs": 0,
+            "action": "QUEUE",
+            "state": "QUEUED"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 1,
+            "action": "START",
+            "state": "RUNNING"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 2,
+            "action": "FIRST_BYTE",
+            "state": "RUNNING"
+          }
+        ]
+      }
+    },
+    {
+      "id": "retry-after-byte",
+      "kind": "lifecycle",
+      "valid": false,
+      "input": {
+        "requestId": "request-1",
+        "queueCapacity": 2,
+        "queuedAhead": 0,
+        "timeoutMs": 2000,
+        "events": [
+          {
+            "requestId": "request-1",
+            "atMs": 0,
+            "action": "QUEUE",
+            "state": "QUEUED"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 1,
+            "action": "START",
+            "state": "RUNNING"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 2,
+            "action": "FIRST_BYTE",
+            "state": "RUNNING"
+          },
+          {
+            "requestId": "request-1",
+            "action": "RETRY",
+            "state": "RUNNING",
+            "atMs": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "switch-provider",
+      "kind": "lifecycle",
+      "valid": false,
+      "input": {
+        "requestId": "request-1",
+        "queueCapacity": 2,
+        "queuedAhead": 0,
+        "timeoutMs": 2000,
+        "events": [
+          {
+            "requestId": "request-1",
+            "action": "QUEUE",
+            "state": "QUEUED",
+            "atMs": 0
+          },
+          {
+            "requestId": "request-1",
+            "action": "SWITCH_PROVIDER",
+            "state": "QUEUED",
+            "atMs": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "reversed-clock",
+      "kind": "lifecycle",
+      "valid": false,
+      "input": {
+        "requestId": "request-1",
+        "queueCapacity": 2,
+        "queuedAhead": 0,
+        "timeoutMs": 2000,
+        "events": [
+          {
+            "requestId": "request-1",
+            "action": "QUEUE",
+            "state": "QUEUED",
+            "atMs": 1
+          },
+          {
+            "requestId": "request-1",
+            "action": "START",
+            "state": "RUNNING",
+            "atMs": 0
+          },
+          {
+            "requestId": "request-1",
+            "action": "COMPLETE",
+            "state": "COMPLETED",
+            "atMs": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross-request-terminal",
+      "kind": "lifecycle",
+      "valid": false,
+      "input": {
+        "requestId": "request-1",
+        "queueCapacity": 2,
+        "queuedAhead": 0,
+        "timeoutMs": 2000,
+        "events": [
+          {
+            "requestId": "request-1",
+            "atMs": 0,
+            "action": "QUEUE",
+            "state": "QUEUED"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 1,
+            "action": "START",
+            "state": "RUNNING"
+          },
+          {
+            "requestId": "request-1",
+            "atMs": 2,
+            "action": "FIRST_BYTE",
+            "state": "RUNNING"
+          },
+          {
+            "requestId": "request-2",
+            "action": "COMPLETE",
+            "state": "COMPLETED",
+            "atMs": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "error-MALFORMED_JSON",
+      "kind": "error",
+      "valid": true,
+      "input": {
+        "body": {
+          "error": {
+            "code": "MALFORMED_JSON",
+            "type": "invalid_request_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 400,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-wrong-status-MALFORMED_JSON",
+      "kind": "error",
+      "valid": false,
+      "input": {
+        "body": {
+          "error": {
+            "code": "MALFORMED_JSON",
+            "type": "invalid_request_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 200,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-INVALID_REQUEST",
+      "kind": "error",
+      "valid": true,
+      "input": {
+        "body": {
+          "error": {
+            "code": "INVALID_REQUEST",
+            "type": "invalid_request_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 422,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-wrong-status-INVALID_REQUEST",
+      "kind": "error",
+      "valid": false,
+      "input": {
+        "body": {
+          "error": {
+            "code": "INVALID_REQUEST",
+            "type": "invalid_request_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 200,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-UNSUPPORTED_CAPABILITY",
+      "kind": "error",
+      "valid": true,
+      "input": {
+        "body": {
+          "error": {
+            "code": "UNSUPPORTED_CAPABILITY",
+            "type": "invalid_request_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 422,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-wrong-status-UNSUPPORTED_CAPABILITY",
+      "kind": "error",
+      "valid": false,
+      "input": {
+        "body": {
+          "error": {
+            "code": "UNSUPPORTED_CAPABILITY",
+            "type": "invalid_request_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 200,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-UNAUTHENTICATED",
+      "kind": "error",
+      "valid": true,
+      "input": {
+        "body": {
+          "error": {
+            "code": "UNAUTHENTICATED",
+            "type": "authentication_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 401,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-wrong-status-UNAUTHENTICATED",
+      "kind": "error",
+      "valid": false,
+      "input": {
+        "body": {
+          "error": {
+            "code": "UNAUTHENTICATED",
+            "type": "authentication_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 200,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-FORBIDDEN",
+      "kind": "error",
+      "valid": true,
+      "input": {
+        "body": {
+          "error": {
+            "code": "FORBIDDEN",
+            "type": "permission_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 403,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-wrong-status-FORBIDDEN",
+      "kind": "error",
+      "valid": false,
+      "input": {
+        "body": {
+          "error": {
+            "code": "FORBIDDEN",
+            "type": "permission_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 200,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-MODEL_NOT_FOUND",
+      "kind": "error",
+      "valid": true,
+      "input": {
+        "body": {
+          "error": {
+            "code": "MODEL_NOT_FOUND",
+            "type": "not_found_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 404,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-wrong-status-MODEL_NOT_FOUND",
+      "kind": "error",
+      "valid": false,
+      "input": {
+        "body": {
+          "error": {
+            "code": "MODEL_NOT_FOUND",
+            "type": "not_found_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 200,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-QUEUE_FULL",
+      "kind": "error",
+      "valid": true,
+      "input": {
+        "body": {
+          "error": {
+            "code": "QUEUE_FULL",
+            "type": "rate_limit_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 429,
+        "retryAfter": 1
+      }
+    },
+    {
+      "id": "error-wrong-status-QUEUE_FULL",
+      "kind": "error",
+      "valid": false,
+      "input": {
+        "body": {
+          "error": {
+            "code": "QUEUE_FULL",
+            "type": "rate_limit_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 200,
+        "retryAfter": 1
+      }
+    },
+    {
+      "id": "error-BACKEND_UNAVAILABLE",
+      "kind": "error",
+      "valid": true,
+      "input": {
+        "body": {
+          "error": {
+            "code": "BACKEND_UNAVAILABLE",
+            "type": "server_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 503,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-wrong-status-BACKEND_UNAVAILABLE",
+      "kind": "error",
+      "valid": false,
+      "input": {
+        "body": {
+          "error": {
+            "code": "BACKEND_UNAVAILABLE",
+            "type": "server_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 200,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-DEADLINE_EXCEEDED",
+      "kind": "error",
+      "valid": true,
+      "input": {
+        "body": {
+          "error": {
+            "code": "DEADLINE_EXCEEDED",
+            "type": "server_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 504,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-wrong-status-DEADLINE_EXCEEDED",
+      "kind": "error",
+      "valid": false,
+      "input": {
+        "body": {
+          "error": {
+            "code": "DEADLINE_EXCEEDED",
+            "type": "server_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 200,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-INTERNAL_ERROR",
+      "kind": "error",
+      "valid": true,
+      "input": {
+        "body": {
+          "error": {
+            "code": "INTERNAL_ERROR",
+            "type": "server_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 500,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-wrong-status-INTERNAL_ERROR",
+      "kind": "error",
+      "valid": false,
+      "input": {
+        "body": {
+          "error": {
+            "code": "INTERNAL_ERROR",
+            "type": "server_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 200,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-CANCELLED",
+      "kind": "error",
+      "valid": true,
+      "input": {
+        "body": {
+          "error": {
+            "code": "CANCELLED",
+            "type": "cancelled_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": null,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "error-wrong-status-CANCELLED",
+      "kind": "error",
+      "valid": false,
+      "input": {
+        "body": {
+          "error": {
+            "code": "CANCELLED",
+            "type": "cancelled_error",
+            "message": "The request could not be completed.",
+            "param": null
+          }
+        },
+        "status": 200,
+        "retryAfter": null
+      }
+    },
+    {
+      "id": "metrics-content-free",
+      "kind": "metrics",
+      "valid": true,
+      "input": "harness_model_queue_depth 0\nharness_model_requests_total{endpoint=\"/v1/responses\",state=\"COMPLETED\"} 1\n"
+    },
+    {
+      "id": "metrics-tenant-leak",
+      "kind": "metrics",
+      "valid": false,
+      "input": "harness_model_requests_total{tenant=\"org-a\"} 1\n"
+    },
+    {
+      "id": "metrics-nonfinite",
+      "kind": "metrics",
+      "valid": false,
+      "input": "harness_model_queue_depth NaN\n"
+    },
+    {
+      "id": "metrics-integer-bound",
+      "kind": "metrics",
+      "valid": false,
+      "input": "harness_model_queue_depth 1025\n"
+    },
+    {
+      "id": "binding-valid-relationships",
+      "kind": "binding",
+      "valid": true,
+      "input": {
+        "binding": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "requestId": "request-1",
+          "method": "POST",
+          "path": "/v1/chat/completions",
+          "bodySha256": "sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b",
+          "deadlineUnixMs": 2000
+        },
+        "rawBody": "{\"model\":\"local-text\",\"messages\":[{\"role\":\"user\",\"content\":\"Count.\"}]}",
+        "method": "POST",
+        "path": "/v1/chat/completions",
+        "expectedCanonicalBinding": "{\"bodySha256\":\"sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b\",\"budgetDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"deadlineUnixMs\":2000,\"method\":\"POST\",\"organizationId\":\"org-a\",\"path\":\"/v1/chat/completions\",\"policyDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"releaseDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"requestId\":\"request-1\",\"subjectDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\"}",
+        "envelopePayload": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "operation": "MODEL_INFERENCE",
+          "requestDigest": "sha256:87d22824e370e610d802e19dffd7e68fb12aff0f1d638970340f84c7c40dffb3"
+        },
+        "verifiedContext": {
+          "signatureStatus": "VERIFIED_BY_CON007",
+          "reservationStatus": "NEW_ATOMIC_RESERVATION",
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "nowUnixMs": 1000,
+          "expiresUnixMs": 3000,
+          "maxTaskSeconds": 2,
+          "inputTokenUpperBound": 4,
+          "outputTokenLimit": 32,
+          "remainingModelTokens": 36
+        }
+      }
+    },
+    {
+      "id": "binding-wrong-body",
+      "kind": "binding",
+      "valid": false,
+      "input": {
+        "binding": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "requestId": "request-1",
+          "method": "POST",
+          "path": "/v1/chat/completions",
+          "bodySha256": "sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b",
+          "deadlineUnixMs": 2000
+        },
+        "rawBody": "{\"model\":\"local-text\",\"messages\":[{\"role\":\"user\",\"content\":\"Count.\"}]} ",
+        "method": "POST",
+        "path": "/v1/chat/completions",
+        "expectedCanonicalBinding": "{\"bodySha256\":\"sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b\",\"budgetDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"deadlineUnixMs\":2000,\"method\":\"POST\",\"organizationId\":\"org-a\",\"path\":\"/v1/chat/completions\",\"policyDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"releaseDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"requestId\":\"request-1\",\"subjectDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\"}",
+        "envelopePayload": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "operation": "MODEL_INFERENCE",
+          "requestDigest": "sha256:87d22824e370e610d802e19dffd7e68fb12aff0f1d638970340f84c7c40dffb3"
+        },
+        "verifiedContext": {
+          "signatureStatus": "VERIFIED_BY_CON007",
+          "reservationStatus": "NEW_ATOMIC_RESERVATION",
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "nowUnixMs": 1000,
+          "expiresUnixMs": 3000,
+          "maxTaskSeconds": 2,
+          "inputTokenUpperBound": 4,
+          "outputTokenLimit": 32,
+          "remainingModelTokens": 36
+        }
+      }
+    },
+    {
+      "id": "binding-cross-tenant",
+      "kind": "binding",
+      "valid": false,
+      "input": {
+        "binding": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "requestId": "request-1",
+          "method": "POST",
+          "path": "/v1/chat/completions",
+          "bodySha256": "sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b",
+          "deadlineUnixMs": 2000
+        },
+        "rawBody": "{\"model\":\"local-text\",\"messages\":[{\"role\":\"user\",\"content\":\"Count.\"}]}",
+        "method": "POST",
+        "path": "/v1/chat/completions",
+        "expectedCanonicalBinding": "{\"bodySha256\":\"sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b\",\"budgetDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"deadlineUnixMs\":2000,\"method\":\"POST\",\"organizationId\":\"org-a\",\"path\":\"/v1/chat/completions\",\"policyDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"releaseDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"requestId\":\"request-1\",\"subjectDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\"}",
+        "envelopePayload": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "operation": "MODEL_INFERENCE",
+          "requestDigest": "sha256:87d22824e370e610d802e19dffd7e68fb12aff0f1d638970340f84c7c40dffb3"
+        },
+        "verifiedContext": {
+          "signatureStatus": "VERIFIED_BY_CON007",
+          "reservationStatus": "NEW_ATOMIC_RESERVATION",
+          "organizationId": "org-b",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "nowUnixMs": 1000,
+          "expiresUnixMs": 3000,
+          "maxTaskSeconds": 2,
+          "inputTokenUpperBound": 4,
+          "outputTokenLimit": 32,
+          "remainingModelTokens": 36
+        }
+      }
+    },
+    {
+      "id": "binding-unverified-signature",
+      "kind": "binding",
+      "valid": false,
+      "input": {
+        "binding": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "requestId": "request-1",
+          "method": "POST",
+          "path": "/v1/chat/completions",
+          "bodySha256": "sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b",
+          "deadlineUnixMs": 2000
+        },
+        "rawBody": "{\"model\":\"local-text\",\"messages\":[{\"role\":\"user\",\"content\":\"Count.\"}]}",
+        "method": "POST",
+        "path": "/v1/chat/completions",
+        "expectedCanonicalBinding": "{\"bodySha256\":\"sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b\",\"budgetDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"deadlineUnixMs\":2000,\"method\":\"POST\",\"organizationId\":\"org-a\",\"path\":\"/v1/chat/completions\",\"policyDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"releaseDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"requestId\":\"request-1\",\"subjectDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\"}",
+        "envelopePayload": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "operation": "MODEL_INFERENCE",
+          "requestDigest": "sha256:87d22824e370e610d802e19dffd7e68fb12aff0f1d638970340f84c7c40dffb3"
+        },
+        "verifiedContext": {
+          "signatureStatus": "UNVERIFIED",
+          "reservationStatus": "NEW_ATOMIC_RESERVATION",
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "nowUnixMs": 1000,
+          "expiresUnixMs": 3000,
+          "maxTaskSeconds": 2,
+          "inputTokenUpperBound": 4,
+          "outputTokenLimit": 32,
+          "remainingModelTokens": 36
+        }
+      }
+    },
+    {
+      "id": "binding-no-reservation",
+      "kind": "binding",
+      "valid": false,
+      "input": {
+        "binding": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "requestId": "request-1",
+          "method": "POST",
+          "path": "/v1/chat/completions",
+          "bodySha256": "sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b",
+          "deadlineUnixMs": 2000
+        },
+        "rawBody": "{\"model\":\"local-text\",\"messages\":[{\"role\":\"user\",\"content\":\"Count.\"}]}",
+        "method": "POST",
+        "path": "/v1/chat/completions",
+        "expectedCanonicalBinding": "{\"bodySha256\":\"sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b\",\"budgetDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"deadlineUnixMs\":2000,\"method\":\"POST\",\"organizationId\":\"org-a\",\"path\":\"/v1/chat/completions\",\"policyDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"releaseDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"requestId\":\"request-1\",\"subjectDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\"}",
+        "envelopePayload": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "operation": "MODEL_INFERENCE",
+          "requestDigest": "sha256:87d22824e370e610d802e19dffd7e68fb12aff0f1d638970340f84c7c40dffb3"
+        },
+        "verifiedContext": {
+          "signatureStatus": "VERIFIED_BY_CON007",
+          "reservationStatus": "CACHED_RECEIPT",
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "nowUnixMs": 1000,
+          "expiresUnixMs": 3000,
+          "maxTaskSeconds": 2,
+          "inputTokenUpperBound": 4,
+          "outputTokenLimit": 32,
+          "remainingModelTokens": 36
+        }
+      }
+    },
+    {
+      "id": "binding-wrong-method",
+      "kind": "binding",
+      "valid": false,
+      "input": {
+        "binding": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "requestId": "request-1",
+          "method": "POST",
+          "path": "/v1/chat/completions",
+          "bodySha256": "sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b",
+          "deadlineUnixMs": 2000
+        },
+        "rawBody": "{\"model\":\"local-text\",\"messages\":[{\"role\":\"user\",\"content\":\"Count.\"}]}",
+        "method": "GET",
+        "path": "/v1/chat/completions",
+        "expectedCanonicalBinding": "{\"bodySha256\":\"sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b\",\"budgetDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"deadlineUnixMs\":2000,\"method\":\"POST\",\"organizationId\":\"org-a\",\"path\":\"/v1/chat/completions\",\"policyDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"releaseDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"requestId\":\"request-1\",\"subjectDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\"}",
+        "envelopePayload": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "operation": "MODEL_INFERENCE",
+          "requestDigest": "sha256:87d22824e370e610d802e19dffd7e68fb12aff0f1d638970340f84c7c40dffb3"
+        },
+        "verifiedContext": {
+          "signatureStatus": "VERIFIED_BY_CON007",
+          "reservationStatus": "NEW_ATOMIC_RESERVATION",
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "nowUnixMs": 1000,
+          "expiresUnixMs": 3000,
+          "maxTaskSeconds": 2,
+          "inputTokenUpperBound": 4,
+          "outputTokenLimit": 32,
+          "remainingModelTokens": 36
+        }
+      }
+    },
+    {
+      "id": "binding-wrong-path",
+      "kind": "binding",
+      "valid": false,
+      "input": {
+        "binding": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "requestId": "request-1",
+          "method": "POST",
+          "path": "/v1/chat/completions",
+          "bodySha256": "sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b",
+          "deadlineUnixMs": 2000
+        },
+        "rawBody": "{\"model\":\"local-text\",\"messages\":[{\"role\":\"user\",\"content\":\"Count.\"}]}",
+        "method": "POST",
+        "path": "/v1/responses",
+        "expectedCanonicalBinding": "{\"bodySha256\":\"sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b\",\"budgetDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"deadlineUnixMs\":2000,\"method\":\"POST\",\"organizationId\":\"org-a\",\"path\":\"/v1/chat/completions\",\"policyDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"releaseDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"requestId\":\"request-1\",\"subjectDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\"}",
+        "envelopePayload": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "operation": "MODEL_INFERENCE",
+          "requestDigest": "sha256:87d22824e370e610d802e19dffd7e68fb12aff0f1d638970340f84c7c40dffb3"
+        },
+        "verifiedContext": {
+          "signatureStatus": "VERIFIED_BY_CON007",
+          "reservationStatus": "NEW_ATOMIC_RESERVATION",
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "nowUnixMs": 1000,
+          "expiresUnixMs": 3000,
+          "maxTaskSeconds": 2,
+          "inputTokenUpperBound": 4,
+          "outputTokenLimit": 32,
+          "remainingModelTokens": 36
+        }
+      }
+    },
+    {
+      "id": "binding-expired",
+      "kind": "binding",
+      "valid": false,
+      "input": {
+        "binding": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "requestId": "request-1",
+          "method": "POST",
+          "path": "/v1/chat/completions",
+          "bodySha256": "sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b",
+          "deadlineUnixMs": 2000
+        },
+        "rawBody": "{\"model\":\"local-text\",\"messages\":[{\"role\":\"user\",\"content\":\"Count.\"}]}",
+        "method": "POST",
+        "path": "/v1/chat/completions",
+        "expectedCanonicalBinding": "{\"bodySha256\":\"sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b\",\"budgetDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"deadlineUnixMs\":2000,\"method\":\"POST\",\"organizationId\":\"org-a\",\"path\":\"/v1/chat/completions\",\"policyDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"releaseDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"requestId\":\"request-1\",\"subjectDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\"}",
+        "envelopePayload": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "operation": "MODEL_INFERENCE",
+          "requestDigest": "sha256:87d22824e370e610d802e19dffd7e68fb12aff0f1d638970340f84c7c40dffb3"
+        },
+        "verifiedContext": {
+          "signatureStatus": "VERIFIED_BY_CON007",
+          "reservationStatus": "NEW_ATOMIC_RESERVATION",
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "nowUnixMs": 2000,
+          "expiresUnixMs": 3000,
+          "maxTaskSeconds": 2,
+          "inputTokenUpperBound": 4,
+          "outputTokenLimit": 32,
+          "remainingModelTokens": 36
+        }
+      }
+    },
+    {
+      "id": "binding-overbudget",
+      "kind": "binding",
+      "valid": false,
+      "input": {
+        "binding": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "requestId": "request-1",
+          "method": "POST",
+          "path": "/v1/chat/completions",
+          "bodySha256": "sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b",
+          "deadlineUnixMs": 2000
+        },
+        "rawBody": "{\"model\":\"local-text\",\"messages\":[{\"role\":\"user\",\"content\":\"Count.\"}]}",
+        "method": "POST",
+        "path": "/v1/chat/completions",
+        "expectedCanonicalBinding": "{\"bodySha256\":\"sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b\",\"budgetDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"deadlineUnixMs\":2000,\"method\":\"POST\",\"organizationId\":\"org-a\",\"path\":\"/v1/chat/completions\",\"policyDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"releaseDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"requestId\":\"request-1\",\"subjectDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\"}",
+        "envelopePayload": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "operation": "MODEL_INFERENCE",
+          "requestDigest": "sha256:87d22824e370e610d802e19dffd7e68fb12aff0f1d638970340f84c7c40dffb3"
+        },
+        "verifiedContext": {
+          "signatureStatus": "VERIFIED_BY_CON007",
+          "reservationStatus": "NEW_ATOMIC_RESERVATION",
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "nowUnixMs": 1000,
+          "expiresUnixMs": 3000,
+          "maxTaskSeconds": 2,
+          "inputTokenUpperBound": 4,
+          "outputTokenLimit": 32,
+          "remainingModelTokens": 35
+        }
+      }
+    },
+    {
+      "id": "binding-wrong-operation",
+      "kind": "binding",
+      "valid": false,
+      "input": {
+        "binding": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "requestId": "request-1",
+          "method": "POST",
+          "path": "/v1/chat/completions",
+          "bodySha256": "sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b",
+          "deadlineUnixMs": 2000
+        },
+        "rawBody": "{\"model\":\"local-text\",\"messages\":[{\"role\":\"user\",\"content\":\"Count.\"}]}",
+        "method": "POST",
+        "path": "/v1/chat/completions",
+        "expectedCanonicalBinding": "{\"bodySha256\":\"sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b\",\"budgetDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"deadlineUnixMs\":2000,\"method\":\"POST\",\"organizationId\":\"org-a\",\"path\":\"/v1/chat/completions\",\"policyDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"releaseDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"requestId\":\"request-1\",\"subjectDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\"}",
+        "envelopePayload": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "operation": "TOOL_EXECUTION",
+          "requestDigest": "sha256:87d22824e370e610d802e19dffd7e68fb12aff0f1d638970340f84c7c40dffb3"
+        },
+        "verifiedContext": {
+          "signatureStatus": "VERIFIED_BY_CON007",
+          "reservationStatus": "NEW_ATOMIC_RESERVATION",
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "nowUnixMs": 1000,
+          "expiresUnixMs": 3000,
+          "maxTaskSeconds": 2,
+          "inputTokenUpperBound": 4,
+          "outputTokenLimit": 32,
+          "remainingModelTokens": 36
+        }
+      }
+    },
+    {
+      "id": "binding-release-mismatch",
+      "kind": "binding",
+      "valid": false,
+      "input": {
+        "binding": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "requestId": "request-1",
+          "method": "POST",
+          "path": "/v1/chat/completions",
+          "bodySha256": "sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b",
+          "deadlineUnixMs": 2000
+        },
+        "rawBody": "{\"model\":\"local-text\",\"messages\":[{\"role\":\"user\",\"content\":\"Count.\"}]}",
+        "method": "POST",
+        "path": "/v1/chat/completions",
+        "expectedCanonicalBinding": "{\"bodySha256\":\"sha256:a531b213f9c9e900bcaecde2e817cda4968d2bb0588560e9141542c7a6e5e63b\",\"budgetDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"deadlineUnixMs\":2000,\"method\":\"POST\",\"organizationId\":\"org-a\",\"path\":\"/v1/chat/completions\",\"policyDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"releaseDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"requestId\":\"request-1\",\"subjectDigest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\"}",
+        "envelopePayload": {
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "operation": "MODEL_INFERENCE",
+          "requestDigest": "sha256:87d22824e370e610d802e19dffd7e68fb12aff0f1d638970340f84c7c40dffb3"
+        },
+        "verifiedContext": {
+          "signatureStatus": "VERIFIED_BY_CON007",
+          "reservationStatus": "NEW_ATOMIC_RESERVATION",
+          "organizationId": "org-a",
+          "subjectDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "releaseDigest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+          "policyDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "budgetDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "nowUnixMs": 1000,
+          "expiresUnixMs": 3000,
+          "maxTaskSeconds": 2,
+          "inputTokenUpperBound": 4,
+          "outputTokenLimit": 32,
+          "remainingModelTokens": 36
+        }
+      }
+    }
+  ]
+}

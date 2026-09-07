@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/model/ready-response.schema.json",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "const": "ready"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reason"
+      ],
+      "properties": {
+        "status": {
+          "const": "not_ready"
+        },
+        "reason": {
+          "enum": [
+            "NO_ACTIVE_ROUTE",
+            "BACKEND_UNAVAILABLE",
+            "TRUST_UNAVAILABLE"
+          ]
+        }
+      }
+    }
+  ]
+}
