@@ -1,0 +1,1253 @@
+{
+  "authority": {
+    "authorityId": "REF-MODEL-USAGE-V2-001",
+    "commit": "6815c21cb10a4d7dc0b4804f6bb223afb4321e97",
+    "extractorSha256": "c3ee70583ed0ba85693dcc3da62c40d8039919c1213facdcca3b13e172bc6a04",
+    "launcherSha256": "971b534767afd900f00b588cf626b79c029f784f5820608b3803dd27ae967cee",
+    "observerIdentity": "planeon-reference-observer",
+    "packetDigest": "7493f8f788f982df4cd6b32f3647c82f41b8989feee54fea8740fff5e61f1a9b",
+    "packetId": "MET-OBS-MODEL-001",
+    "packetObservation": {
+      "allowedFactKinds": [
+        "SCHEMA_IDENTITY",
+        "OBJECT_FIELD",
+        "REQUIRED_FIELD",
+        "VALUE_CONSTRAINT",
+        "STATE_ENUM",
+        "REFERENCE_EDGE",
+        "SCHEMA_DIGEST"
+      ],
+      "ciEvidenceUse": "FORBIDDEN",
+      "commit": "6815c21cb10a4d7dc0b4804f6bb223afb4321e97",
+      "copyAuthority": "NONE",
+      "executionPlacement": "PREINSTALLED_LOCAL_SEPARATE_OBSERVER_IDENTITY",
+      "implementationIdentityAccess": "DENIED",
+      "launcherArgv": [
+        "/opt/planeon/bin/harness-reference-observe"
+      ],
+      "networkIsolation": "OS_ENFORCED_DENY_ALL_OUTBOUND",
+      "observerIdentity": "planeon-reference-observer",
+      "outputMode": "DISTILLED_CONTRACT_FACTS_ONLY_NO_SOURCE_TEXT",
+      "outputPath": "architecture/observations/model-usage-v2.json",
+      "packetPathEnvironment": "HARNESS_TASK_PACKET",
+      "packetPathMode": "HASH_PINNED_READ_ONCE_NO_CHILD_PATH",
+      "repository": "git@github.com:caglarsubas/llm_inference_engine.git",
+      "sourceAuthorityEnvironment": "HARNESS_REFERENCE_SOURCE_AUTHORITY",
+      "sourceAuthorityMode": "ROOT_OWNED_SIGNED_EXACT_COMMIT_AND_PATHS",
+      "sourceCodeExecution": "DENIED",
+      "sourceFilesystem": "DECLARED_BLOBS_READ_METADATA_ONLY_ALL_WRITE_DENIED",
+      "sourcePaths": [
+        "contracts/prometa-model-usage-v2.schema.json"
+      ]
+    },
+    "repository": "git@github.com:caglarsubas/llm_inference_engine.git",
+    "schemaVersion": "harness.planeon.ai/reference-source-authority/v1"
+  },
+  "facts": [
+    {
+      "$ref": "#/$defs/nullableExternalIdentity",
+      "field": "model_attempt_id",
+      "jsonPointer": "/properties/model_attempt_id",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "$ref": "#/$defs/nullableExternalIdentity",
+      "field": "model_invocation_id",
+      "jsonPointer": "/properties/model_invocation_id",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "$ref": "#/$defs/nullableExternalIdentity",
+      "field": "runtime_request_id",
+      "jsonPointer": "/properties/runtime_request_id",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "$ref": "#/$defs/nullableNonNegativeInteger",
+      "field": "cached_tokens",
+      "jsonPointer": "/properties/cached_tokens",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "$ref": "#/$defs/nullableNonNegativeInteger",
+      "field": "cost_micros",
+      "jsonPointer": "/properties/cost_micros",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "$ref": "#/$defs/nullableNonNegativeInteger",
+      "field": "input_token_upper_bound",
+      "jsonPointer": "/properties/input_token_upper_bound",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "$ref": "#/$defs/nullableNonNegativeInteger",
+      "field": "input_tokens",
+      "jsonPointer": "/properties/input_tokens",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "$ref": "#/$defs/nullableNonNegativeInteger",
+      "field": "output_token_budget",
+      "jsonPointer": "/properties/output_token_budget",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "$ref": "#/$defs/nullableNonNegativeInteger",
+      "field": "output_tokens",
+      "jsonPointer": "/properties/output_tokens",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "$ref": "#/$defs/nullableNonNegativeNumber",
+      "field": "duration_ms",
+      "jsonPointer": "/properties/duration_ms",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "$ref": "#/$defs/nullableNonNegativeNumber",
+      "field": "ttft_ms",
+      "jsonPointer": "/properties/ttft_ms",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "backend",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "backend",
+      "jsonPointer": "/properties/backend",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "cached_tokens",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "cost_micros",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "denial_code",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "denial_code",
+      "jsonPointer": "/properties/denial_code",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "duration_ms",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "engine_request_id",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "engine_request_id",
+      "jsonPointer": "/properties/engine_request_id",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": "string"
+    },
+    {
+      "field": "error_type",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "error_type",
+      "jsonPointer": "/properties/error_type",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "event",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "event",
+      "jsonPointer": "/properties/event",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "fallback",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "fallback",
+      "jsonPointer": "/properties/fallback",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": "boolean"
+    },
+    {
+      "field": "fallback_from_backend",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "fallback_from_backend",
+      "jsonPointer": "/properties/fallback_from_backend",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "fallback_from_model",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "fallback_from_model",
+      "jsonPointer": "/properties/fallback_from_model",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "fallback_reason",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "fallback_reason",
+      "jsonPointer": "/properties/fallback_reason",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "finish_reason",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "finish_reason",
+      "jsonPointer": "/properties/finish_reason",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "http_status",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "http_status",
+      "jsonPointer": "/properties/http_status",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "input_token_upper_bound",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "input_tokens",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "key_id",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "key_id",
+      "jsonPointer": "/properties/key_id",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "model_attempt_id",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "model_attempt_id",
+      "jsonPointer": "/allOf/1/if",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "model_attempt_id",
+      "jsonPointer": "/allOf/1/if/properties/model_attempt_id",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": "string"
+    },
+    {
+      "field": "model_invocation_id",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "model_invocation_id",
+      "jsonPointer": "/allOf/0/if",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "model_invocation_id",
+      "jsonPointer": "/allOf/0/if/properties/model_invocation_id",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": "string"
+    },
+    {
+      "field": "model_invocation_id",
+      "jsonPointer": "/allOf/1/then/properties/model_invocation_id",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": "string"
+    },
+    {
+      "field": "operation",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "operation",
+      "jsonPointer": "/properties/operation",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "org_id",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "org_id",
+      "jsonPointer": "/properties/org_id",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "outcome",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "outcome",
+      "jsonPointer": "/properties/outcome",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "output_token_budget",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "output_tokens",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "policy_digest",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "policy_digest",
+      "jsonPointer": "/properties/policy_digest",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "policy_id",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "policy_id",
+      "jsonPointer": "/properties/policy_id",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "pricing_digest",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "pricing_digest",
+      "jsonPointer": "/properties/pricing_digest",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "request_key_source",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "request_key_source",
+      "jsonPointer": "/properties/request_key_source",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "requested_model",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "requested_model",
+      "jsonPointer": "/properties/requested_model",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "resolved_model",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "resolved_model",
+      "jsonPointer": "/properties/resolved_model",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "route",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "route",
+      "jsonPointer": "/properties/route",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": "string"
+    },
+    {
+      "field": "route_id",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "route_id",
+      "jsonPointer": "/properties/route_id",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "runtime_request_id",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "runtime_request_id",
+      "jsonPointer": "/allOf/0/then/properties/runtime_request_id",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": "string"
+    },
+    {
+      "field": "runtime_request_id",
+      "jsonPointer": "/allOf/1/then/properties/runtime_request_id",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": "string"
+    },
+    {
+      "field": "schema",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "schema",
+      "jsonPointer": "/properties/schema",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "span_id",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "span_id",
+      "jsonPointer": "/properties/span_id",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "stream",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "stream",
+      "jsonPointer": "/properties/stream",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": "boolean"
+    },
+    {
+      "field": "tenant",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "tenant",
+      "jsonPointer": "/properties/tenant",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "field": "timestamp",
+      "format": "date-time",
+      "jsonPointer": "/properties/timestamp",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": "string"
+    },
+    {
+      "field": "timestamp",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "trace_id",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "trace_id",
+      "jsonPointer": "/properties/trace_id",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "ttft_ms",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "usage_record_id",
+      "jsonPointer": "",
+      "kind": "REQUIRED_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "field": "usage_record_id",
+      "jsonPointer": "/properties/usage_record_id",
+      "kind": "OBJECT_FIELD",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "type": "string"
+    },
+    {
+      "gitObject": "c3ac327e2989ffbbc2452209e2a32f76be911534",
+      "jsonPointer": "",
+      "kind": "SCHEMA_DIGEST",
+      "sha256": "845f830df424f1626717e60a5dbd05e01187f84e2e96223527cceda521f3d55a",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "jsonPointer": "",
+      "keyword": "additionalProperties",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": false
+    },
+    {
+      "jsonPointer": "",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "object"
+    },
+    {
+      "jsonPointer": "",
+      "kind": "SCHEMA_IDENTITY",
+      "schemaDialect": "https://json-schema.org/draft/2020-12/schema",
+      "schemaId": "https://prometa.ai/contracts/prometa-model-usage-v2.schema.json",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "jsonPointer": "/$defs/externalIdentity",
+      "keyword": "maxLength",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": 256
+    },
+    {
+      "jsonPointer": "/$defs/externalIdentity",
+      "keyword": "minLength",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": 1
+    },
+    {
+      "jsonPointer": "/$defs/externalIdentity",
+      "keyword": "pattern",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "^(?!(?:[Nn][Uu][Ll][Ll]|[Nn][Oo][Nn][Ee]|[Nn][Ii][Ll]|[Uu][Nn][Dd][Ee][Ff][Ii][Nn][Ee][Dd])$)[!-~]+$"
+    },
+    {
+      "jsonPointer": "/$defs/externalIdentity",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "string"
+    },
+    {
+      "jsonPointer": "/$defs/nullableExternalIdentity/oneOf/0",
+      "kind": "REFERENCE_EDGE",
+      "reference": "#/$defs/externalIdentity",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "jsonPointer": "/$defs/nullableExternalIdentity/oneOf/1",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "null"
+    },
+    {
+      "jsonPointer": "/$defs/nullableNonNegativeInteger/anyOf/0",
+      "keyword": "minimum",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": 0
+    },
+    {
+      "jsonPointer": "/$defs/nullableNonNegativeInteger/anyOf/0",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "integer"
+    },
+    {
+      "jsonPointer": "/$defs/nullableNonNegativeInteger/anyOf/1",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "null"
+    },
+    {
+      "jsonPointer": "/$defs/nullableNonNegativeNumber/anyOf/0",
+      "keyword": "minimum",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": 0
+    },
+    {
+      "jsonPointer": "/$defs/nullableNonNegativeNumber/anyOf/0",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "number"
+    },
+    {
+      "jsonPointer": "/$defs/nullableNonNegativeNumber/anyOf/1",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "null"
+    },
+    {
+      "jsonPointer": "/allOf/0/if/properties/model_invocation_id",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "string"
+    },
+    {
+      "jsonPointer": "/allOf/0/then/properties/runtime_request_id",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "string"
+    },
+    {
+      "jsonPointer": "/allOf/1/if/properties/model_attempt_id",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "string"
+    },
+    {
+      "jsonPointer": "/allOf/1/then/properties/model_invocation_id",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "string"
+    },
+    {
+      "jsonPointer": "/allOf/1/then/properties/runtime_request_id",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "string"
+    },
+    {
+      "jsonPointer": "/properties/backend",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/cached_tokens",
+      "kind": "REFERENCE_EDGE",
+      "reference": "#/$defs/nullableNonNegativeInteger",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "jsonPointer": "/properties/cost_micros",
+      "kind": "REFERENCE_EDGE",
+      "reference": "#/$defs/nullableNonNegativeInteger",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "jsonPointer": "/properties/denial_code",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/duration_ms",
+      "kind": "REFERENCE_EDGE",
+      "reference": "#/$defs/nullableNonNegativeNumber",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "jsonPointer": "/properties/engine_request_id",
+      "keyword": "pattern",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "^req_[0-9a-f]{32}$"
+    },
+    {
+      "jsonPointer": "/properties/engine_request_id",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "string"
+    },
+    {
+      "jsonPointer": "/properties/error_type",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/event",
+      "keyword": "const",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "prometa.model-usage"
+    },
+    {
+      "jsonPointer": "/properties/fallback",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "boolean"
+    },
+    {
+      "jsonPointer": "/properties/fallback_from_backend",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/fallback_from_model",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/fallback_reason",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/finish_reason",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/http_status/anyOf/0",
+      "keyword": "maximum",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": 599
+    },
+    {
+      "jsonPointer": "/properties/http_status/anyOf/0",
+      "keyword": "minimum",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": 100
+    },
+    {
+      "jsonPointer": "/properties/http_status/anyOf/0",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "integer"
+    },
+    {
+      "jsonPointer": "/properties/http_status/anyOf/1",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "null"
+    },
+    {
+      "jsonPointer": "/properties/input_token_upper_bound",
+      "kind": "REFERENCE_EDGE",
+      "reference": "#/$defs/nullableNonNegativeInteger",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "jsonPointer": "/properties/input_tokens",
+      "kind": "REFERENCE_EDGE",
+      "reference": "#/$defs/nullableNonNegativeInteger",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "jsonPointer": "/properties/key_id",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/model_attempt_id",
+      "kind": "REFERENCE_EDGE",
+      "reference": "#/$defs/nullableExternalIdentity",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "jsonPointer": "/properties/model_invocation_id",
+      "kind": "REFERENCE_EDGE",
+      "reference": "#/$defs/nullableExternalIdentity",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "jsonPointer": "/properties/operation",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/org_id",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/outcome",
+      "keyword": "enum",
+      "kind": "STATE_ENUM",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "ok",
+        "error",
+        "timeout",
+        "denied",
+        null
+      ]
+    },
+    {
+      "jsonPointer": "/properties/output_token_budget",
+      "kind": "REFERENCE_EDGE",
+      "reference": "#/$defs/nullableNonNegativeInteger",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "jsonPointer": "/properties/output_tokens",
+      "kind": "REFERENCE_EDGE",
+      "reference": "#/$defs/nullableNonNegativeInteger",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "jsonPointer": "/properties/policy_digest",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/policy_id",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/pricing_digest",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/request_key_source",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/requested_model",
+      "keyword": "maxLength",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": 200
+    },
+    {
+      "jsonPointer": "/properties/requested_model",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/resolved_model",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/route",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "string"
+    },
+    {
+      "jsonPointer": "/properties/route_id",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/runtime_request_id",
+      "kind": "REFERENCE_EDGE",
+      "reference": "#/$defs/nullableExternalIdentity",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "jsonPointer": "/properties/schema",
+      "keyword": "const",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "prometa.model-usage.v2"
+    },
+    {
+      "jsonPointer": "/properties/span_id/anyOf/0",
+      "keyword": "pattern",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "^[0-9a-f]{16}$"
+    },
+    {
+      "jsonPointer": "/properties/span_id/anyOf/0",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "string"
+    },
+    {
+      "jsonPointer": "/properties/span_id/anyOf/1",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "null"
+    },
+    {
+      "jsonPointer": "/properties/stream",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "boolean"
+    },
+    {
+      "jsonPointer": "/properties/tenant",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": [
+        "string",
+        "null"
+      ]
+    },
+    {
+      "jsonPointer": "/properties/timestamp",
+      "keyword": "format",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "date-time"
+    },
+    {
+      "jsonPointer": "/properties/timestamp",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "string"
+    },
+    {
+      "jsonPointer": "/properties/trace_id/anyOf/0",
+      "keyword": "pattern",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "^[0-9a-f]{32}$"
+    },
+    {
+      "jsonPointer": "/properties/trace_id/anyOf/0",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "string"
+    },
+    {
+      "jsonPointer": "/properties/trace_id/anyOf/1",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "null"
+    },
+    {
+      "jsonPointer": "/properties/ttft_ms",
+      "kind": "REFERENCE_EDGE",
+      "reference": "#/$defs/nullableNonNegativeNumber",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json"
+    },
+    {
+      "jsonPointer": "/properties/usage_record_id",
+      "keyword": "pattern",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "^usage_[0-9a-f]{32}$"
+    },
+    {
+      "jsonPointer": "/properties/usage_record_id",
+      "keyword": "type",
+      "kind": "VALUE_CONSTRAINT",
+      "sourcePath": "contracts/prometa-model-usage-v2.schema.json",
+      "value": "string"
+    }
+  ],
+  "isolationEvidence": {
+    "copyAuthority": "NONE",
+    "errno": 1,
+    "networkBackend": "darwin-sandbox",
+    "outboundDenied": true,
+    "sourceCodeExecution": "DENIED",
+    "sourceWriteAccess": "DENIED"
+  },
+  "observationId": "model-usage-v2-structural-facts",
+  "schemaVersion": "harness.planeon.ai/reference-observation/v1",
+  "sources": [
+    {
+      "gitObject": "c3ac327e2989ffbbc2452209e2a32f76be911534",
+      "path": "contracts/prometa-model-usage-v2.schema.json",
+      "sha256": "845f830df424f1626717e60a5dbd05e01187f84e2e96223527cceda521f3d55a"
+    }
+  ]
+}

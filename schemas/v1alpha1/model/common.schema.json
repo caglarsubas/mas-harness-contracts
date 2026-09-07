@@ -1,0 +1,571 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/model/common.schema.json",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9._-]{0,127}$"
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._/-]{0,127}$"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32768
+    },
+    "outputText": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 262144
+    },
+    "tokens": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000000
+    },
+    "timestamp": {
+      "$ref": "../runtime/common.schema.json#/$defs/timestamp"
+    },
+    "sha256": {
+      "$ref": "../runtime/common.schema.json#/$defs/sha256"
+    },
+    "organizationId": {
+      "$ref": "../runtime/common.schema.json#/$defs/stableId"
+    },
+    "endpoint": {
+      "enum": [
+        "/v1/chat/completions",
+        "/v1/completions",
+        "/v1/responses",
+        "/v1/embeddings",
+        "/v1/rerank"
+      ]
+    },
+    "state": {
+      "enum": [
+        "QUEUED",
+        "RUNNING",
+        "COMPLETED",
+        "CANCELLED",
+        "TIMED_OUT",
+        "REJECTED",
+        "FAILED"
+      ]
+    },
+    "terminal": {
+      "enum": [
+        "COMPLETED",
+        "CANCELLED",
+        "TIMED_OUT",
+        "REJECTED",
+        "FAILED"
+      ]
+    },
+    "reason": {
+      "enum": [
+        "MALFORMED_JSON",
+        "INVALID_REQUEST",
+        "UNSUPPORTED_CAPABILITY",
+        "UNAUTHENTICATED",
+        "FORBIDDEN",
+        "MODEL_NOT_FOUND",
+        "QUEUE_FULL",
+        "BACKEND_UNAVAILABLE",
+        "DEADLINE_EXCEEDED",
+        "INTERNAL_ERROR",
+        "CANCELLED"
+      ]
+    },
+    "finish": {
+      "enum": [
+        "stop",
+        "length",
+        "tool_calls"
+      ]
+    },
+    "usage": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "prompt_tokens",
+            "completion_tokens",
+            "total_tokens"
+          ],
+          "properties": {
+            "prompt_tokens": {
+              "$ref": "common.schema.json#/$defs/tokens"
+            },
+            "completion_tokens": {
+              "$ref": "common.schema.json#/$defs/tokens"
+            },
+            "total_tokens": {
+              "$ref": "common.schema.json#/$defs/tokens"
+            }
+          }
+        }
+      ]
+    },
+    "responseUsage": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "input_tokens",
+            "output_tokens",
+            "total_tokens"
+          ],
+          "properties": {
+            "input_tokens": {
+              "$ref": "common.schema.json#/$defs/tokens"
+            },
+            "output_tokens": {
+              "$ref": "common.schema.json#/$defs/tokens"
+            },
+            "total_tokens": {
+              "$ref": "common.schema.json#/$defs/tokens"
+            }
+          }
+        }
+      ]
+    },
+    "embeddingUsage": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "prompt_tokens",
+            "total_tokens"
+          ],
+          "properties": {
+            "prompt_tokens": {
+              "$ref": "common.schema.json#/$defs/tokens"
+            },
+            "total_tokens": {
+              "$ref": "common.schema.json#/$defs/tokens"
+            }
+          }
+        }
+      ]
+    },
+    "flatSchema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "additionalProperties",
+        "properties",
+        "required"
+      ],
+      "properties": {
+        "type": {
+          "const": "object"
+        },
+        "additionalProperties": {
+          "const": false
+        },
+        "properties": {
+          "type": "object",
+          "minProperties": 1,
+          "maxProperties": 32,
+          "propertyNames": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_]{0,63}$"
+          },
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "maxLength"
+                ],
+                "properties": {
+                  "type": {
+                    "const": "string"
+                  },
+                  "maxLength": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 4096
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "minimum",
+                  "maximum"
+                ],
+                "properties": {
+                  "type": {
+                    "const": "integer"
+                  },
+                  "minimum": {
+                    "type": "integer",
+                    "minimum": -1000000,
+                    "maximum": 1000000
+                  },
+                  "maximum": {
+                    "type": "integer",
+                    "minimum": -1000000,
+                    "maximum": 1000000
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "type"
+                ],
+                "properties": {
+                  "type": {
+                    "const": "boolean"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "required": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 32,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_]{0,63}$"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "streamOptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "include_usage"
+      ],
+      "properties": {
+        "include_usage": {
+          "const": true
+        }
+      }
+    },
+    "responseFormat": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "const": "text"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "json_schema"
+          ],
+          "properties": {
+            "type": {
+              "const": "json_schema"
+            },
+            "json_schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "name",
+                "strict",
+                "schema"
+              ],
+              "properties": {
+                "name": {
+                  "$ref": "common.schema.json#/$defs/id"
+                },
+                "strict": {
+                  "const": true
+                },
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/flatSchema"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "tool": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "function"
+      ],
+      "properties": {
+        "type": {
+          "const": "function"
+        },
+        "function": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "parameters",
+            "strict"
+          ],
+          "properties": {
+            "name": {
+              "$ref": "common.schema.json#/$defs/id"
+            },
+            "parameters": {
+              "$ref": "common.schema.json#/$defs/flatSchema"
+            },
+            "strict": {
+              "const": true
+            }
+          }
+        }
+      }
+    },
+    "toolCall": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "function"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "type": {
+          "const": "function"
+        },
+        "function": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "arguments"
+          ],
+          "properties": {
+            "name": {
+              "$ref": "common.schema.json#/$defs/id"
+            },
+            "arguments": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 16384
+            }
+          }
+        }
+      }
+    },
+    "message": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "role",
+            "content"
+          ],
+          "properties": {
+            "role": {
+              "enum": [
+                "system",
+                "developer",
+                "user",
+                "assistant"
+              ]
+            },
+            "content": {
+              "$ref": "common.schema.json#/$defs/text"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "role",
+            "content",
+            "tool_calls"
+          ],
+          "properties": {
+            "role": {
+              "const": "assistant"
+            },
+            "content": {
+              "type": "null"
+            },
+            "tool_calls": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1,
+              "items": {
+                "$ref": "common.schema.json#/$defs/toolCall"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "role",
+            "content",
+            "tool_call_id"
+          ],
+          "properties": {
+            "role": {
+              "const": "tool"
+            },
+            "content": {
+              "$ref": "common.schema.json#/$defs/text"
+            },
+            "tool_call_id": {
+              "$ref": "common.schema.json#/$defs/id"
+            }
+          }
+        }
+      ]
+    },
+    "assistant": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "role",
+            "content"
+          ],
+          "properties": {
+            "role": {
+              "const": "assistant"
+            },
+            "content": {
+              "$ref": "common.schema.json#/$defs/outputText"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "role",
+            "content",
+            "tool_calls"
+          ],
+          "properties": {
+            "role": {
+              "const": "assistant"
+            },
+            "content": {
+              "type": "null"
+            },
+            "tool_calls": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1,
+              "items": {
+                "$ref": "common.schema.json#/$defs/toolCall"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "outputPart": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "text",
+        "annotations"
+      ],
+      "properties": {
+        "type": {
+          "const": "output_text"
+        },
+        "text": {
+          "$ref": "common.schema.json#/$defs/outputText"
+        },
+        "annotations": {
+          "type": "array",
+          "maxItems": 0
+        }
+      }
+    },
+    "responseItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "role",
+        "status",
+        "content"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "type": {
+          "const": "message"
+        },
+        "role": {
+          "const": "assistant"
+        },
+        "status": {
+          "enum": [
+            "in_progress",
+            "completed",
+            "incomplete"
+          ]
+        },
+        "content": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 1,
+          "items": {
+            "$ref": "common.schema.json#/$defs/outputPart"
+          }
+        }
+      }
+    }
+  }
+}

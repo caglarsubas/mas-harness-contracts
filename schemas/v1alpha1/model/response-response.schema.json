@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/model/response-response.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "object",
+    "created_at",
+    "model",
+    "status",
+    "output",
+    "usage",
+    "error",
+    "incomplete_details"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/id"
+    },
+    "object": {
+      "const": "response"
+    },
+    "created_at": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 253402300799
+    },
+    "model": {
+      "$ref": "common.schema.json#/$defs/model"
+    },
+    "status": {
+      "enum": [
+        "in_progress",
+        "completed",
+        "incomplete",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "output": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 1,
+      "items": {
+        "$ref": "common.schema.json#/$defs/responseItem"
+      }
+    },
+    "usage": {
+      "$ref": "common.schema.json#/$defs/responseUsage"
+    },
+    "error": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "code",
+            "message"
+          ],
+          "properties": {
+            "code": {
+              "$ref": "common.schema.json#/$defs/reason"
+            },
+            "message": {
+              "const": "The request could not be completed."
+            }
+          }
+        }
+      ]
+    },
+    "incomplete_details": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "reason"
+          ],
+          "properties": {
+            "reason": {
+              "const": "max_output_tokens"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

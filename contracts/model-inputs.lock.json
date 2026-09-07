@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "harness.planeon.ai/model-input-lock/v1alpha1",
+  "packetId": "CON-MODEL-001",
+  "metaCommit": "f0ccd9f292f332a05e8eebd17a831e19989fb739",
+  "con007Commit": "2146278a95344cd2a8e22596b2f315b46edffc88",
+  "contractsBaseline": "fb365aabfd8c5560e064be5d97ff9f2bcc69c57c",
+  "controlCorrection": "1de7c405329f4458970be0187838145b4da222d8",
+  "observationCommit": "2aa85c1d4ea175dc6fba935bffa5aae2fa64e3c2",
+  "originalSourceTests": "NOT_RUN_ENV_UNAVAILABLE",
+  "originalSourceBehavioralParity": "NOT_ESTABLISHED",
+  "sourceExecution": "DENIED",
+  "copyAuthority": "NONE",
+  "entries": [
+    {
+      "path": "contracts/model-inputs/CON-MODEL-001.yaml",
+      "sha256": "sha256:d5f7ccf98a8dfa8862c204bd9be99cbfbc2307b98be00f0112f6e9dcb59abd9e"
+    },
+    {
+      "path": "contracts/model-inputs/MET-OBS-MODEL-001.yaml",
+      "sha256": "sha256:7493f8f788f982df4cd6b32f3647c82f41b8989feee54fea8740fff5e61f1a9b"
+    },
+    {
+      "path": "contracts/model-inputs/MODEL_PREREQUISITES.md",
+      "sha256": "sha256:7861cc7c441c35ad3cfb723659399b06ba2018ef53162c26ec080c2de3ae30aa"
+    },
+    {
+      "path": "contracts/model-inputs/api-inventory-amendment.json",
+      "sha256": "sha256:7f298fdb1db878105d9925b5b07500f9cb6298f8b887d87d91edbc6210b48c7b"
+    },
+    {
+      "path": "contracts/model-inputs/con-fix-001-baseline.json",
+      "sha256": "sha256:5c182a3b29e5f63141301ba0ea77fe66660d0b411538615cb56d5f4c05c087e2"
+    },
+    {
+      "path": "contracts/model-inputs/con-fix-001-release-manifest.json",
+      "sha256": "sha256:c2e6976aac3b63d7152943c0ff73b332a297081e376f6abc3f3ee3a9371a6b25"
+    },
+    {
+      "path": "contracts/model-inputs/fixture-scope-amendment.json",
+      "sha256": "sha256:e46ea246e0ab64d7d6882822739b3029659138711f2bb426ea26fea064e08bd3"
+    },
+    {
+      "path": "contracts/model-inputs/model-evidence-boundary.json",
+      "sha256": "sha256:5be8de011a0cc4769b919ce0a416cb73d791c92181920abca7e8793abb788b48"
+    },
+    {
+      "path": "contracts/model-inputs/model-usage-v2.json",
+      "sha256": "sha256:aa5488bad4528bd4119dfe9134f517403986b6fd45408f34c508929924e764f9"
+    },
+    {
+      "path": "contracts/model-inputs/normative-references.json",
+      "sha256": "sha256:07ab12e0caef1b0c3188ad30e0c4928de3ad50eb40caffbff1d1f048bbb6a5dc"
+    },
+    {
+      "path": "contracts/model-inputs/test_generated_contracts.before.txt",
+      "sha256": "sha256:856b1d14e0f4d4ee84f6c4f973db412f9905559124091355bec7de85cc818080"
+    },
+    {
+      "path": "contracts/model-inputs/test_lifecycle_contracts.before.txt",
+      "sha256": "sha256:53f528db6e9d3ce00a8c16e8cf24345a992b2b6130cdfb7d5a6dee02dbaed81e"
+    }
+  ]
+}

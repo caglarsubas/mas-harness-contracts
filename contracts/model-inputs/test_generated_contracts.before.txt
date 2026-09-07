@@ -70,10 +70,8 @@ def _copy_generation_inputs(destination: Path) -> None:
     for relative in (
         "schemas", "openapi", "asyncapi", "src", "docs",
         "tests/fixtures/runtime", "tests/fixtures/status", "contracts/regression-inputs",
-        "tests/fixtures/model", "contracts/model-inputs",
     ):
         shutil.copytree(ROOT / relative, destination / relative)
-    shutil.copy2(ROOT / "contracts/model-inputs.lock.json", destination / "contracts/model-inputs.lock.json")
 
 
 def _stage_outputs(root: Path, outputs: dict[Path, bytes]) -> None:

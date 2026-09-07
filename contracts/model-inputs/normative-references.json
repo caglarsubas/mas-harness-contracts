@@ -1,0 +1,29 @@
+{
+  "packetId": "CON-MODEL-001",
+  "retrievedAt": "2026-09-07",
+  "mode": "INDEPENDENT_DESIGN_NOT_COPIED_SOURCE",
+  "references": [
+    {
+      "id": "chat",
+      "url": "https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create",
+      "scope": "Text messages and single-choice response fields; stream usage is a separate final chunk."
+    },
+    {
+      "id": "streaming",
+      "url": "https://developers.openai.com/api/docs/guides/streaming-responses",
+      "scope": "SSE transport and distinct Responses semantic events versus chat deltas."
+    },
+    {
+      "id": "embeddings",
+      "url": "https://developers.openai.com/api/reference/resources/embeddings/methods/create",
+      "scope": "Text input, indexed float vectors and prompt/total usage fields."
+    },
+    {
+      "id": "completions",
+      "url": "https://developers.openai.com/api/reference/cli/resources/completions",
+      "scope": "Legacy text completion response shape; same family for streaming."
+    }
+  ],
+  "authority": "Only the committed local schemas and model-api.md define this deliberately narrower profile. Referenced websites are not fetched by validation or runtime; API reference URLs are not provider endpoints.",
+  "rerank": "Independent Planeon API; not represented as an OpenAI endpoint."
+}

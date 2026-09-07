@@ -1,0 +1,334 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/model/response-event.schema.json",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "sequence_number",
+        "response"
+      ],
+      "properties": {
+        "type": {
+          "const": "response.created"
+        },
+        "sequence_number": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "response": {
+          "$ref": "response-response.schema.json"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "sequence_number",
+        "response"
+      ],
+      "properties": {
+        "type": {
+          "const": "response.in_progress"
+        },
+        "sequence_number": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "response": {
+          "$ref": "response-response.schema.json"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "sequence_number",
+        "response"
+      ],
+      "properties": {
+        "type": {
+          "const": "response.completed"
+        },
+        "sequence_number": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "response": {
+          "$ref": "response-response.schema.json"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "sequence_number",
+        "response"
+      ],
+      "properties": {
+        "type": {
+          "const": "response.incomplete"
+        },
+        "sequence_number": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "response": {
+          "$ref": "response-response.schema.json"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "sequence_number",
+        "response"
+      ],
+      "properties": {
+        "type": {
+          "const": "response.failed"
+        },
+        "sequence_number": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "response": {
+          "$ref": "response-response.schema.json"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "sequence_number",
+        "output_index",
+        "item"
+      ],
+      "properties": {
+        "type": {
+          "const": "response.output_item.added"
+        },
+        "sequence_number": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "output_index": {
+          "const": 0
+        },
+        "item": {
+          "$ref": "common.schema.json#/$defs/responseItem"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "sequence_number",
+        "output_index",
+        "item"
+      ],
+      "properties": {
+        "type": {
+          "const": "response.output_item.done"
+        },
+        "sequence_number": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "output_index": {
+          "const": 0
+        },
+        "item": {
+          "$ref": "common.schema.json#/$defs/responseItem"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "sequence_number",
+        "item_id",
+        "output_index",
+        "content_index",
+        "part"
+      ],
+      "properties": {
+        "type": {
+          "const": "response.content_part.added"
+        },
+        "sequence_number": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "item_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "output_index": {
+          "const": 0
+        },
+        "content_index": {
+          "const": 0
+        },
+        "part": {
+          "$ref": "common.schema.json#/$defs/outputPart"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "sequence_number",
+        "item_id",
+        "output_index",
+        "content_index",
+        "part"
+      ],
+      "properties": {
+        "type": {
+          "const": "response.content_part.done"
+        },
+        "sequence_number": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "item_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "output_index": {
+          "const": 0
+        },
+        "content_index": {
+          "const": 0
+        },
+        "part": {
+          "$ref": "common.schema.json#/$defs/outputPart"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "sequence_number",
+        "item_id",
+        "output_index",
+        "content_index",
+        "delta"
+      ],
+      "properties": {
+        "type": {
+          "const": "response.output_text.delta"
+        },
+        "sequence_number": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "item_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "output_index": {
+          "const": 0
+        },
+        "content_index": {
+          "const": 0
+        },
+        "delta": {
+          "$ref": "common.schema.json#/$defs/outputText"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "sequence_number",
+        "item_id",
+        "output_index",
+        "content_index",
+        "text"
+      ],
+      "properties": {
+        "type": {
+          "const": "response.output_text.done"
+        },
+        "sequence_number": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "item_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "output_index": {
+          "const": 0
+        },
+        "content_index": {
+          "const": 0
+        },
+        "text": {
+          "$ref": "common.schema.json#/$defs/outputText"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "sequence_number",
+        "code",
+        "message",
+        "param"
+      ],
+      "properties": {
+        "type": {
+          "const": "error"
+        },
+        "sequence_number": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "code": {
+          "$ref": "common.schema.json#/$defs/reason"
+        },
+        "message": {
+          "const": "The request could not be completed."
+        },
+        "param": {
+          "type": "null"
+        }
+      }
+    }
+  ]
+}

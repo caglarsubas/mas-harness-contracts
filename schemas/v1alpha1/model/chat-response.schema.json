@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/model/chat-response.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "object",
+    "created",
+    "model",
+    "choices",
+    "usage"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/id"
+    },
+    "object": {
+      "const": "chat.completion"
+    },
+    "created": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 253402300799
+    },
+    "model": {
+      "$ref": "common.schema.json#/$defs/model"
+    },
+    "choices": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "index",
+          "message",
+          "finish_reason"
+        ],
+        "properties": {
+          "index": {
+            "const": 0
+          },
+          "message": {
+            "$ref": "common.schema.json#/$defs/assistant"
+          },
+          "finish_reason": {
+            "$ref": "common.schema.json#/$defs/finish"
+          }
+        }
+      }
+    },
+    "usage": {
+      "$ref": "common.schema.json#/$defs/usage"
+    }
+  }
+}

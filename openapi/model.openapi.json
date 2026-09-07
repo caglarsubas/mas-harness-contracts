@@ -1,0 +1,1342 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "Planeon local model API — bounded text subset",
+    "version": "0.1.0",
+    "description": "CON-MODEL-001 source contracts only. Partial OpenAI wire compatibility; rerank and signed admission are Planeon extensions. No hosted provider, route activation, tools execution or credentials supplied by this document."
+  },
+  "paths": {
+    "/v1/models": {
+      "get": {
+        "operationId": "listLocalModels",
+        "security": [
+          {
+            "localMutualTLS": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Local source-contract response; implementation evidence is separate.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/models-response.schema.json"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "required": true,
+                "description": "Integer seconds; no automatic retry.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/chat/completions": {
+      "post": {
+        "operationId": "createChatCompletion",
+        "security": [
+          {
+            "localMutualTLS": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Harness-Admission",
+            "required": true,
+            "description": "Untrusted transport input until existing CON-007 signature and all binding checks pass; see model-api.md.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32768,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Harness-Binding",
+            "required": true,
+            "description": "Untrusted transport input until existing CON-007 signature and all binding checks pass; see model-api.md.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32768,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Local source-contract response; implementation evidence is separate.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/chat-response.schema.json"
+                }
+              },
+              "text/event-stream": {
+                "schema": {
+                  "type": "string",
+                  "maxLength": 8388608
+                },
+                "x-event-schema": {
+                  "$ref": "../schemas/v1alpha1/model/chat-chunk.schema.json"
+                },
+                "x-framing-contract": "docs/model-api.md#streaming"
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "required": true,
+                "description": "Integer seconds; no automatic retry.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "../schemas/v1alpha1/model/chat-request.schema.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/completions": {
+      "post": {
+        "operationId": "createCompletion",
+        "security": [
+          {
+            "localMutualTLS": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Harness-Admission",
+            "required": true,
+            "description": "Untrusted transport input until existing CON-007 signature and all binding checks pass; see model-api.md.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32768,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Harness-Binding",
+            "required": true,
+            "description": "Untrusted transport input until existing CON-007 signature and all binding checks pass; see model-api.md.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32768,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Local source-contract response; implementation evidence is separate.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/completion-response.schema.json"
+                }
+              },
+              "text/event-stream": {
+                "schema": {
+                  "type": "string",
+                  "maxLength": 8388608
+                },
+                "x-event-schema": {
+                  "$ref": "../schemas/v1alpha1/model/completion-chunk.schema.json"
+                },
+                "x-framing-contract": "docs/model-api.md#streaming"
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "required": true,
+                "description": "Integer seconds; no automatic retry.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "../schemas/v1alpha1/model/completion-request.schema.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/responses": {
+      "post": {
+        "operationId": "createResponse",
+        "security": [
+          {
+            "localMutualTLS": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Harness-Admission",
+            "required": true,
+            "description": "Untrusted transport input until existing CON-007 signature and all binding checks pass; see model-api.md.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32768,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Harness-Binding",
+            "required": true,
+            "description": "Untrusted transport input until existing CON-007 signature and all binding checks pass; see model-api.md.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32768,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Local source-contract response; implementation evidence is separate.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/response-response.schema.json"
+                }
+              },
+              "text/event-stream": {
+                "schema": {
+                  "type": "string",
+                  "maxLength": 8388608
+                },
+                "x-event-schema": {
+                  "$ref": "../schemas/v1alpha1/model/response-event.schema.json"
+                },
+                "x-framing-contract": "docs/model-api.md#streaming"
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "required": true,
+                "description": "Integer seconds; no automatic retry.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "../schemas/v1alpha1/model/response-request.schema.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/embeddings": {
+      "post": {
+        "operationId": "createEmbeddings",
+        "security": [
+          {
+            "localMutualTLS": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Harness-Admission",
+            "required": true,
+            "description": "Untrusted transport input until existing CON-007 signature and all binding checks pass; see model-api.md.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32768,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Harness-Binding",
+            "required": true,
+            "description": "Untrusted transport input until existing CON-007 signature and all binding checks pass; see model-api.md.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32768,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Local source-contract response; implementation evidence is separate.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/embedding-response.schema.json"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "required": true,
+                "description": "Integer seconds; no automatic retry.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "../schemas/v1alpha1/model/embedding-request.schema.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/rerank": {
+      "post": {
+        "operationId": "rerank",
+        "security": [
+          {
+            "localMutualTLS": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Harness-Admission",
+            "required": true,
+            "description": "Untrusted transport input until existing CON-007 signature and all binding checks pass; see model-api.md.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32768,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Harness-Binding",
+            "required": true,
+            "description": "Untrusted transport input until existing CON-007 signature and all binding checks pass; see model-api.md.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32768,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Local source-contract response; implementation evidence is separate.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/rerank-response.schema.json"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "required": true,
+                "description": "Integer seconds; no automatic retry.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "../schemas/v1alpha1/model/rerank-request.schema.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/healthz": {
+      "get": {
+        "operationId": "liveness",
+        "security": [
+          {
+            "localMutualTLS": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Local source-contract response; implementation evidence is separate.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/health-response.schema.json"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "required": true,
+                "description": "Integer seconds; no automatic retry.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readyz": {
+      "get": {
+        "operationId": "readiness",
+        "security": [
+          {
+            "localMutualTLS": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Local source-contract response; implementation evidence is separate.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/ready-response.schema.json"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "required": true,
+                "description": "Integer seconds; no automatic retry.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Not ready.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/ready-response.schema.json"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics": {
+      "get": {
+        "operationId": "localMetrics",
+        "security": [
+          {
+            "localMutualTLS": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Local source-contract response; implementation evidence is separate.",
+            "content": {
+              "text/plain; version=0.0.4": {
+                "schema": {
+                  "type": "string",
+                  "maxLength": 65536
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "required": true,
+                "description": "Integer seconds; no automatic retry.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "Sanitized failure; no request content or backend details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../schemas/v1alpha1/model/error.schema.json"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "localMutualTLS": {
+        "type": "mutualTLS",
+        "description": "Locally managed trusted workload identity; CON-007 additionally required for inference. No third-party API key."
+      }
+    }
+  },
+  "x-contract-packet": "CON-MODEL-001",
+  "x-external-schema-resolution": false
+}

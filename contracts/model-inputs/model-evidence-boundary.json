@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "harness.planeon.ai/model-evidence-boundary/v1",
+  "authorityPacket": "MET-A2-001",
+  "milestone": "ALPHA_2",
+  "observationPacket": "MET-OBS-MODEL-001",
+  "contractPacket": "CON-MODEL-001",
+  "implementationPacket": "MODEL-001",
+  "source": {
+    "repository": "git@github.com:caglarsubas/llm_inference_engine.git",
+    "commit": "6815c21cb10a4d7dc0b4804f6bb223afb4321e97",
+    "path": "contracts/prometa-model-usage-v2.schema.json",
+    "gitObject": "c3ac327e2989ffbbc2452209e2a32f76be911534"
+  },
+  "evidenceKinds": {
+    "structuralObservation": "DISTILLED_SCHEMA_FACTS_ONLY",
+    "originalSourceTests": "NOT_RUN_ENV_UNAVAILABLE",
+    "originalSourceBehavioralParity": "NOT_ESTABLISHED",
+    "destinationVectors": "INDEPENDENT_CONTRACT_VECTOR"
+  },
+  "implementationGate": ["MERGED_OBSERVATION_WITH_PASS_VALIDATION", "MERGED_MODEL_CONTRACT_RELEASE_WITH_PASS_OFFLINE_EVIDENCE", "DIGEST_PINNED_CONTRACT_AND_VECTOR_SNAPSHOT", "EXACT_PACKET_OFFLINE_RUNNER_AUTHORITY"],
+  "sourceExecution": "DENIED",
+  "copyAuthority": "NONE",
+  "originalBaselineSubstitution": "FORBIDDEN",
+  "releaseGate": "NO_ORIGINAL_SOURCE_EQUIVALENCE_CLAIM_WITHOUT_SEPARATELY_AUTHORIZED_BEHAVIORAL_EVIDENCE",
+  "liveEvidence": "NOT_RUN_ENV_UNAVAILABLE"
+}

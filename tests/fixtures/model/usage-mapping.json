@@ -1,0 +1,256 @@
+{
+  "provenance": "INDEPENDENT_CONTRACT_VECTOR",
+  "reportSha256": "aa5488bad4528bd4119dfe9134f517403986b6fd45408f34c508929924e764f9",
+  "originalSourceTests": "NOT_RUN_ENV_UNAVAILABLE",
+  "originalSourceBehavioralParity": "NOT_ESTABLISHED",
+  "mappingMode": "DOCUMENTED_DESIGN_DISPOSITION_NOT_SOURCE_CONVERTER",
+  "conditionalFacts": "The five conditional OBJECT_FIELD observations concern model_attempt_id, model_invocation_id and runtime_request_id. Their identity relationships are intentionally not imported; destination signing and correlation rules are independent.",
+  "rows": [
+    {
+      "field": "backend",
+      "disposition": "OMITTED",
+      "target": null,
+      "rationale": "Backend identities and addresses are operational detail, not public telemetry."
+    },
+    {
+      "field": "cached_tokens",
+      "disposition": "MAPPED",
+      "target": "cachedTokens",
+      "rationale": "Known cached count is a subset of measured input; absent remains null."
+    },
+    {
+      "field": "cost_micros",
+      "disposition": "UNSUPPORTED",
+      "target": null,
+      "rationale": "This zero-bill profile has no cost or authoritative financial accounting field."
+    },
+    {
+      "field": "denial_code",
+      "disposition": "MAPPED",
+      "target": "reason",
+      "rationale": "Independent closed reasons require verified destination classification; no literal conversion is inferred."
+    },
+    {
+      "field": "duration_ms",
+      "disposition": "MAPPED",
+      "target": "durationMs",
+      "rationale": "Independent integer milliseconds, bounded and nullable; source numeric semantics are not assumed."
+    },
+    {
+      "field": "engine_request_id",
+      "disposition": "OMITTED",
+      "target": null,
+      "rationale": "Do not trust a legacy request identity; requestId originates in signed destination binding."
+    },
+    {
+      "field": "error_type",
+      "disposition": "OMITTED",
+      "target": null,
+      "rationale": "Destination reason is sanitized and closed; legacy free text is not exposed."
+    },
+    {
+      "field": "event",
+      "disposition": "MAPPED",
+      "target": "event",
+      "rationale": "Destination constant is model.usage.observed.v1, not the historical vendor marker."
+    },
+    {
+      "field": "fallback",
+      "disposition": "UNSUPPORTED",
+      "target": null,
+      "rationale": "Retry and provider switching are not supported in this profile."
+    },
+    {
+      "field": "fallback_from_backend",
+      "disposition": "UNSUPPORTED",
+      "target": null,
+      "rationale": "No provider fallback and no backend identity disclosure."
+    },
+    {
+      "field": "fallback_from_model",
+      "disposition": "UNSUPPORTED",
+      "target": null,
+      "rationale": "No model fallback."
+    },
+    {
+      "field": "fallback_reason",
+      "disposition": "UNSUPPORTED",
+      "target": null,
+      "rationale": "No fallback or free-text operational reason."
+    },
+    {
+      "field": "finish_reason",
+      "disposition": "OMITTED",
+      "target": null,
+      "rationale": "Wire finish reasons and terminal observation state are separate; no source mapping is assumed."
+    },
+    {
+      "field": "http_status",
+      "disposition": "OMITTED",
+      "target": null,
+      "rationale": "HTTP error mapping is transport-specific; disconnect is not an invented response status."
+    },
+    {
+      "field": "input_token_upper_bound",
+      "disposition": "MAPPED",
+      "target": "inputTokenUpperBound",
+      "rationale": "Admission bound remains separate from observed measured counts."
+    },
+    {
+      "field": "input_tokens",
+      "disposition": "MAPPED",
+      "target": "inputTokens",
+      "rationale": "Only reported measurements; null never becomes an estimate or zero."
+    },
+    {
+      "field": "key_id",
+      "disposition": "OMITTED",
+      "target": null,
+      "rationale": "The unchanged signed admission object carries verifier identity; public usage must not leak keys."
+    },
+    {
+      "field": "model_attempt_id",
+      "disposition": "UNSUPPORTED",
+      "target": null,
+      "rationale": "No retries or source attempt identity import."
+    },
+    {
+      "field": "model_invocation_id",
+      "disposition": "OMITTED",
+      "target": null,
+      "rationale": "Legacy correlation has no authority; signed destination requestId is independent."
+    },
+    {
+      "field": "operation",
+      "disposition": "MAPPED",
+      "target": "endpoint",
+      "rationale": "Independent closed inference endpoint; arbitrary legacy operation strings are not accepted."
+    },
+    {
+      "field": "org_id",
+      "disposition": "OMITTED",
+      "target": null,
+      "rationale": "organizationId is established only by destination authentication and signed admission, never telemetry."
+    },
+    {
+      "field": "outcome",
+      "disposition": "MAPPED",
+      "target": "state",
+      "rationale": "Independent terminal state; nullable historical outcome does not establish runtime success."
+    },
+    {
+      "field": "output_token_budget",
+      "disposition": "MAPPED",
+      "target": "outputTokenLimit",
+      "rationale": "Requested/reserved bound is not measured output."
+    },
+    {
+      "field": "output_tokens",
+      "disposition": "MAPPED",
+      "target": "outputTokens",
+      "rationale": "Only known measurements; zero for non-generative operations requires measured semantics."
+    },
+    {
+      "field": "policy_digest",
+      "disposition": "MAPPED",
+      "target": "policyDigest",
+      "rationale": "Only the verified admission/selected route digest is emitted; not a copied source assertion."
+    },
+    {
+      "field": "policy_id",
+      "disposition": "OMITTED",
+      "target": null,
+      "rationale": "Digest binding suffices; no mutable policy alias."
+    },
+    {
+      "field": "pricing_digest",
+      "disposition": "UNSUPPORTED",
+      "target": null,
+      "rationale": "No pricing or billable provider integration."
+    },
+    {
+      "field": "request_key_source",
+      "disposition": "OMITTED",
+      "target": null,
+      "rationale": "No raw request key or credential-source data in observations."
+    },
+    {
+      "field": "requested_model",
+      "disposition": "MAPPED",
+      "target": "model",
+      "rationale": "Only the verified requested local tenant alias; no external lookup or source equivalence."
+    },
+    {
+      "field": "resolved_model",
+      "disposition": "OMITTED",
+      "target": null,
+      "rationale": "No backend resolution identity or fallback disclosure."
+    },
+    {
+      "field": "route",
+      "disposition": "MAPPED",
+      "target": "endpoint",
+      "rationale": "Allowlisted API path only; arbitrary route text is not imported."
+    },
+    {
+      "field": "route_id",
+      "disposition": "OMITTED",
+      "target": null,
+      "rationale": "Verified immutable releaseDigest binds routing; telemetry route IDs are not authority."
+    },
+    {
+      "field": "runtime_request_id",
+      "disposition": "OMITTED",
+      "target": null,
+      "rationale": "Destination correlation comes from request-binding authority, not legacy external identity."
+    },
+    {
+      "field": "schema",
+      "disposition": "MAPPED",
+      "target": "schemaVersion",
+      "rationale": "Independent harness.planeon.ai/model-usage-observation/v1alpha1 identifier."
+    },
+    {
+      "field": "span_id",
+      "disposition": "OMITTED",
+      "target": null,
+      "rationale": "No source span identity accepted as destination correlation or metric label."
+    },
+    {
+      "field": "stream",
+      "disposition": "MAPPED",
+      "target": "stream",
+      "rationale": "Verified request mode, not inferred from source behavior."
+    },
+    {
+      "field": "tenant",
+      "disposition": "OMITTED",
+      "target": null,
+      "rationale": "No conflicting tenant alias; destination organizationId is authenticated."
+    },
+    {
+      "field": "timestamp",
+      "disposition": "MAPPED",
+      "target": "recordedAt",
+      "rationale": "Destination terminal timestamp under its own UTC profile; source format facts are not runtime evidence."
+    },
+    {
+      "field": "trace_id",
+      "disposition": "OMITTED",
+      "target": null,
+      "rationale": "No source trace identity propagation or external telemetry."
+    },
+    {
+      "field": "ttft_ms",
+      "disposition": "MAPPED",
+      "target": "firstByteMs",
+      "rationale": "Measured first-byte timing, not assumed first-token equivalence; nullable integer duration."
+    },
+    {
+      "field": "usage_record_id",
+      "disposition": "OMITTED",
+      "target": null,
+      "rationale": "Destination observationId is independently issued for idempotent observation handling."
+    }
+  ]
+}

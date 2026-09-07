@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.planeon.ai/schemas/v1alpha1/model/completion-request.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "model",
+    "prompt"
+  ],
+  "properties": {
+    "model": {
+      "$ref": "common.schema.json#/$defs/model"
+    },
+    "stream": {
+      "type": "boolean",
+      "default": false
+    },
+    "temperature": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 2,
+      "default": 1
+    },
+    "prompt": {
+      "$ref": "common.schema.json#/$defs/text"
+    },
+    "max_tokens": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 32768,
+      "default": 1024
+    },
+    "n": {
+      "const": 1,
+      "default": 1
+    },
+    "stream_options": {
+      "$ref": "common.schema.json#/$defs/streamOptions"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "stream_options"
+        ]
+      },
+      "then": {
+        "required": [
+          "stream"
+        ],
+        "properties": {
+          "stream": {
+            "const": true
+          }
+        }
+      }
+    }
+  ]
+}
