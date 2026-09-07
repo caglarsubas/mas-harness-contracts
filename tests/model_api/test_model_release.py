@@ -14,7 +14,7 @@ from tests.golden.test_generated_contracts import _copy_generation_inputs
 from tests.model.schema_support import ROOT, load_json
 
 INPUTS = ROOT / "contracts/model-inputs"
-LOCK_SHA = "3ad9e9ce794adecf506cb5ca8a7a1ab6a804c9dcd060a0b1fd8a11eed1734b43"
+LOCK_SHA = "bd685478590aec63055fbfe7fd21732d5ba4279a8871779aee0d95dbfca04e62"
 BASELINE_SHA = "5c182a3b29e5f63141301ba0ea77fe66660d0b411538615cb56d5f4c05c087e2"
 LEGACY_SHA = "856b1d14e0f4d4ee84f6c4f973db412f9905559124091355bec7de85cc818080"
 BEFORE = '''def _copy_generation_inputs(destination: Path) -> None:
@@ -87,8 +87,8 @@ def test_full_predecessor_source_and_758_collected_test_identities_remain(reques
     assert digest(raw) == BASELINE_SHA
     baseline = json.loads(raw)
     assert baseline["commit"] == "fb365aabfd8c5560e064be5d97ff9f2bcc69c57c"
-    exceptions = set(baseline["derivedPaths"]) | {"tests/golden/test_generated_contracts.py"}
-    assert exceptions == {"scripts/generate_contracts.py", "scripts/check_generated.py", "generated/contract-index.json", "contracts/release-manifest.json", "tests/golden/test_generated_contracts.py"}
+    exceptions = set(baseline["derivedPaths"]) | {"tests/golden/test_generated_contracts.py", "tests/model/test_lifecycle_contracts.py"}
+    assert exceptions == {"scripts/generate_contracts.py", "scripts/check_generated.py", "generated/contract-index.json", "contracts/release-manifest.json", "tests/golden/test_generated_contracts.py", "tests/model/test_lifecycle_contracts.py"}
     for name, sha in baseline["rawFileSha256"].items():
         path = ROOT / name
         assert path.is_file() and not path.is_symlink(), name
@@ -106,7 +106,7 @@ def test_lock_and_predecessor_release_entries_are_immutable_and_additive():
     raw = (ROOT / "contracts/model-inputs.lock.json").read_bytes()
     assert digest(raw) == LOCK_SHA
     lock = json.loads(raw)
-    assert lock["metaCommit"] == "f8137eab6acfa8b13051f1c4e548854fc7dc934f"
+    assert lock["metaCommit"] == "f0ccd9f292f332a05e8eebd17a831e19989fb739"
     assert lock["con007Commit"] == "2146278a95344cd2a8e22596b2f315b46edffc88"
     assert lock["originalSourceTests"] == "NOT_RUN_ENV_UNAVAILABLE"
     assert lock["originalSourceBehavioralParity"] == "NOT_ESTABLISHED"
@@ -130,6 +130,7 @@ def test_lock_and_predecessor_release_entries_are_immutable_and_additive():
 
 @pytest.mark.parametrize("relative", [
     "contracts/model-inputs.lock.json", "contracts/model-inputs/model-usage-v2.json",
+    "contracts/model-inputs/api-inventory-amendment.json", "contracts/model-inputs/test_lifecycle_contracts.before.txt",
     "tests/fixtures/model/schema-vectors.json", "tests/fixtures/model/stream-vectors.json",
     "tests/fixtures/model/semantic-vectors.json", "tests/fixtures/model/usage-mapping.json",
     "schemas/v1alpha1/model/chat-request.schema.json", "openapi/model.openapi.json", "docs/model-api.md",

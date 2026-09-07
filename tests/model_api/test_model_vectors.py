@@ -31,11 +31,12 @@ def _semantic(case):
     if kind == "request":
         checks.request(v["kind"], v["request"], v.get("capabilities"))
     elif kind == "response":
-        checks.response(v["kind"], v["request"], v["response"])
+        checks.response(v["kind"], v["request"], v["response"], v.get("route"))
     else:
         functions = {"observation": checks.observation, "lifecycle": checks.lifecycle,
                      "metrics": checks.metrics, "error": checks.error_vector,
-                     "binding": checks.binding_vector}
+                     "binding": checks.binding_vector, "models": checks.models_vector,
+                     "headers": checks.headers_vector}
         functions[kind](v)
 
 
@@ -102,7 +103,7 @@ def test_schema_and_vector_coverage_is_independent_complete_and_nonvacuous():
     for cases in (SCHEMA_CASES, SEMANTIC_CASES, STREAM_CASES):
         assert len({c["id"] for c in cases}) == len(cases)
         assert all(type(c["valid"]) is bool for c in cases)
-    assert {c["kind"] for c in SEMANTIC_CASES} == {"request", "response", "observation", "lifecycle", "error", "metrics", "binding"}
+    assert {c["kind"] for c in SEMANTIC_CASES} == {"request", "response", "observation", "lifecycle", "error", "metrics", "binding", "models", "headers"}
     assert {c["kind"] for c in STREAM_CASES if c["valid"]} == {"chat", "completion", "response"}
     assert all(load_json(FIXTURES / name)["provenance"] == "INDEPENDENT_CONTRACT_VECTOR"
                for name in ("schema-vectors.json", "semantic-vectors.json", "stream-vectors.json", "usage-mapping.json"))

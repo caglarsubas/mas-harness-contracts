@@ -1,9 +1,11 @@
 """Independent normative-vector checks, not a runtime service or auth verifier."""
 from __future__ import annotations
 
+import base64
 import hashlib
 import json
 import math
+import re
 from functools import lru_cache
 from typing import Any
 
@@ -151,7 +153,7 @@ def totals(value: dict | None, kind: str = "chat") -> None:
         require(value["prompt_tokens"] + value["completion_tokens"] == value["total_tokens"])
 
 
-def response(kind: str, req: dict, value: dict) -> None:
+def response(kind: str, req: dict, value: dict, route: dict | None = None) -> None:
     request(kind, req)
     check_schema(kind + "-response.schema.json", value)
     require(value["model"] == req["model"])
@@ -159,9 +161,12 @@ def response(kind: str, req: dict, value: dict) -> None:
     if kind == "embedding":
         size = 1 if isinstance(req["input"], str) else len(req["input"])
         require([r["index"] for r in value["data"]] == list(range(size)))
-        # Fixture context explicitly supplies the already validated route dimension.
-        require("dimensions" in req)
-        require(all(len(row["embedding"]) == req["dimensions"] for row in value["data"]))
+        # An independent preverified route context, never inferred from the output.
+        require(isinstance(route, dict) and set(route) == {"model", "embeddingDimensions"})
+        dimension = route["embeddingDimensions"]
+        require(route["model"] == req["model"] and type(dimension) is int and 1 <= dimension <= 4096)
+        require(req.get("dimensions", dimension) == dimension)
+        require(all(len(row["embedding"]) == dimension for row in value["data"]))
     elif kind == "rerank":
         rows = value["results"]
         require(len(rows) == req.get("top_n", 1))
@@ -346,32 +351,112 @@ def response_stream(values: list, request_id: str) -> None:
             require((r["id"], r["model"], r["created_at"]) == identity)
             response("response", {"model": r["model"], "input": "fixture"}, r)
     terminal = values[-1]["type"]
+    require(terminal in {"response.failed", "error", "response.completed", "response.incomplete"})
+    require(values[0]["response"]["status"] == "in_progress")
+    # A failed terminal can follow any legal success prefix, but cannot legitimize
+    # an invalid prefix or a previous terminal. Validate the prefix before branching.
+    stage, item_id, text, part, final_item = "progress", None, "", None, None
+    for v in values[1:-1]:
+        kind = v["type"]
+        if stage == "progress":
+            require(kind == "response.in_progress" and v["response"]["status"] == "in_progress")
+            stage = "item"
+        elif stage == "item":
+            require(kind == "response.output_item.added")
+            require(v["item"]["status"] == "in_progress" and v["item"]["content"] == [])
+            item_id, stage = v["item"]["id"], "part"
+        elif stage == "part":
+            require(kind == "response.content_part.added" and v["item_id"] == item_id)
+            require(v["part"] == {"type": "output_text", "text": "", "annotations": []})
+            stage = "text"
+        elif stage == "text":
+            require(kind in {"response.output_text.delta", "response.output_text.done"})
+            require(v["item_id"] == item_id)
+            if kind == "response.output_text.delta":
+                text += v["delta"]
+                require(len(text) <= 262144)
+            else:
+                require(v["text"] == text)
+                stage = "part-done"
+        elif stage == "part-done":
+            require(kind == "response.content_part.done" and v["item_id"] == item_id)
+            require(v["part"]["text"] == text)
+            part, stage = v["part"], "item-done"
+        elif stage == "item-done":
+            require(kind == "response.output_item.done")
+            final_item = v["item"]
+            require(final_item["id"] == item_id and final_item["content"] == [part])
+            require(final_item["status"] in {"completed", "incomplete"})
+            stage = "terminal"
+        else:
+            raise ValueError("event after complete prefix")
     if terminal in {"response.failed", "error"}:
-        require(len(values) <= 3 and values[0]["response"]["status"] == "in_progress")
-        if len(values) == 3:
-            require(values[1]["type"] == "response.in_progress")
         if terminal == "response.failed":
             require(values[-1]["response"]["status"] == "failed")
         return
-    require(terminal in {"response.completed", "response.incomplete"})
-    types = [v["type"] for v in values]
-    require(types[:4] == ["response.created", "response.in_progress", "response.output_item.added", "response.content_part.added"])
-    require(types[-4:] == ["response.output_text.done", "response.content_part.done", "response.output_item.done", terminal])
-    require(all(t == "response.output_text.delta" for t in types[4:-4]))
-    require(values[0]["response"]["status"] == values[1]["response"]["status"] == "in_progress")
-    added = values[2]["item"]
-    require(added["status"] == "in_progress" and added["content"] == [])
-    item_id = added["id"]
-    require(values[3]["part"] == {"type": "output_text", "text": "", "annotations": []})
-    for v in values[3:-2]:
-        require(v["item_id"] == item_id)
-    text = "".join(v["delta"] for v in values[4:-4])
-    require(values[-4]["text"] == text and values[-3]["part"]["text"] == text)
-    final_item = values[-2]["item"]
-    require(final_item["id"] == item_id and final_item["content"] == [values[-3]["part"]])
+    require(stage == "terminal")
     r = values[-1]["response"]
     expected = "completed" if terminal == "response.completed" else "incomplete"
     require(r["status"] == final_item["status"] == expected and r["output"] == [final_item])
+
+
+def models_vector(v: dict) -> None:
+    """Visibility is a supplied verified-context precondition, not authentication."""
+    check_schema("models-response.schema.json", v["response"])
+    rows = v["response"]["data"]
+    ids = [row["id"] for row in rows]
+    require(ids == sorted(set(ids)) and set(ids) <= set(v["authorizedModelIds"]))
+    generative = {ENDPOINTS[k] for k in ("chat", "completion", "response")}
+    for row in rows:
+        c = row["capabilities"]
+        endpoints = set(c["endpoints"])
+        require(not c["streaming"] or bool(endpoints & generative))
+        require(not c["tools"] or ENDPOINTS["chat"] in endpoints)
+        require(not c["structured_output"] or bool(endpoints & {ENDPOINTS["chat"], ENDPOINTS["response"]}))
+        require((c["embedding_dimensions"] is not None) == (ENDPOINTS["embedding"] in endpoints))
+        require((c["max_output_tokens"] > 0) == bool(endpoints & generative))
+
+
+def admission_headers(headers: list) -> dict:
+    """Strict transport parsing only. Result is UNVERIFIED, never admission."""
+    selected = {}
+    names = {"x-harness-admission", "x-harness-binding"}
+    for pair in headers:
+        require(isinstance(pair, list) and len(pair) == 2)
+        name, encoded = pair
+        require(isinstance(name, str) and re.fullmatch(r"[!#$%&'*+.^_`|~0-9A-Za-z-]+", name) is not None)
+        name = name.lower()
+        if name not in names:
+            continue
+        require(name not in selected and isinstance(encoded, str))
+        require(0 < len(encoded) <= 32768 and re.fullmatch(r"[A-Za-z0-9_-]+", encoded) is not None)
+        require(len(encoded) % 4 != 1)
+        raw = base64.b64decode(encoded + "=" * (-len(encoded) % 4), altchars=b"-_", validate=True)
+        require(base64.urlsafe_b64encode(raw).decode("ascii").rstrip("=") == encoded)
+        value = decode(raw)
+        _signed_json_numbers(value)
+        if name == "x-harness-admission":
+            validator("schemas/v1alpha1/runtime/signed-admission-envelope.schema.json").validate(value)
+        else:
+            check_schema("request-binding.schema.json", value)
+        selected[name] = value
+    require(set(selected) == names)
+    return {"verification": "NOT_PERFORMED", "documents": selected}
+
+
+def _signed_json_numbers(value: Any) -> None:
+    require(not isinstance(value, float))
+    if isinstance(value, dict):
+        for child in value.values():
+            _signed_json_numbers(child)
+    elif isinstance(value, list):
+        for child in value:
+            _signed_json_numbers(child)
+
+
+def headers_vector(v: dict) -> None:
+    parsed = admission_headers(v["headers"])
+    require(parsed["verification"] == "NOT_PERFORMED")
 
 
 def error_vector(v: dict) -> None:

@@ -1,7 +1,7 @@
 {
   "schemaVersion": "harness.planeon.ai/model-input-lock/v1alpha1",
   "packetId": "CON-MODEL-001",
-  "metaCommit": "f8137eab6acfa8b13051f1c4e548854fc7dc934f",
+  "metaCommit": "f0ccd9f292f332a05e8eebd17a831e19989fb739",
   "con007Commit": "2146278a95344cd2a8e22596b2f315b46edffc88",
   "contractsBaseline": "fb365aabfd8c5560e064be5d97ff9f2bcc69c57c",
   "controlCorrection": "1de7c405329f4458970be0187838145b4da222d8",
@@ -13,7 +13,7 @@
   "entries": [
     {
       "path": "contracts/model-inputs/CON-MODEL-001.yaml",
-      "sha256": "sha256:fff08209e76c2287c257a8d37a29aba159f82019e70f51d36bcaebf9d6805f33"
+      "sha256": "sha256:d5f7ccf98a8dfa8862c204bd9be99cbfbc2307b98be00f0112f6e9dcb59abd9e"
     },
     {
       "path": "contracts/model-inputs/MET-OBS-MODEL-001.yaml",
@@ -21,7 +21,11 @@
     },
     {
       "path": "contracts/model-inputs/MODEL_PREREQUISITES.md",
-      "sha256": "sha256:55787d746627a41b115d0f1ae3fd4514d92e44d1d67b3875fc554e5b8051760a"
+      "sha256": "sha256:7861cc7c441c35ad3cfb723659399b06ba2018ef53162c26ec080c2de3ae30aa"
+    },
+    {
+      "path": "contracts/model-inputs/api-inventory-amendment.json",
+      "sha256": "sha256:7f298fdb1db878105d9925b5b07500f9cb6298f8b887d87d91edbc6210b48c7b"
     },
     {
       "path": "contracts/model-inputs/con-fix-001-baseline.json",
@@ -50,6 +54,10 @@
     {
       "path": "contracts/model-inputs/test_generated_contracts.before.txt",
       "sha256": "sha256:856b1d14e0f4d4ee84f6c4f973db412f9905559124091355bec7de85cc818080"
+    },
+    {
+      "path": "contracts/model-inputs/test_lifecycle_contracts.before.txt",
+      "sha256": "sha256:53f528db6e9d3ce00a8c16e8cf24345a992b2b6130cdfb7d5a6dee02dbaed81e"
     }
   ]
 }

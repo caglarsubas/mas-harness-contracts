@@ -93,13 +93,13 @@ def _external_refs(value: object) -> list[str]:
 
 def test_five_openapi_documents_have_local_resolvable_refs_and_no_servers() -> None:
     paths = sorted((ROOT / "openapi").glob("*.json"))
-    assert {
+    assert [path.name for path in paths] == [
         "control-plane.openapi.json",
         "distribution.openapi.json",
         "operator.openapi.json",
         "status.openapi.json",
         "trust.openapi.json",
-    } <= {path.name for path in paths}
+    ]
     for path in paths:
         document = load_json(path)
         assert document["openapi"] == "3.1.1"

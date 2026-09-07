@@ -36,7 +36,7 @@ COMPATIBILITY_TARGETS = (
 )
 RELEASE_MANIFEST = Path("contracts/release-manifest.json")
 MODEL_INPUT_LOCK = Path("contracts/model-inputs.lock.json")
-MODEL_INPUT_LOCK_SHA256 = "sha256:3ad9e9ce794adecf506cb5ca8a7a1ab6a804c9dcd060a0b1fd8a11eed1734b43"
+MODEL_INPUT_LOCK_SHA256 = "sha256:bd685478590aec63055fbfe7fd21732d5ba4279a8871779aee0d95dbfca04e62"
 MODEL_SCHEMAS = ["chat-chunk.schema.json","chat-request.schema.json","chat-response.schema.json","common.schema.json","completion-chunk.schema.json","completion-request.schema.json","completion-response.schema.json","embedding-request.schema.json","embedding-response.schema.json","error.schema.json","health-response.schema.json","lifecycle-trace.schema.json","models-response.schema.json","ready-response.schema.json","request-binding.schema.json","rerank-request.schema.json","rerank-response.schema.json","response-event.schema.json","response-request.schema.json","response-response.schema.json","usage-observation.schema.json"]
 MODEL_FIXTURES = ("schema-vectors.json", "semantic-vectors.json", "stream-vectors.json", "usage-mapping.json")
 

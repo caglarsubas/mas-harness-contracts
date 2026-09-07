@@ -8,10 +8,12 @@ belong to the matching PR and external signed-runner archive.
 
 ## Authority and compatibility
 
-The immutable model input lock binds meta f8137eab6acfa8b13051f1c4e548854fc7dc934f,
+The immutable model input lock binds meta f0ccd9f292f332a05e8eebd17a831e19989fb739,
 CON-007, the corrected CON-FIX-001 baseline and the structural observation.
 All 758 predecessor test identities and wire bytes are retained. The only
-legacy test change is MET-REPAIR-005's exact fixture-copy helper replacement.
+legacy test changes are MET-REPAIR-005's exact fixture-copy helper replacement
+and MET-REPAIR-006's exact required-five API membership predicate. Every other
+byte in those two files remains pinned; all other predecessor tests are immutable.
 No warm checkout, source code, original tests or private keys are consumed.
 
 This is a **partial wire-compatible subset**, not blanket OpenAI SDK or behavioral
@@ -72,6 +74,13 @@ it does not authorize a route itself. Requested endpoint, streaming, tools,
 structured output and embedding dimension must be supported by that exact model.
 All model IDs are tenant-scoped aliases, not filesystem paths or URLs; do not
 interpret slash-containing IDs as paths or trigger downloads.
+
+The model list must be sorted and unique by ID, with every ID in the separately
+verified organization's authorized model set. A visibility label is not evidence
+of that authorization. Streaming requires a generative endpoint; tools require
+chat; structured output requires chat or Responses. Embedding dimensions are
+nonnull exactly when embeddings are exposed. Generative models have a positive
+output-token limit; embedding/rerank-only models have zero output tokens.
 
 ## Structured output and tools
 
@@ -207,11 +216,16 @@ stay fixed; created/in_progress contain empty output, null error/usage/details.
 Added item is in_progress with empty content; added part has empty text.
 Completed item/response statuses agree; incomplete uses reason=max_output_tokens
 and item.status=incomplete. Terminal usage appears only in the final response.
-No [DONE] sentinel is sent for Responses. An error after created/in_progress
+No [DONE] sentinel is sent for Responses. An error after any valid success prefix,
+including after partial text output or item completion but before the terminal,
 may send response.failed with empty output and sanitized nonnull error or one
 typed error event, then close; no success terminal can follow it. Cancellation
 and transport truncation remain incomplete to the client, with internal terminal
 observation. These are explicitly restricted stream shapes, not all upstream events.
+The prefix must still satisfy ordering, initial emptiness, identity, text bounds
+and done-content consistency. Error termination does not excuse a malformed
+prefix. A failed aggregate discards partial output; it never reports that partial
+text as a successful final response. No event may follow either error terminal.
 
 ## Errors, embeddings and operational safety
 
@@ -264,7 +278,7 @@ Next: MODEL-001 only after this packet's merge/verification and fresh native Lin
 AMD64 baseline PASS. ARM64 and GPU qualification are independent. No phase-end
 model-effort transition is due while Alpha 2 remains ongoing.
 
-## Executed candidate checkpoint — blocked predecessor scope
+## Historical executed candidate checkpoint — superseded predecessor scope
 
 The exact source candidate 95a97ad761efc53d134f44aa9503fa0ab0430761 ran all three
 declared argv through the unchanged signed localhost launcher, with deny-all
@@ -277,8 +291,8 @@ The failure is tests/model/test_lifecycle_contracts.py::
 test_five_openapi_documents_have_local_resolvable_refs_and_no_servers: its
 hard-coded equality admits only the original five OpenAPI files, so the required
 model.openapi.json makes the list unequal. This separate fixed-count assumption
-was missed by the earlier readiness review. The file is not owned by this packet
-and remains byte-identical. No skip, xfail, deselection, monkeypatch, file hiding
+was missed by the earlier readiness review. At that checkpoint the file was not
+owned by the packet and remained byte-identical. No skip, xfail, deselection, monkeypatch, file hiding
 or generator exception is introduced to evade it.
 
 A nearby assertion also forbids any servers member. Source inspection found the
@@ -287,10 +301,38 @@ assertion was repaired. That new-file declaration was removed within this packet
 existing scope and its independent test now preserves the predecessor convention.
 This is not a reproduced second pytest failure and is not represented as one.
 
-Completion needs a separately approved authority amendment for only the legacy
+Completion at that checkpoint needed a separately approved amendment for only the legacy
 test's inventory assertion: retain every original required API and all per-file
 OpenAPI-version, no-server, nonempty-path and local-reference checks while allowing
 additive APIs. Preserve the test identity and every byte outside that predicate;
 add negative coverage under this packet's existing model test paths. Do not simply
 change the fixed count from five to six. No product acceptance, green CI, merge,
 native Linux, runtime or tenant PASS is claimed at this source checkpoint.
+
+## Amendment implementation checkpoint — CON-MODEL-001 resumed
+
+Merged MET-REPAIR-006 now authorizes the exact predicate edit. Its immutable
+record and original test bytes are release inputs. Independent whole-file checks
+reject any additional edit. Negative fixtures execute the real current inventory
+function against disposable trees through normal imports, checking each required
+API's absence and every preserved safety assertion on an added API. The complete
+outer suite still collects and runs all 758 predecessor identities.
+
+The model review adds omitted-dimension embeddings with a separately supplied
+verified-route fixture context, sorted unique authorized model lists and capability
+consistency, legal-prefix partial Responses errors, and canonical unpadded
+base64url admission-header transport vectors. The embedding context names the
+exact model and its verified dimension; neither a request default nor response
+length supplies that trust. Missing, wrong-model or conflicting route context
+fails the independent response checker.
+
+Header vectors preserve repeated header names until case-insensitive duplicate
+checks, reject oversized/noncanonical encoding, malformed UTF-8/JSON, duplicate
+keys, floats in signed documents and schema-invalid contents. Transport parsing
+returns NOT_PERFORMED verification: even a well-shaped invalid signature may parse.
+CON-007 still exclusively owns signature verification, tenant binding, validity,
+replay and atomic budget admission. No new cryptographic primitive is implemented.
+
+These source changes are not a predeclared acceptance result. The exact amended
+packet's three declared offline commands, required PR check, merge and separate
+exact-main replay must each produce their own evidence before this packet closes.

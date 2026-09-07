@@ -14,7 +14,7 @@ license disposition, or live campaign is authorized by this publication alone.
 | Alpha 2 entry | `MET-REPAIR-001` | Meta | Publish R01–R06 repair authority |
 | Foundation correction | `CON-FIX-001` | Contracts | Full-suite baseline, additive tests and independent status vectors |
 | Alpha 1 correction | `CTRL-FIX-003` | Control | Freshness, portfolio and canonical status parity |
-| Alpha 2 | `CON-MODEL-001` | Contracts | Additive model API/usage release and independent vectors after both corrections and MET-REPAIR-005 |
+| Alpha 2 | `CON-MODEL-001` | Contracts | Additive model API/usage release and independent vectors after both corrections, MET-REPAIR-005 and MET-REPAIR-006 |
 | Alpha 2 | `MODEL-001` | Model plane | Clean-room inference core against the pinned contract release |
 | Alpha 2 | `MODEL-002` | Model plane | Model custody and signed route activation |
 
@@ -107,7 +107,8 @@ the product invent a divergent format. Use the frozen existing dependencies.
    exact-main replay separately. Pin CON-FIX-001 in addition to the original
    CON-007 provenance; preserve its status vectors. The model packet cannot weaken
    predecessor checks. MET-REPAIR-005 supplies the sole helper-copy exception
-   below; all other predecessor test edits remain forbidden.
+   below. MET-REPAIR-006 adds only the exact inventory predicate exception in its
+   separate legacy file; all other predecessor test edits remain forbidden.
 
 ## Original baseline versus destination conformance
 
@@ -175,3 +176,15 @@ This supersedes only the earlier blanket test-edit exclusion, not the full-suite
 or strict release-input requirements. The original 758-test baseline passed;
 the missing temporary-input inventory is SOURCE_INSPECTION_ONLY. Native runtime
 qualification remains independent and unproven.
+
+## Superseding exact API inventory exception — MET-REPAIR-006
+
+[The inventory amendment](MODEL_API_INVENTORY_REPAIR.md) supersedes the blanket
+legacy assertion exclusion only for the pinned required-five membership predicate.
+All safety checks and other bytes remain immutable, as does the separate fixture
+helper grant. Unlike the earlier fixture finding, this failure was reproduced:
+1048 passed, one failed, zero skipped on draft head 47c416676b3fba105d7631c1957b9d729daa592e.
+Do not mark the draft complete after the predicate change alone. Remaining normal
+conformance review covers verified route dimensions when public dimensions are
+omitted, sorted unique model-list/capability consistency, Responses errors after
+partial output, and admission-header transport vectors without crypto claims.
